@@ -57,6 +57,7 @@ test('can create new route plans', async function(assert) {
 test('can delete route plans', async function(assert) {
   assert.expect(2);
 
+  mockFindAll('route-plan');
   mockFindAll('route-visit', 'with_route_plan');
 
   await page.visit();
@@ -73,6 +74,7 @@ test('can delete individual route visit', async function(assert) {
   const routePlan = make('route-plan');
   const routeVisits = buildList('route-visit', 2, {routePlan});
 
+  mockFindAll('route-plan');
   mockQuery('route-visit').returns({json:routeVisits});
 
   await page.visit();
@@ -87,6 +89,7 @@ test('can delete individual route visit', async function(assert) {
 test('deleting handled route-visit moves it to open route-visit area', async function(assert) {
   const routeVisits = buildList('route-visit', 1, 'with_route_plan');
 
+  mockFindAll('route-plan');
   mockQuery('route-visit').returns({json: routeVisits});
   mockUpdate('route-visit', 1);
 

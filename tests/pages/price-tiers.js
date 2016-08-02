@@ -56,8 +56,9 @@ const show = PO.create({
       itemName: text('.name'),
       price: text('.price')
     }
-  })
+  }),
 
+  submitDeletePriceTier: clickable('button.buttonDelete')
 });
 
 export { index, show };

@@ -34,6 +34,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   actions: {
     updateModelField,
-    saveModelIfDirty
+    saveModelIfDirty,
+    destroyPriceTier() {
+      this.modelFor('price-tiers.show')
+        .destroyRecord()
+        .then(() => this.transitionTo('price-tiers'));
+    }
   }
 });

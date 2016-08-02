@@ -7,7 +7,8 @@ import {
   make,
   makeList,
   mockFind,
-  mockFindAll
+  mockFindAll,
+  mockDelete
 } from 'ember-data-factory-guy';
 
 moduleForAcceptance('Acceptance | price tiers - show', {
@@ -24,7 +25,7 @@ test('Shows the name of the price tier', async function(assert) {
   mockFind('price-tier').returns({model:priceTier});
 
   await page.visit({id:1});
-  
+
   assert.equal(page.name, priceTier.get('name'));
 });
 
@@ -62,4 +63,18 @@ test('Shows item prices for items that are not in the price tier yet', async fun
 
   assert.equal(page.openPriceRows().count, openItems.length);
   assert.equal(page.fulfilledPriceRows().count, fulfilledItems.length);
+});
+
+test('Can delete the current price tier item', async function(assert) {
+  const priceTier = make('price-tier');
+
+  mockFindAll('item');
+  mockFind('price-tier').returns({model:priceTier});
+  mockDelete(priceTier);
+
+  await page
+    .visit({id:1})
+    .submitDeletePriceTier();
+
+  assert.equal(currentURL(), '/price-tiers');
 });

@@ -12,10 +12,11 @@ const defaultPage = PO.create({
   visit: visitable('/products'),
 
   products: collection({
-    itemScope: '.debug_lists_filterable-label-list a',
+    scope: '.debug_lists_filterable-label-list',
+    itemScope: '.listRow',
 
     item: {
-      label: text(),
+      label: text('.name'),
       click: clickable()
     }
   })

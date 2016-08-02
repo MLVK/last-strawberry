@@ -4,20 +4,26 @@ const {
   collection,
   text,
   value,
-  visitable
+  visitable,
+  clickable,
+  fillable
 } = PO;
 
 const index = PO.create({
+
   visit: visitable('/price-tiers'),
 
   priceTiers: collection({
-
-    itemScope: '.debug_lists_filterable-label-list a',
+    scope: '.debug_lists_filterable-label-list',
+    itemScope: '.listRow',
 
     item: {
       label: text('.name')
     }
-  })
+  }),
+
+  fillNewPriceTierInput: fillable('.debug_ui_input-action-bar input'),
+  submitNewPriceTier: clickable('.debug_ui_input-action-bar .debug_ui_icon-button')
 });
 
 const show = PO.create({
@@ -50,8 +56,9 @@ const show = PO.create({
       itemName: text('.name'),
       price: text('.price')
     }
-  })
+  }),
 
+  submitDeletePriceTier: clickable('button.buttonDelete')
 });
 
 export { index, show };

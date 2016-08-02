@@ -46,3 +46,18 @@ test('selecting an item navigates to the price-tier show route for that item', a
 
   assert.equal(currentURL(), '/price-tiers/1');
 });
+
+test('can create new price tiers', async function(assert) {
+  const newPriceTierName = 'Test Name - 1';
+
+  mockFindAll('item');
+  mockFindAll('price-tier');
+
+  await page
+    .visit()
+    .fillNewPriceTierInput(newPriceTierName)
+    .submitNewPriceTier();
+
+  assert.equal(page.priceTiers().count, 1);
+  assert.equal(page.priceTiers(0).label, newPriceTierName);
+});

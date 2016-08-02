@@ -11,8 +11,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       this.transitionTo('price-tiers.show', id);
     },
 
-    createNewPriceTier(/*name*/) {
-      // console.log(name);
+    async createNewPriceTier(name) {
+      const priceTier = this.store.createRecord('price-tier', {name});
+      await priceTier.save();
+
+      this.transitionTo('price-tiers.show', priceTier);
     }
   }
 });

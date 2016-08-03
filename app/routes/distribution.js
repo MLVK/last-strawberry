@@ -2,6 +2,8 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import Ember from 'ember';
 
 const ROUTE_VISIT_INCLUDES = [
+  'route-plan',
+  'route-plan.user',
   'address',
   'address.visit-windows',
   'address.visit-windows.visit-window-days',
@@ -12,6 +14,17 @@ const ROUTE_VISIT_INCLUDES = [
 const ROUTE_PLAN_BLUEPRINT_INCLUDES = [
   'route-plan-blueprint-slots',
   'route-plan-blueprint-slots.address'
+];
+
+const ROUTE_PLAN_INCLUDES = [
+  'user',
+  'route-visits',
+  'route-visits.route-plan',
+  'route-visits.address',
+  'route-visits.address.visit-windows',
+  'route-visits.address.visit-windows.visit-window-days',
+  'route-visits.address.locations',
+  'route-visits.address.locations.company'
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
@@ -32,7 +45,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model (params) {
     this.store.unloadAll('route-visit');
     return Ember.RSVP.all([
-      this.store.query('route-visit', {'filter[date]':params.date, include:ROUTE_VISIT_INCLUDES.join(',')}),
+      this.store.query('route-plan', {'filter[date]':params.date, include:ROUTE_PLAN_INCLUDES.join(',')}),
+      this.store.query('route-visit', {'filter[date]':params.date, 'filter[has_route_plan]':false, include:ROUTE_VISIT_INCLUDES.join(',')}),
       this.store.query('route-plan-blueprint', {include:ROUTE_PLAN_BLUEPRINT_INCLUDES.join(',')}),
       this.store.findAll('user')
     ]);

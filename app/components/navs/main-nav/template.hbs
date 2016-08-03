@@ -1,34 +1,20 @@
-<div class="row main">
+<div class="row main main-nav">
   {{link-to 'Grand Central Station' 'index' class='homeLink'}}
   <div class="row navLinksContainer">
-    {{link-to 'Orders' 'sales-orders'}}
-    {{link-to 'Purchases' 'purchase-orders'}}
-    {{link-to 'Distribution' 'distribution'}}
+    {{link-to 'Orders' 'sales-orders' class="salesOrders"}}
+    {{link-to 'Purchases' 'purchase-orders' class="purchaseOrders"}}
+    {{link-to 'Distribution' 'distribution' class="distribution"}}
 
     {{#ui/popup-menu icon='arrow_drop_down'}}
-      {{ui/icon-button
-        class='products'
-        flat=true
-        label='Products'
-        size=1.4
-        padding=1.2
-        action=(action navigateToRoute 'products')}}
-
-      {{ui/icon-button
-        class='items'
-        flat=true
-        label='Items'
-        size=1.4
-        padding=1.2
-        action=(action navigateToRoute 'items')}}
-
-      {{ui/icon-button
-        class='customers'
-        flat=true
-        label='Customers'
-        size=1.4
-        padding=1.2
-        action=(action navigateToRoute 'companies')}}
+      {{#each popupItems as |item|}}
+        {{ui/icon-button
+          class=(camelize item.label)
+          flat=true
+          label=item.label
+          size=1.4
+          padding=1.2
+          action=(action navigateToRoute item.route)}}
+      {{/each}}
     {{/ui/popup-menu}}
   </div>
 </div>

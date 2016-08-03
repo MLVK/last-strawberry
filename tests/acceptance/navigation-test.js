@@ -28,8 +28,8 @@ test('redirects to companies page when clicking on Home link', async function(as
 
   mockFindAll('order', 10);
   await page
-  .visitOrders()
-  .clickHomeLink();
+    .visitOrders()
+    .clickHomeLink();
 
   assert.equal(currentURL(), '/companies')
 });
@@ -38,8 +38,8 @@ test('redirects to orders page when clicking on Orders item', async function(ass
 
   mockFindAll('order', 10);
   await page
-  .visitIndex()
-  .clickOrdersItem();
+    .visitIndex()
+    .clickOrdersItem();
 
   assert.equal(currentURL(), '/sales-orders')
 });
@@ -49,8 +49,8 @@ test('redirects to purchases page when clicking on Purchases item', async functi
   mockFindAll('order', 10);
 
   await page
-  .visitIndex()
-  .clickPurchasesItem();
+    .visitIndex()
+    .clickPurchasesItem();
 
   assert.equal(currentURL(), '/purchase-orders')
 });
@@ -62,8 +62,22 @@ test('redirects to distribution page when clicking on Distribution item', async 
   mockFindAll('user', 10);
 
   await page
-  .visitIndex()
-  .clickDistributionItem();
+    .visitIndex()
+    .clickDistributionItem();
 
   assert.equal(currentURL(), '/distribution');
 });
+// 
+// test('redirects to products page when clicking on Products item', async function(assert) {
+//
+//   // mockFindAll('route-visit', 10);
+//   // mockFindAll('route-plan-blueprint', 10);
+//   // mockFindAll('user', 10);
+//
+//   await page
+//     .visitIndex()
+//     .showPopUpMenu()
+//     .clickProductsItem();
+//
+//   assert.equal(currentURL(), '/products');
+// });

@@ -59,6 +59,7 @@ test('redirects to distribution page when clicking on Distribution item', async 
 
   mockFindAll('route-visit', 10);
   mockFindAll('route-plan-blueprint', 10);
+  mockFindAll('route-plan', 10);
   mockFindAll('user', 10);
 
   await page
@@ -67,7 +68,7 @@ test('redirects to distribution page when clicking on Distribution item', async 
 
   assert.equal(currentURL(), '/distribution');
 });
-// 
+//
 // test('redirects to products page when clicking on Products item', async function(assert) {
 //
 //   // mockFindAll('route-visit', 10);

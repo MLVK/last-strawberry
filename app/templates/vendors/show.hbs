@@ -1,5 +1,7 @@
 <div class="col section">
-  <div class="row card-1 section">
-    {{model.name}}
+  <div class="vendorName">
+    {{one-way-input model.name
+        update=(route-action "updateModelField" model "name")
+        onblur=(route-action "saveModelIfDirty" model)}}
   </div>
 </div>

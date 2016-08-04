@@ -31,6 +31,10 @@ Router.map(function() {
   this.route('price-tiers', function() {
     this.route('show', {path:':id'});
   });
+
+  this.route('vendors', function() {
+    this.route('show', {path:':id'});
+  });
 });
 
 export default Router;

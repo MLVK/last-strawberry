@@ -7,7 +7,7 @@ export default Ember.Route.extend({
   },
 
   model(){
-    return this.store.query('company', {isVendor: true});
+    return this.store.query('company',{'filter[is_vendor]':true});
 	},
 
   actions: {
@@ -17,8 +17,8 @@ export default Ember.Route.extend({
 
     async createNewVendor(name) {
       const vendor = this.store.createRecord('company', {name, isVendor:true, isCustomer:false});
-      console.log('vendor', vendor);
       await vendor.save();
+
       this.transitionTo('vendors.show', vendor);
     }
   }

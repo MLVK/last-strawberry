@@ -2,6 +2,8 @@ import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 
 export default Ember.Component.extend({
+  number: Ember.inject.service(),
+
   classNames: ['row', 'stretch'],
   classNameBindings: ['model.itemDesire.enabled:enabled:disabled'],
 
@@ -12,11 +14,7 @@ export default Ember.Component.extend({
 
   @computed('model.itemCreditRate.rate')
   creditRate(rate) {
-    if(typeof rate === "number") {
-      return `${rate * 100} %`;
-    } else {
-      return '';
-    }
+    return this.get('number').formatRate(rate);
   },
 
   actions: {

@@ -5,10 +5,9 @@
 <div class="row massCreditRate">
   {{one-way-input massCreditRate
     update=(action (mut massCreditRate))
-    onblur=(action 'onMassCreditRateBlur' massCreditRate)
     placeholder="Credit %"}}
 
-  <button class="buttonSave" {{action onSaveMassCreditRate massCreditRate}}>Apply</button>
+  <button class="buttonSave" {{action 'massApplyCreditRate'}}>Apply</button>
 </div>
 
 {{#each itemSettings as |itemSetting i|}}

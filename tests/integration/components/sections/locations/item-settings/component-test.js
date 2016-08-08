@@ -9,32 +9,33 @@ test('it renders', function(assert) {
   assert.expect(0);
 
   this.set('itemSettings', {});
-  this.set('updateItemDesire', () => assert.ok(true));
-  this.set('updateItemCreditRate', () => assert.ok(true));
-  this.set('onSaveMassCreditRate', () => assert.ok(true));
+  this.set('onDesireChange', () => assert.ok(true));
+  this.set('onCreditChange', () => assert.ok(true));
+  this.set('massApplyCreditRate', () => assert.ok(true));
 
   this.render(hbs`{{sections/locations/item-settings
     itemSettings=itemSettings
-    onDesireChange=(route-action 'updateItemDesire')
-    onCreditChange=(route-action 'updateItemCreditRate')
-    onSaveMassCreditRate=(route-action 'onSaveMassCreditRate')}}`);
+    onDesireChange=onDesireChange
+    onCreditChange=onDesireChange
+    massApplyCreditRate=massApplyCreditRate}}`);
 });
 
-// test('applies mass credit rate', function(assert) {
-//   assert.expect(1);
-//
-//   this.set('itemSettings', {});
-//   this.set('updateItemDesire', () => {});
-//   this.set('updateItemCreditRate', () => {});
-//   this.set('onSaveMassCreditRate', () => assert.ok(true));
-//
-//   this.render(hbs`{{sections/locations/item-settings
-//     itemSettings=itemSettings
-//     onDesireChange=(route-action 'updateItemDesire')
-//     onCreditChange=(route-action 'updateItemCreditRate')
-//     onSaveMassCreditRate=(route-action 'onSaveMassCreditRate')}}`);
-//
-//     this.$('.massCreditRate input').val(20);
-//     // this.$('.massCreditRate button').click();
-//     // debugger;
-// });
+test('applies mass credit rate', function(assert) {
+  assert.expect(1);
+
+  this.set('itemSettings', {});
+  this.set('onDesireChange', () => {});
+  this.set('onCreditChange', () => {});
+  this.set('massApplyCreditRate', () => assert.ok(true));
+
+  this.render(hbs`{{sections/locations/item-settings
+    itemSettings=itemSettings
+    onDesireChange=onDesireChange
+    onCreditChange=onCreditChange
+    massApplyCreditRate=(action massApplyCreditRate)}}`);
+
+  this.$('.massCreditRate input').val(20);
+  this.$('.massCreditRate input').trigger('update');
+
+  this.$('.massCreditRate button').click();
+});

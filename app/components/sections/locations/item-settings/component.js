@@ -1,19 +1,14 @@
 import Ember from 'ember';
+import { toPercentage } from 'last-strawberry/utils/math';
 
 export default Ember.Component.extend({
-  number: Ember.inject.service(),
-
   classNames: ['item-desires', 'col', 'wrap'],
   massCreditRate: '',
 
-  _formatCreditRate() {
-    let creditRate = this.get('number').formatRate(this.massCreditRate);
-    this.set('massCreditRate', creditRate);
-  },
-
   actions:{
-    onMassCreditRateBlur(){
-      this._formatCreditRate();
+    massApplyCreditRate(){
+      this.attrs.massApplyCreditRate(toPercentage(this.get('massCreditRate')));
+      this.set('massCreditRate', '');
     }
   }
 });

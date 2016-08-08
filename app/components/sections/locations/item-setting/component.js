@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
+import { toPercentage } from 'last-strawberry/utils/math';
+const { alias } = Ember.computed;
 
 export default Ember.Component.extend({
-  number: Ember.inject.service(),
-
   classNames: ['row', 'stretch'],
   classNameBindings: ['model.itemDesire.enabled:enabled:disabled'],
 
@@ -12,15 +12,11 @@ export default Ember.Component.extend({
     return index + 1;
   },
 
-  @computed('model.itemCreditRate.rate')
-  creditRate(rate) {
-    return this.get('number').formatRate(rate);
-  },
+  creditRate: alias('model.itemCreditRate.rate'),
 
   actions: {
     creditRateChanged(e) {
-      const rate = Number(e.target.value);
-      this.attrs.onCreditChange(this.get('model.itemCreditRate'), rate);
+      this.attrs.onCreditChange(this.get('model.itemCreditRate'), toPercentage(e.target.value));
     },
 
     toggle() {

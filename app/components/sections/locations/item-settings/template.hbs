@@ -3,11 +3,20 @@
 </div>
 
 <div class="row massCreditRate">
+  <label>Mass credit rate</label>
   {{one-way-input massCreditRate
     update=(action (mut massCreditRate))
     placeholder="Credit %"}}
+  <button {{action 'massApplyCreditRate'}}>Apply</button>
+</div>
 
-  <button class="buttonSave" {{action 'massApplyCreditRate'}}>Apply</button>
+<div class="row">
+  <label>Mass desire</label>
+  {{ui/toggle-button
+      class='desiredToggle'
+      selected=massDesire
+      click=(action 'massApplyDesire')
+      label=(if massDesire 'Y' 'N')}}
 </div>
 
 {{#each itemSettings as |itemSetting i|}}

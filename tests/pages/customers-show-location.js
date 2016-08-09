@@ -1,6 +1,14 @@
 import PO from 'last-strawberry/tests/page-object';
 
-const { clickable, fillable, visitable, text, hasClass, collection } = PO;
+const {
+  clickable,
+  fillable,
+  visitable,
+  text,
+  value,
+  hasClass,
+  collection
+} = PO;
 
 const page = PO.create({
   visit: visitable('/customers/:company_id/locations/:location_id')
@@ -54,7 +62,7 @@ const addressPO = PO.create({
 
   updateAddress: clickable('.submit'),
 
-  fullAddress: text('.fullAddress')
+  fullAddress: value('input')
 });
 
 export { page, itemSettingsPO, visitSchedulePO, visitDaysPO, addressPO };

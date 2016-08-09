@@ -1,22 +1,15 @@
+
 <div class="col stretch content">
 
-  {{#power-select
-      class='addressSelect'
-      selected=model
-      options=addresses
-      placeholder="Select address"
-      searchField="full"
-      searchEnabled=true
-      onchange=switchAddress
-      as |address|}}
-    {{address.full}}
-  {{/power-select}}
-
-  {{ui/input-action-bar
-      class='addressSearch'
-      type='search'
-      placeholder='Search for address'
-      submit=(action 'searchAddress')}}
+  <div class="addressAutoComplete">
+    {{place-autocomplete-field
+        value=tempAddress
+        disable=false
+        handlerController=this
+        inputClass= 'place-autocomplete--input'
+        focusOutCallback=(action 'onBlur')
+        placeChangedCallback=(action 'update')}}
+  </div>
 
   {{#leaflet-map
       scrollWheelZoom=false
@@ -25,14 +18,23 @@
       zoom=zoom as |layers|}}
 
     {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"}}
-      {{#if model}}
-        {{#layers.marker lat=model.lat lng=model.lng}}
-          <strong>{{model.street}}</strong>
+      {{#if value}}
+        {{#layers.marker lat=value.lat lng=value.lng}}
+          <strong>{{value.street}}</strong>
           <br>
-          <span>{{model.city}}, {{model.state}} {{model.zip}}</span>
+          <span>{{value.city}}, {{value.state}} {{value.zip}}</span>
         {{/layers.marker}}
       {{/if}}
   {{/leaflet-map}}
 
+  {{#power-select
+      class='addressSelect'
+      options=addresses
+      placeholder="Choose existing address"
+      searchField="full"
+      searchEnabled=true
+      onchange=switchAddress
+      as |address|}}
+    {{address.full}}
+  {{/power-select}}
 </div>
-<span class="fullAddress">{{model.full}}</span>

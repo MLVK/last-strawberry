@@ -110,27 +110,25 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       location.save();
     },
 
-    switchAddress(address) {
-      const location = this.modelFor('customers.show.location');
+    switchAddress(location, address) {
       location.set('address', address);
       location.save();
     },
 
-    async updateAddress(newAddressData) {
-      const location = this.modelFor('customers.show.location');
+    async saveAddress(location, changeSet) {
       let address = await location.get('address');
 
-      if(!address) {
+      if(address === undefined) {
         address = this.store.createRecord('address');
         location.set('address', address);
       }
 
-      address.setProperties(newAddressData);
-      this._saveAddress();
-    },
+      address.setProperties(changeSet);
 
-    saveAddress() {
-      this._saveAddress();
+      if(!address.get('isSaving')) {
+        await address.save();
+        location.save();
+      }
     },
 
     async deleteLocation() {

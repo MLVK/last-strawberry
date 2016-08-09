@@ -14,7 +14,6 @@ const INCLUDES = [
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
-
   setupController(controller, model) {
     this._super(controller, model);
 
@@ -66,26 +65,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     updateItemCreditRate(itemCreditRate, rate) {
-
-      let cleanedRate = 0;
-
-      if(rate >= 1 && rate <= 100) {
-        cleanedRate = rate/100;
-      }
-
-      if(rate < 1 && rate > 0) {
-        cleanedRate = rate;
-      }
-
-      if(rate >= 100) {
-        cleanedRate = 1;
-      }
-
-      if(rate <= 0) {
-        cleanedRate = 0;
-      }
-
-      itemCreditRate.set('rate', cleanedRate);
+      itemCreditRate.set('rate', rate);
       itemCreditRate.save();
     },
 
@@ -158,7 +138,15 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       if(!location.get('isDeleted')) {
         run(() => location.destroyRecord());
       }
-    }
+    },
 
+    async massApplyCreditRate(location, massCreditRate){
+      let itemCreditRates = await location.get('itemCreditRates');
+
+      itemCreditRates.forEach(function(item) {
+        item.set('rate', massCreditRate);
+        item.save();
+      });
+    }
   }
 });

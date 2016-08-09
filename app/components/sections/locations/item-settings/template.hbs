@@ -2,6 +2,14 @@
   Product Setting
 </div>
 
+<div class="row massCreditRate">
+  {{one-way-input massCreditRate
+    update=(action (mut massCreditRate))
+    placeholder="Credit %"}}
+
+  <button class="buttonSave" {{action 'massApplyCreditRate'}}>Apply</button>
+</div>
+
 {{#each itemSettings as |itemSetting i|}}
   {{sections/locations/item-setting
       index=i

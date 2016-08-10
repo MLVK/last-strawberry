@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-const { run } = Ember;
 const INCLUDES = [
   'address',
   'address.visit-windows',

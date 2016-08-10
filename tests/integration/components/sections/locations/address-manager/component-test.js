@@ -2,7 +2,7 @@ import AddressValidations from 'last-strawberry/validators/address';
 import Changeset from 'ember-changeset';
 import {
   addressPO as page
-} from 'last-strawberry/tests/pages/companies-show-location';
+} from 'last-strawberry/tests/pages/customers-show-location';
 
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';

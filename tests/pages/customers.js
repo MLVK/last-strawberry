@@ -9,7 +9,7 @@ const {
 } = PO;
 
 export default PO.create({
-  visit: visitable('/companies'),
+  visit: visitable('/customers'),
 
   fillNewCompany: fillable('.create-new-company.ui_input-action-bar input'),
   createNewCompany: clickable('.create-new-company.ui_input-action-bar .btn'),

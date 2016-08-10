@@ -1,4 +1,4 @@
-import { page, itemSettingsPO } from 'last-strawberry/tests/pages/companies-show-location';
+import { page, itemSettingsPO } from 'last-strawberry/tests/pages/customers-show-location';
 import { test } from 'qunit';
 import moduleForAcceptance from 'last-strawberry/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'last-strawberry/tests/helpers/ember-simple-auth';
@@ -14,7 +14,7 @@ let items,
     company,
     location;
 
-moduleForAcceptance('Acceptance | companies/show/location/item-settings', {
+moduleForAcceptance('Acceptance | customers/show/location/item-settings', {
   beforeEach() {
     authenticateSession(this.application);
 
@@ -34,7 +34,7 @@ moduleForAcceptance('Acceptance | companies/show/location/item-settings', {
 test('renders default item desires when no item desires are present', async function(assert) {
   await page.visit({company_id:company.get('id'), location_id:location.get('id')});
 
-  assert.equal(items.length, itemSettingsPO.itemSettings().count, 'Did not render the correct number of itemSettings');
+  assert.equal(itemSettingsPO.itemSettings().count, items.length, 'Did not render the correct number of itemSettings');
 });
 
 test('adds enabled class to enabled items', async function(assert) {

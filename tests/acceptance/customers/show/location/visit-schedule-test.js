@@ -2,7 +2,7 @@ import {
   page,
   visitSchedulePO,
   visitDaysPO
-} from 'last-strawberry/tests/pages/companies-show-location';
+} from 'last-strawberry/tests/pages/customers-show-location';
 
 import { test } from 'qunit';
 import moduleForAcceptance from 'last-strawberry/tests/helpers/module-for-acceptance';
@@ -17,7 +17,7 @@ import {
 let company,
     location;
 
-moduleForAcceptance('Acceptance | companies/show/location/visit-schedule', {
+moduleForAcceptance('Acceptance | customers/show/location/visit-schedule', {
   beforeEach() {
     authenticateSession(this.application);
 

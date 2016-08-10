@@ -21,7 +21,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   actions: {
     updatePriceTier(priceTier) {
-      const company = this.modelFor('companies.show');
+      const company = this.modelFor('customers.show');
 
       company.set('priceTier', priceTier);
       company.save();
@@ -32,7 +32,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     showLocation(id) {
-      this.transitionTo('companies.show.location', id);
+      this.transitionTo('customers.show.location', id);
     },
 
     companyChanged(model, key, value) {
@@ -40,19 +40,19 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     async saveCompany() {
-      const company = this.modelFor('companies.show');
+      const company = this.modelFor('customers.show');
       if(!company.get('isSaving')) {
         run(() => company.save());
       }
     },
 
     async createNewLocation() {
-      const company = this.modelFor('companies.show');
+      const company = this.modelFor('customers.show');
 
       const location = this.store.createRecord('location', {company, name});
       await location.save();
 
-      this.transitionTo('companies.show.location', location);
+      this.transitionTo('customers.show.location', location);
     }
 
   }

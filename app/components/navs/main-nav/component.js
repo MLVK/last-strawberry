@@ -5,7 +5,7 @@ export default Ember.Component.extend({
   popupItems: [
     {route:'products', label:'Products'},
     {route:'items', label:'Items'},
-    {route:'companies', label:'Customers'},
+    {route:'customers', label:'Customers'},
     {route:'vendors', label:'Vendors'},
     {route:'price-tiers', label:'Price Tiers'}
   ]

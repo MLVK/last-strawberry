@@ -1,4 +1,4 @@
-import { page } from 'last-strawberry/tests/pages/companies-show-location';
+import { page } from 'last-strawberry/tests/pages/customers-show-location';
 import { test } from 'qunit';
 import moduleForAcceptance from 'last-strawberry/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'last-strawberry/tests/helpers/ember-simple-auth';
@@ -9,7 +9,7 @@ import {
   mockFindAll
 } from 'ember-data-factory-guy';
 
-moduleForAcceptance('Acceptance | companies/show/location/visit-day');
+moduleForAcceptance('Acceptance | customers/show/location/visit-day');
 
 test('renders correct url', async function(assert) {
   authenticateSession(this.application);
@@ -26,6 +26,6 @@ test('renders correct url', async function(assert) {
 
   await page.visit({company_id:company.get('id'), location_id:location.get('id')});
 
-  assert.equal(currentURL(), `/companies/${company.get('id')}/locations/${location.get('id')}`);
+  assert.equal(currentURL(), `/customers/${company.get('id')}/locations/${location.get('id')}`);
 
 });

@@ -1,4 +1,4 @@
-import page from 'last-strawberry/tests/pages/companies-show';
+import page from 'last-strawberry/tests/pages/customers-show';
 import { test } from 'qunit';
 import moduleForAcceptance from 'last-strawberry/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'last-strawberry/tests/helpers/ember-simple-auth';
@@ -9,7 +9,7 @@ import {
   mockFindAll
 } from 'ember-data-factory-guy';
 
-moduleForAcceptance('Acceptance | companies/show');
+moduleForAcceptance('Acceptance | customers/show');
 
 test('renders locations', function(assert) {
   authenticateSession(this.application);
@@ -27,7 +27,7 @@ test('renders locations', function(assert) {
   page.visit({id:company.get('id')});
 
   andThen(function() {
-    assert.equal(currentURL(), `/companies/${company.get('id')}`);
+    assert.equal(currentURL(), `/customers/${company.get('id')}`);
     assert.equal(page.locationCount, locations.length);
 
     assert.equal(page.name, company.get('name'), 'Company name not rendered correctly');

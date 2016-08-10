@@ -49,7 +49,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   async _saveAddress() {
-    const location = this.modelFor('companies.show.location');
+    const location = this.modelFor('customers.show.location');
     const address = await location.get('address');
 
     if(!address.get('isSaving')) {
@@ -70,7 +70,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     onVisitDayChange(day, enabled) {
-      const location = this.modelFor('companies.show.location');
+      const location = this.modelFor('customers.show.location');
       const visitDays = location.get('visitDays');
 
       const visitDay = visitDays.find(visitDay => visitDay.get('day') === day) || this.store.createRecord('visit-day', {location, day});
@@ -96,7 +96,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     createVisitWindow() {
-      const location = this.modelFor('companies.show.location');
+      const location = this.modelFor('customers.show.location');
       const address = location.get('address');
       this.store.createRecord('visit-window', {address});
     },
@@ -106,18 +106,18 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     async saveLocation() {
-      const location = this.modelFor('companies.show.location');
+      const location = this.modelFor('customers.show.location');
       location.save();
     },
 
     switchAddress(address) {
-      const location = this.modelFor('companies.show.location');
+      const location = this.modelFor('customers.show.location');
       location.set('address', address);
       location.save();
     },
 
     async updateAddress(newAddressData) {
-      const location = this.modelFor('companies.show.location');
+      const location = this.modelFor('customers.show.location');
       let address = await location.get('address');
 
       if(!address) {
@@ -134,7 +134,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     async deleteLocation() {
-      const location = this.modelFor('companies.show.location');
+      const location = this.modelFor('customers.show.location');
       if(!location.get('isDeleted')) {
         run(() => location.destroyRecord());
       }

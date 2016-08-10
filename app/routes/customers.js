@@ -16,13 +16,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   actions: {
     showCompany(id) {
-      this.transitionTo('companies.show', id);
+      this.transitionTo('customers.show', id);
     },
 
     async createNewCompany(name) {
       const company = this.store.createRecord('company', {name});
       await company.save();
-      this.transitionTo('companies.show', company);
+      this.transitionTo('customers.show', company);
     }
   }
 });

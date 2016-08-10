@@ -3,7 +3,7 @@ import PO from 'last-strawberry/tests/page-object';
 const { clickable, fillable, visitable, text, hasClass, collection } = PO;
 
 const page = PO.create({
-  visit: visitable('/companies/:company_id/locations/:location_id')
+  visit: visitable('/customers/:company_id/locations/:location_id')
 });
 
 const itemSettingsPO = PO.create({

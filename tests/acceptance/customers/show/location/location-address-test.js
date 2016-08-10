@@ -1,6 +1,6 @@
 import {
 
-} from 'last-strawberry/tests/pages/companies-show-location';
+} from 'last-strawberry/tests/pages/customers-show-location';
 
 
 // import { test } from 'qunit';
@@ -18,7 +18,7 @@ import {
 let company,
     locations;
 
-moduleForAcceptance('Acceptance | companies/show/location/location address', {
+moduleForAcceptance('Acceptance | customers/show/location/location address', {
   beforeEach() {
     authenticateSession(this.application);
 

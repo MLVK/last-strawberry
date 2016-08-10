@@ -1,9 +1,8 @@
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 import {
-  placeToChangeset
+  placeToObject
 } from 'last-strawberry/utils/google-place-utils';
-
 
 const {
   oneWay
@@ -11,6 +10,10 @@ const {
 
 export default Ember.Component.extend({
   classNames: ['section_location_address-manager', 'col', 'stretch'],
+
+  willRender(){
+      this.get('value').validate();
+  },
 
   @computed('model.lat')
   lat(val) {
@@ -28,7 +31,11 @@ export default Ember.Component.extend({
 
   actions: {
     update(place) {
-      this.attrs.saveAddress(placeToChangeset(place));
+      const changeset = this.get('value');
+      changeset.setProperties(placeToObject(place));
+      if(changeset.get('isValid')){
+        this.attrs.saveAddress(changeset);
+      }
     },
 
     onBlur() {

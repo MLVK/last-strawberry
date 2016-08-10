@@ -6,10 +6,11 @@ const DEFAULT_ADDRESS_MAP = {
   postal_code: 'zip'
 };
 
-const placeToChangeset = place => {
+const placeToObject = place => {
+  const components = place.address_components || [];
   const mapped = Object.keys(DEFAULT_ADDRESS_MAP)
     .map(key => {
-      return place.address_components
+      return components
         .map(c => {
           const hasMatch = c.types.any(type => key === type);
           if(hasMatch) {
@@ -26,9 +27,11 @@ const placeToChangeset = place => {
         lat = place.geometry.location.lat(),
         lng = place.geometry.location.lng();
 
-  return Object.assign(flattened, { street, lat, lng});
+  delete flattened.streetNumber;
+  delete flattened.streetName;
+  return Object.assign(flattened, { street, lat, lng });
 }
 
 export {
-  placeToChangeset
+  placeToObject
 };

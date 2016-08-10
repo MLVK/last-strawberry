@@ -1,5 +1,11 @@
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
+import {
+  validatePresence
+  // validateLength,
+  // validateConfirmation,
+  // validateFormat
+} from 'ember-changeset-validations/validators';
 
 export default Ember.Controller.extend({
   @computed('items', 'model.itemDesires', 'model.itemCreditRates')
@@ -20,5 +26,14 @@ export default Ember.Controller.extend({
   @computed('model.company.locations.@each.{locationHash}')
   addresses(locations) {
     return locations.map(location => location.get('address'));
+  },
+
+  validations: {
+    street: validatePresence(true),
+    city: validatePresence(true),
+    state: validatePresence(true),
+    zip: validatePresence(true),
+    lat: validatePresence(true),
+    lng: validatePresence(true)
   }
 });

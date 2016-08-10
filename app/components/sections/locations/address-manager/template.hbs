@@ -11,6 +11,12 @@
         placeChangedCallback=(action 'update')}}
   </div>
 
+  <div class="errorMessageContainer">
+    {{#each value.errors as |error|}}
+      <div class="row">{{error.key}}:{{error.validation}}</div>
+    {{/each}}
+  </div>
+
   {{#leaflet-map
       scrollWheelZoom=false
       lat=lat
@@ -18,7 +24,7 @@
       zoom=zoom as |layers|}}
 
     {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"}}
-      {{#if value}}
+      {{#if value.isValid}}
         {{#layers.marker lat=value.lat lng=value.lng}}
           <strong>{{value.street}}</strong>
           <br>

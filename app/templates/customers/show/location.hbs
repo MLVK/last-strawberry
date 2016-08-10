@@ -5,13 +5,13 @@
         fieldChanged=(route-action 'fieldChanged')
         save=(route-action 'saveLocation')
         delete=(route-action 'deleteLocation')}}
-
-    {{sections/locations/address-manager
-        value=model.address
-        addresses=addresses
-        switchAddress=(route-action 'switchAddress' model)
-        saveAddress=(route-action 'saveAddress' model)}}
-
+    {{#with (changeset model.address validations) as |changeset|}}
+        {{sections/locations/address-manager
+            value=changeset
+            addresses=addresses
+            switchAddress=(route-action 'switchAddress' model)
+            saveAddress=(route-action 'saveAddress' model)}}
+    {{/with}}
     {{sections/locations/schedule-manager
         model=model
         onVisitDayChange=(route-action 'onVisitDayChange')

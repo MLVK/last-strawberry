@@ -1,3 +1,5 @@
+import AddressValidations from 'last-strawberry/validators/address';
+import Changeset from 'ember-changeset';
 import {
   addressPO as page
 } from 'last-strawberry/tests/pages/companies-show-location';
@@ -44,8 +46,9 @@ moduleForComponent('sections/locations/address-manager', 'Integration | Componen
 test('it shows an address when present', function(assert) {
   const addresses = makeList('address', 5);
   const address = make('address');
+  const changeset = new Changeset(address, AddressValidations);
 
-  this.set('address', address);
+  this.set('changeset', changeset);
   this.set('addresses', addresses);
   this.set('saveAddress', () => {});
   this.set('switchAddress', () => {});
@@ -54,9 +57,9 @@ test('it shows an address when present', function(assert) {
     saveAddresss=saveAddresss
     switchAddress=switchAddress
     addresses=addresses
-    value=address}}`);
+    changeset=changeset}}`);
 
-  assert.equal(page.fullAddress, address.get('full'));
+  assert.equal(page.fullAddress, changeset.get('full'));
 });
 
 // TODO: Check back on: https://github.com/danielspaniel/ember-data-factory-guy/issues/230

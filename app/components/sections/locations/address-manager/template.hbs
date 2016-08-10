@@ -1,6 +1,4 @@
-
 <div class="col stretch content">
-
   <div class="addressAutoComplete">
     {{place-autocomplete-field
         value=tempAddress
@@ -12,7 +10,7 @@
   </div>
 
   <div class="errorMessageContainer">
-    {{#each value.errors as |error|}}
+    {{#each changeset.errors as |error|}}
       <div class="row">{{error.key}}:{{error.validation}}</div>
     {{/each}}
   </div>
@@ -24,11 +22,11 @@
       zoom=zoom as |layers|}}
 
     {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"}}
-      {{#if value.isValid}}
-        {{#layers.marker lat=value.lat lng=value.lng}}
-          <strong>{{value.street}}</strong>
+      {{#if changeset.isValid}}
+        {{#layers.marker lat=changeset.lat lng=changeset.lng}}
+          <strong>{{changeset.street}}</strong>
           <br>
-          <span>{{value.city}}, {{value.state}} {{value.zip}}</span>
+          <span>{{changeset.city}}, {{changeset.state}} {{changeset.zip}}</span>
         {{/layers.marker}}
       {{/if}}
   {{/leaflet-map}}

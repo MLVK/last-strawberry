@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   classNames: ['section_location_address-manager', 'col', 'stretch'],
 
   willRender(){
-      this.get('value').validate();
+    this.get('changeset').validate();
   },
 
   @computed('model.lat')
@@ -27,11 +27,11 @@ export default Ember.Component.extend({
 
   zoom: 13,
 
-  tempAddress: oneWay('value.full'),
+  tempAddress: oneWay('changeset.full'),
 
   actions: {
     update(place) {
-      const changeset = this.get('value');
+      const changeset = this.get('changeset');
       changeset.setProperties(placeToObject(place));
       if(changeset.get('isValid')){
         this.attrs.saveAddress(changeset);
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
     },
 
     onBlur() {
-      this.set('tempAddress', this.get('value.full'));
+      this.set('tempAddress', this.get('changeset.full'));
     }
   }
 });

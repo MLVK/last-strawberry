@@ -47,8 +47,9 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     let address = await model.get('address');
     if(Ember.isNone(address)) {
       address = this.store.createRecord('address');
-      model.set('address', address);
     }
+
+    model.set('address', address);
 
     return model;
   },
@@ -120,11 +121,9 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       location.save();
     },
 
-    saveAddress(location, changeSet) {
-      console.log(changeSet.get('changes'));
-      changeSet.save();
-      // debugger;
-      //location.save();
+    async saveAddress(location, changeset) {
+      await changeset.save();
+      location.save();
     },
 
     async deleteLocation() {

@@ -1,3 +1,5 @@
+import Ember from 'ember';
+const { isPresent } = Ember;
 const DEFAULT_ADDRESS_MAP = {
   street_number: 'streetNumber',
   route: 'streetName',
@@ -7,7 +9,7 @@ const DEFAULT_ADDRESS_MAP = {
 };
 
 const placeToObject = place => {
-  const components = place.address_components || [];
+  const components = _.get(place, 'address_components', []);
   const mapped = Object.keys(DEFAULT_ADDRESS_MAP)
     .map(key => {
       return components
@@ -22,14 +24,12 @@ const placeToObject = place => {
     })
 
   const flattened = R.mergeAll(R.flatten(mapped));
+  const street = `${_.get(flattened, 'streetNumber', '')} ${_.get(flattened, 'streetName', '')}`.trim(),
+        lat = _.get(place, 'geometry.location.lat', () => {})(),
+        lng = _.get(place, 'geometry.location.lng', () => {})();
 
-  const street = `${flattened.streetNumber} ${flattened.streetName}`,
-        lat = place.geometry.location.lat(),
-        lng = place.geometry.location.lng();
-
-  delete flattened.streetNumber;
-  delete flattened.streetName;
-  return Object.assign(flattened, { street, lat, lng });
+  const final = Object.assign(flattened, { street, lat, lng });
+  return R.filter(isPresent, final);
 }
 
 export {

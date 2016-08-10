@@ -2,12 +2,21 @@
   Product Setting
 </div>
 
-<div class="row massCreditRate">
-  {{one-way-input massCreditRate
-    update=(action (mut massCreditRate))
-    placeholder="Credit %"}}
-
-  <button class="buttonSave" {{action 'massApplyCreditRate'}}>Apply</button>
+<div class="row ">
+  <div class="col-5 massDesire">
+    <label>Mass desire</label>
+    {{ui/toggle-button
+        class='desiredToggle'
+        selected=massDesire
+        click=(action 'massApplyDesire')
+        label=(if massDesire 'Y' 'N')}}
+  </div>
+  <div class="massCreditRate">
+    {{one-way-input massCreditRate
+      update=(action (mut massCreditRate))
+      placeholder="Credit %"}}
+    <button {{action 'massApplyCreditRate'}}>Apply</button>
+  </div>
 </div>
 
 {{#each itemSettings as |itemSetting i|}}

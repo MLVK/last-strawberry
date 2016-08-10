@@ -8,34 +8,26 @@ moduleForComponent('sections/locations/item-settings', 'Integration | Component 
 test('it renders', function(assert) {
   assert.expect(0);
 
-  this.set('itemSettings', {});
-  this.set('onDesireChange', () => assert.ok(true));
-  this.set('onCreditChange', () => assert.ok(true));
-  this.set('massApplyCreditRate', () => assert.ok(true));
-
-  this.render(hbs`{{sections/locations/item-settings
-    itemSettings=itemSettings
-    onDesireChange=onDesireChange
-    onCreditChange=onDesireChange
-    massApplyCreditRate=massApplyCreditRate}}`);
+  this.render(hbs`{{sections/locations/item-settings}}`);
 });
 
 test('applies mass credit rate', function(assert) {
   assert.expect(1);
 
-  this.set('itemSettings', {});
-  this.set('onDesireChange', () => {});
-  this.set('onCreditChange', () => {});
   this.set('massApplyCreditRate', () => assert.ok(true));
-
   this.render(hbs`{{sections/locations/item-settings
-    itemSettings=itemSettings
-    onDesireChange=onDesireChange
-    onCreditChange=onCreditChange
     massApplyCreditRate=(action massApplyCreditRate)}}`);
 
   this.$('.massCreditRate input').val(20);
-  this.$('.massCreditRate input').trigger('update');
-
   this.$('.massCreditRate button').click();
+});
+
+test('applies mass desire', function(assert) {
+  assert.expect(1);
+
+  this.set('massApplyDesire', () => assert.ok(true));
+  this.render(hbs`{{sections/locations/item-settings
+    massApplyDesire=(action massApplyDesire)}}`);
+
+  this.$('.massDesire .desiredToggle').click();
 });

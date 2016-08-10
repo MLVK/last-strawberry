@@ -147,6 +147,15 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         item.set('rate', massCreditRate);
         item.save();
       });
+    },
+
+    async massApplyDesire(location, massDesire){
+      let itemDesires = await location.get('itemDesires');
+
+      itemDesires.forEach(function(item) {
+        item.set('enabled', massDesire);
+        item.save();
+      });
     }
   }
 });

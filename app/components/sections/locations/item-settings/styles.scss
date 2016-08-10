@@ -1,5 +1,4 @@
 & {
-  // width: 100%;
   background: $light-blue;
   justify-content: space-between;
   font-size: 0.9em;
@@ -11,9 +10,10 @@
   color: $off-white;
 }
 
-// .ui_label-checkbox {
-//   padding: 0.5em;
-//   margin: 0.5em;
-//   // min-width: 15em;
-//   // background: $light-blue;
-// }
+.desiredToggle {
+  background: $hot-pink;
+}
+
+.desiredToggle.selected {
+  background: $dark-orange;
+}

@@ -1,0 +1,25 @@
+<div class="stretch section">
+  <input
+    type="text"
+    name="name"
+    class="name"
+    placeholder="Location nickname"
+    value="{{model.name}}"
+    oninput={{route-action 'fieldChanged' model 'name'}}
+    onchange={{route-action 'fieldChanged' model 'name'}}
+    onblur={{route-action 'saveLocation'}}>
+
+  {{sections/locations/address-manager
+      model=model.address
+      addresses=addresses
+      update=(route-action 'updateAddress')
+      switchAddress=(route-action 'switchAddress')
+      save=(route-action 'saveAddress')}}
+
+  {{sections/locations/schedule-manager
+      model=model
+      onVisitDayChange=(route-action 'onVisitDayChange')
+      onVisitWindowChange=(route-action 'onVisitWindowChange')
+      onVisitWindowDayChange=(route-action 'onVisitWindowDayChange')
+      createVisitWindow=(route-action 'createVisitWindow')}}
+</div>

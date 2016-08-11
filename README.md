@@ -3,6 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/brancusi/last-strawberry/badges/gpa.svg)](https://codeclimate.com/github/brancusi/last-strawberry)
 
 a
+b
 ## Welcome to The Last Strawberry. What is your intention? What would you like???
 
 ## Prerequisites

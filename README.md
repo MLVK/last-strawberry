@@ -5,6 +5,7 @@
 a
 b
 c
+d
 ## Welcome to The Last Strawberry. What is your intention? What would you like???
 
 ## Prerequisites

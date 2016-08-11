@@ -1,7 +1,16 @@
 <div class="col section">
-  <div class="vendorName">
-    {{one-way-input model.name
-        update=(route-action "updateModelField" model "name")
-        onblur=(route-action "saveModelIfDirty" model)}}
+  <div class="row card-1 section">
+    <div class="vendorName">
+      {{one-way-input model.name
+          update=(route-action "updateModelField" model "name")
+          onblur=(route-action "saveModelIfDirty" model)}}
+    </div>
+    {{sections/companies/location-manager
+        locations=model.locations
+        showLocation=(route-action 'showLocation')
+        createNewLocation=(route-action 'createNewLocation' model)}}
+  </div>
+  <div class="row section">
+    {{outlet}}
   </div>
 </div>

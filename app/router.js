@@ -33,7 +33,9 @@ Router.map(function() {
   });
 
   this.route('vendors', function() {
-    this.route('show', {path:':id'});
+    this.route('show', {path:':id'}, function() {
+      this.route('location', {path:'/locations/:location_id'});
+    });
   });
 });
 

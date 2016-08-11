@@ -4,10 +4,6 @@ import {
   placeToObject
 } from 'last-strawberry/utils/google-place-utils';
 
-const {
-  oneWay
-} = Ember.computed;
-
 export default Ember.Component.extend({
   classNames: ['section_location_address-manager', 'col', 'stretch'],
 
@@ -27,8 +23,6 @@ export default Ember.Component.extend({
 
   zoom: 13,
 
-  tempAddress: oneWay('changeset.full'),
-
   actions: {
     update(place) {
       const changeset = this.get('changeset');
@@ -37,9 +31,8 @@ export default Ember.Component.extend({
         this.attrs.saveAddress(changeset);
       }
     },
-
     onBlur() {
-      this.set('tempAddress', this.get('changeset.full'));
+       this.get('changeset').rollback();
     }
   }
 });

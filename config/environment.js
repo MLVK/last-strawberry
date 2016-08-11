@@ -24,10 +24,6 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    googleApi: {
-      accessToken: process.env.GOOGLE_API_KEY,
-    },
-
     routificApi: {
       accessToken: process.env.ROUTIFIC_API_KEY,
     },
@@ -35,6 +31,12 @@ module.exports = function(environment) {
     browserify: {
        tests: true
      },
+  };
+
+  ENV['place-autocomplete'] = {
+    exclude: true,
+    key: process.env.GOOGLE_API_KEY,
+    client: process.env.GOOGLE_CLIENT_ID
   };
 
   ENV.apiHost = 'http://localhost:3000';

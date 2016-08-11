@@ -21,7 +21,7 @@ moduleForAcceptance('Acceptance | navigation', {
 test('redirects to companies page when navigating to index', async function(assert) {
   await page.visitIndex();
 
-  assert.equal(currentURL(), '/companies')
+  assert.equal(currentURL(), '/customers')
 });
 
 test('redirects to companies page when clicking on Home link', async function(assert) {
@@ -31,7 +31,7 @@ test('redirects to companies page when clicking on Home link', async function(as
     .visitOrders()
     .clickHomeLink();
 
-  assert.equal(currentURL(), '/companies')
+  assert.equal(currentURL(), '/customers')
 });
 
 test('redirects to orders page when clicking on Orders item', async function(assert) {

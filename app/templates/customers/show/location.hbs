@@ -1,0 +1,31 @@
+<div class="row wrap">
+  <div class="col stretch section">
+    {{sections/locations/location-settings
+        model=model
+        fieldChanged=(route-action 'fieldChanged')
+        save=(route-action 'saveLocation')
+        delete=(route-action 'deleteLocation')}}
+
+    {{sections/locations/address-manager
+        changeset=(changeset model.address.content AddressValidations)
+        addresses=addresses
+        switchAddress=(route-action 'switchAddress' model)
+        saveAddress=(route-action 'saveAddress' model)}}
+
+    {{sections/locations/schedule-manager
+        model=model
+        onVisitDayChange=(route-action 'onVisitDayChange')
+        onVisitWindowChange=(route-action 'onVisitWindowChange')
+        onVisitWindowDayChange=(route-action 'onVisitWindowDayChange')
+        createVisitWindow=(route-action 'createVisitWindow')}}
+  </div>
+
+  <div class="col stretch section">
+    {{sections/locations/item-settings
+        itemSettings=itemSettings
+        onDesireChange=(route-action 'updateItemDesire')
+        onCreditChange=(route-action 'updateItemCreditRate')
+        massApplyCreditRate=(route-action 'massApplyCreditRate' model)
+        massApplyDesire=(route-action 'massApplyDesire' model)}}
+  </div>
+</div>

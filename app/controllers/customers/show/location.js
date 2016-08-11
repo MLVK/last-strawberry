@@ -1,7 +1,10 @@
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
+import AddressValidations from 'last-strawberry/validators/address';
 
 export default Ember.Controller.extend({
+  AddressValidations,
+
   @computed('items', 'model.itemDesires', 'model.itemCreditRates')
   itemSettings(items, itemDesires, itemCreditRates) {
     return items

@@ -23,7 +23,7 @@
     "chartjs": "1.0.2",
     "jquery-mockjax": "2.2.0",
     "mlvk-google-fonts": "brancusi/mlvk-google-fonts",
-    "ramda": "^0.22.1"
+    "ramda": "^0.22.0"
   },
   "resolutions": {
     "ember-qunit-notifications": "0.1.0",

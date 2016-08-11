@@ -15,16 +15,15 @@ const INCLUDES = [
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   setupController(controller, model) {
-    this._super(controller, model);
-
     controller.set('items', this.store.peekAll('item'));
+    this._super(controller, model);
   },
 
   model(params){
     return this.store.findRecord('location', params.location_id, { reload:true, include:INCLUDES.join(',')});
   },
 
-  afterModel(model) {
+  async afterModel(model) {
     const itemDesires = model.get('itemDesires');
     const itemCreditRates = model.get('itemCreditRates');
 
@@ -44,6 +43,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         model.get('itemCreditRates').pushObject(itemCreditRate);
       }
     });
+
+    let address = await model.get('address');
+    if(Ember.isNone(address)) {
+      address = this.store.createRecord('address');
+    }
+
+    model.set('address', address);
 
     return model;
   },
@@ -110,27 +116,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       location.save();
     },
 
-    switchAddress(address) {
-      const location = this.modelFor('customers.show.location');
+    switchAddress(location, address) {
       location.set('address', address);
       location.save();
     },
 
-    async updateAddress(newAddressData) {
-      const location = this.modelFor('customers.show.location');
-      let address = await location.get('address');
-
-      if(!address) {
-        address = this.store.createRecord('address');
-        location.set('address', address);
-      }
-
-      address.setProperties(newAddressData);
-      this._saveAddress();
-    },
-
-    saveAddress() {
-      this._saveAddress();
+    async saveAddress(location, changeset) {
+      await changeset.save();
+      location.save();
     },
 
     async deleteLocation() {

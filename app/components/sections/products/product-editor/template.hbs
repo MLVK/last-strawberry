@@ -1,5 +1,5 @@
 <div class="col formContainer">
-  {{#with (changeset model validations) as |changeset|}}
+  {{#with (changeset model validators) as |changeset|}}
     {{forms/elements/validated-field
         class="name"
         changeset=changeset

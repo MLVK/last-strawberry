@@ -1,4 +1,4 @@
-import uniqueFieldValidator from 'last-strawberry/validations/unique-field-validator';
+import uniqueFieldValidator from 'last-strawberry/validators/unique-field-validator';
 
 import {
   validatePresence,

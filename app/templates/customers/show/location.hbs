@@ -7,11 +7,10 @@
         delete=(route-action 'deleteLocation')}}
 
     {{sections/locations/address-manager
-        model=model.address
+        changeset=(changeset model.address.content AddressValidations)
         addresses=addresses
-        update=(route-action 'updateAddress')
-        switchAddress=(route-action 'switchAddress')
-        save=(route-action 'saveAddress')}}
+        switchAddress=(route-action 'switchAddress' model)
+        saveAddress=(route-action 'saveAddress' model)}}
 
     {{sections/locations/schedule-manager
         model=model

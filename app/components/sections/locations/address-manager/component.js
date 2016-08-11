@@ -15,12 +15,12 @@ export default Ember.Component.extend({
     this.get('changeset').validate();
   },
 
-  @computed('model.lat')
+  @computed('changeset.lat')
   lat(val) {
     return val || 33.89891688437142
   },
 
-  @computed('model.lng')
+  @computed('changeset.lng')
   lng(val) {
     return val || -117.90527343750001
   },

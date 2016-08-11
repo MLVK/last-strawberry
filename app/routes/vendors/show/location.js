@@ -13,14 +13,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     return this.store.findRecord('location', params.location_id, { reload:true, include:INCLUDES.join(',')});
   },
 
-  async _saveAddress() {
-    const location = this.modelFor('vendors.show.location');
-    const address = await location.get('address');
-
-    if(!address.get('isSaving')) {
-      await address.save();
-      location.save();
+  async afterModel(model) {
+    let address = await model.get('address');
+    if(Ember.isNone(address)) {
+      address = this.store.createRecord('address');
     }
+    model.set('address', address);
+
+    return model;
   },
 
   actions: {
@@ -33,27 +33,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       location.save();
     },
 
-    switchAddress(address) {
-      const location = this.modelFor('vendors.show.location');
+    switchAddress(location, address) {
       location.set('address', address);
       location.save();
     },
 
-    async updateAddress(newAddressData) {
-      const location = this.modelFor('vendors.show.location');
-      let address = await location.get('address');
-
-      if(!address) {
-        address = this.store.createRecord('address');
-        location.set('address', address);
-      }
-
-      address.setProperties(newAddressData);
-      this._saveAddress();
-    },
-
-    saveAddress() {
-      this._saveAddress();
+    async saveAddress(location, changeset) {
+      await changeset.save();
+      location.save();
     },
 
     onVisitDayChange(day, enabled) {

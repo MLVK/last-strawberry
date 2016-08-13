@@ -1,5 +1,6 @@
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import Ember from 'ember';
+import { timeToMinutes } from 'last-strawberry/utils/time';
 
 const ROUTE_VISIT_INCLUDES = [
   'route-plan',
@@ -28,6 +29,8 @@ const ROUTE_PLAN_INCLUDES = [
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
+  requestGenerator: Ember.inject.service(),
+
   queryParams: {
     date: {
       refreshModel: true
@@ -61,6 +64,22 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       });
   },
 
+  async optimizeRoutePlan(routePlan){
+    const url = `routing/optimize_route/${routePlan.get('id')}`;
+    const { solution: { driver }} = await this.get('requestGenerator').getRequest(url);
+    const routeVisits = await routePlan.get('routeVisits');
+
+    routeVisits.forEach(rv => {
+      const match = driver.find(d => String(d.location_id) === String(rv.get('id')));
+      if(match !== undefined){
+        rv.set('arriveAt', timeToMinutes(match.arrival_time));
+        rv.set('departAt', timeToMinutes(match.finish_time));
+
+        rv.save();
+      }
+    });
+  },
+
   actions: {
     publishRoutePlans() {
       this.setPublishedState('published');
@@ -89,9 +108,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       routePlan.destroyRecord();
     },
 
-    onRouteVisitUpdate(routeVisit, routePlan, position) {
+    async onRouteVisitUpdate(routeVisit, routePlan, position) {
       routeVisit.setProperties({routePlan, position});
-      routeVisit.save();
+      await routeVisit.save();
+      this.optimizeRoutePlan(routePlan);
     },
 
     removeRouteVisit(routeVisit) {

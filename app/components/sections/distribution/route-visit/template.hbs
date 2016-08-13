@@ -1,6 +1,6 @@
 {{#ui/dd-card colorScheme=colorScheme as |card|}}
   {{card.title-bar
-      title=title
+      title=(concat model.id ' - ' title)
       index=index
       actionIcon='clear'
       action=(if (not model.isOrphan) (action 'removeRouteVisit'))}}
@@ -13,7 +13,7 @@
         {{minutes-to-time validVisitWindow.min}} - {{minutes-to-time validVisitWindow.max}}
       </div>
       <div class="estimatedArrival">
-        6:43am
+        {{minutes-to-time model.arriveAt}}
       </div>
     </div>
   {{/card.footer}}

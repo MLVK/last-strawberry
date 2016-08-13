@@ -1,6 +1,0 @@
----
-- name: Install "ember-cli" package.
-  npm: name=ember-cli global=yes version=2.6.3
-
-- name: Install "bower" package.
-  npm: name=bower global=yes

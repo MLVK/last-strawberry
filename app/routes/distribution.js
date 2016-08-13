@@ -1,5 +1,6 @@
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import Ember from 'ember';
+import optimizeRoutePlan from 'last-strawberry/apis/routific';
 
 const ROUTE_VISIT_INCLUDES = [
   'route-plan',
@@ -92,6 +93,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     onRouteVisitUpdate(routeVisit, routePlan, position) {
       routeVisit.setProperties({routePlan, position});
       routeVisit.save();
+      optimizeRoutePlan(routePlan);
     },
 
     removeRouteVisit(routeVisit) {

@@ -35,7 +35,7 @@ moduleForAcceptance('Acceptance | customers', {
 
 test('renders list of companies', async function(assert) {
   await page.visit();
-
+  
   assert.equal(page.companies().count, companies.length, 'Wrong num companies rendered');
 });
 

@@ -46,7 +46,7 @@ module.exports = function(environment) {
     'script-src': "'self' 'unsafe-eval' http://laststrawberry.dev:* http://admin.dev:* https://cdn.mxpnl.com  *.googleapis.com *.cloudflare.com", // Allow scripts from https://cdn.mxpnl.com
     'font-src': "'self' *.gstatic.com *.googleapis.com", // Allow fonts to be loaded from http://fonts.gstatic.com
     'connect-src': "'self' wss://s-usc1c-nss-102.firebaseio.com ws://laststrawberry.dev:* ws://admin.dev:* http://localhost:3000 https://routific.com", // Allow data (ajax/websocket) from api.mixpanel.com and custom-api.local
-    'img-src': "'self' data: *.basemaps.cartocdn.com",
+    'img-src': "'self' data: *.basemaps.cartocdn.com *.gstatic.com",
     'style-src': "'self' 'unsafe-inline' *.googleapis.com", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
     'media-src': "'self'"
   };

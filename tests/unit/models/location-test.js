@@ -10,7 +10,8 @@ moduleForModel('location', 'Unit | Model | location', {
     'model:visit-window',
     'model:price-tier',
     'model:order',
-    'model:item-credit-rate'
+    'model:item-credit-rate',
+    'model:notification-rule'
   ]
 });
 

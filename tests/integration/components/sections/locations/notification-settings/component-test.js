@@ -1,24 +1,57 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import {
+  make,
+  makeList,
+  manualSetup
+} from 'ember-data-factory-guy';
+import { notificationListPO as page } from 'last-strawberry/tests/pages/customers-show-location';
 
 moduleForComponent('sections/locations/notification-settings', 'Integration | Component | sections/locations/notification settings', {
-  integration: true
+  integration: true,
+
+  beforeEach: function () {
+    page.setContext(this);
+    manualSetup(this.container);
+  },
+
+  afterEach() {
+    page.removeContext();
+  }
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it shows notification list when present', function(assert) {
+  let location = make('location');
+  location.notificationRules = makeList('notification-rule', 3);
 
-  this.render(hbs`{{sections/locations/notification-settings}}`);
+  this.set('model', location);
+  this.set('handler', () => {});
 
-  assert.equal(this.$().text().trim(), '');
+  page.render(hbs`{{sections/locations/notification-settings
+          model=model
+          createNotification=handler
+          saveNotification=handler
+          deleteNotification=handler}}`);
 
-  // Template block usage:
-  this.render(hbs`
-    {{#sections/locations/notification-settings}}
-      template block text
-    {{/sections/locations/notification-settings}}
-  `);
+  assert.equal(page.notifications().count, 3);
+});
 
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it triggers createNotification when click on add rule button', function(assert) {
+  assert.expect(1);
+
+  let location = make('location');
+
+  this.set('model', location);
+  this.set('handler', () => {});
+  this.set('createNotification', () => {
+    assert.ok(true);
+  });
+
+  const instance = page.render(hbs`{{sections/locations/notification-settings
+          model=model
+          createNotification=createNotification
+          saveNotification=handler
+          deleteNotification=handler}}`);
+
+  instance.addNotification();
 });

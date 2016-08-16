@@ -7,7 +7,8 @@ const {
   text,
   value,
   hasClass,
-  collection
+  collection,
+  is
 } = PO;
 
 const page = PO.create({
@@ -65,4 +66,35 @@ const addressPO = PO.create({
   fullAddress: value('input')
 });
 
-export { page, itemSettingsPO, visitSchedulePO, visitDaysPO, addressPO };
+const notificationPO = PO.create({
+  firstName: value('.firstName'),
+  fillFirstName: fillable('.firstName'),
+  blurFirstName: () => $('.firstName').blur(),
+
+  lastName: value('.lastName'),
+  fillLastName: fillable('.lastName'),
+
+  email: value('.email'),
+  isWantsInvoiceChecked: is(':checked', '.wantsInvoice'),
+  isWantsCreditChecked: is(':checked', '.wantsCredit'),
+
+  delete: clickable('.deleteButton')
+});
+
+const notificationListPO = PO.create({
+  addNotification: clickable('.createNotification'),
+
+  notifications: collection({
+    itemScope: '.notificationRow'
+  })
+});
+
+export {
+  page,
+  itemSettingsPO,
+  visitSchedulePO,
+  visitDaysPO,
+  addressPO,
+  notificationPO,
+  notificationListPO
+};

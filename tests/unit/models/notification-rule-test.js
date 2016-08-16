@@ -1,8 +1,11 @@
 import { moduleForModel, test } from 'ember-qunit';
 
-moduleForModel('notification-rule', 'Unit | Model | notification rule', {
+moduleForModel('item-desire', 'Unit | Model | notification rule', {
   // Specify the other units that are required for this test.
-  needs: []
+  needs: [
+    'model:location',
+    'model:item'
+  ]
 });
 
 test('it exists', function(assert) {

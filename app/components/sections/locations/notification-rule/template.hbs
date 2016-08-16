@@ -1,7 +1,7 @@
 <div class="col-3">
   {{one-way-input changeset.firstName
     class="firstName"
-    update=(action 'updateModelField' changeset "firstName")
+    update=(action "updateModelField" changeset "firstName")
     onblur=(action saveNotification changeset)}}
 
   {{#if changeset.error.firstName}}
@@ -12,7 +12,7 @@
 <div class="col-3">
   {{one-way-input changeset.lastName
     class="lastName"
-    update=(action 'updateModelField' changeset "lastName")
+    update=(action "updateModelField" changeset "lastName")
     onblur=(action saveNotification changeset)}}
 
   {{#if changeset.error.lastName}}
@@ -23,7 +23,7 @@
 <div class="col-3">
   {{one-way-input changeset.email
     class="email"
-    update=(action 'updateModelField' changeset "email")
+    update=(action "updateModelField" changeset "email")
     onblur=(action saveNotification changeset)}}
 
   {{#if changeset.error.email}}
@@ -34,12 +34,12 @@
 {{one-way-checkbox
   changeset.wantsInvoice
   class="wantsInvoice col-2"
-  update=(action 'updateCheckboxField' "wantsInvoice")}}
+  update=(action "updateCheckboxField" "wantsInvoice")}}
 
 {{one-way-checkbox
   changeset.wantsCredit
   class="wantsCredit col-2"
-  update=(action 'updateCheckboxField' "wantsCredit")}}
+  update=(action "updateCheckboxField" "wantsCredit")}}
 
 <div class="col-2">
   <i class="material-icons deleteButton" {{action deleteNotification}}>close</i>

@@ -1,25 +1,25 @@
-import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import Ember from "ember";
+import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 
 const INCLUDES = [
-  'address',
-  'address.visit-windows',
-  'address.visit-windows.visit-window-days',
-  'visit-days',
-  'notification-rules'
+  "address",
+  "address.visit-windows",
+  "address.visit-windows.visit-window-days",
+  "visit-days",
+  "notification-rules"
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model(params){
-    return this.store.findRecord('location', params.location_id, { reload:true, include:INCLUDES.join(',')});
+    return this.store.findRecord("location", params.location_id, { reload:true, include:INCLUDES.join(",")});
   },
 
   async afterModel(model) {
-    let address = await model.get('address');
+    let address = await model.get("address");
     if(Ember.isNone(address)) {
-      address = this.store.createRecord('address');
+      address = this.store.createRecord("address");
     }
-    model.set('address', address);
+    model.set("address", address);
 
     return model;
   },
@@ -30,12 +30,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     async saveLocation() {
-      const location = this.modelFor('vendors.show.location');
+      const location = this.modelFor("vendors.show.location");
       location.save();
     },
 
     switchAddress(location, address) {
-      location.set('address', address);
+      location.set("address", address);
       location.save();
     },
 
@@ -45,28 +45,28 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     onVisitDayChange(day, enabled) {
-      const location = this.modelFor('vendors.show.location');
-      const visitDays = location.get('visitDays');
+      const location = this.modelFor("vendors.show.location");
+      const visitDays = location.get("visitDays");
 
       const visitDay = visitDays
-                        .find(visitDay => visitDay.get('day') === day) ||
-                            this.store.createRecord('visit-day', {location, day});
+                        .find(visitDay => visitDay.get("day") === day) ||
+                            this.store.createRecord("visit-day", {location, day});
 
-      visitDay.set('enabled', enabled);
+      visitDay.set("enabled", enabled);
       visitDay.save();
     },
 
     async onVisitWindowDayChange(visitWindow, day, enabled) {
-      if(visitWindow.get('hasDirtyAttributes')) {
+      if(visitWindow.get("hasDirtyAttributes")) {
         await visitWindow.save();
       }
 
       const visitWindowDay = visitWindow
-                              .get('visitWindowDays')
-                              .find(vwd => vwd.get('day') === day) ||
-                                this.store.createRecord('visit-window-day', {visitWindow, day});
+                              .get("visitWindowDays")
+                              .find(vwd => vwd.get("day") === day) ||
+                                this.store.createRecord("visit-window-day", {visitWindow, day});
 
-      visitWindowDay.set('enabled', enabled);
+      visitWindowDay.set("enabled", enabled);
       visitWindowDay.save();
     },
 
@@ -76,23 +76,21 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     createVisitWindow() {
-      const location = this.modelFor('vendors.show.location');
-      const address = location.get('address');
-      this.store.createRecord('visit-window', {address});
+      const location = this.modelFor("vendors.show.location");
+      const address = location.get("address");
+      this.store.createRecord("visit-window", {address});
     },
 
     createNotification(location) {
-      this.store.createRecord('notification-rule', { location });
+      this.store.createRecord("notification-rule", { location });
     },
 
-    async saveNotification(location, changeset){
-      await changeset.save();
-      location.save();
+    saveNotification(changeset){
+      changeset.save();
     },
 
-    async deleteNotification(location, notification){
-      await notification.destroyRecord();
-      location.save();
+    deleteNotification(notification){
+      notification.destroyRecord();
     }
   }
 });

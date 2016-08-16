@@ -1,9 +1,9 @@
 <div class="row stretch">
-  {{sections/locations/notification-settings
+  {{sections/locations/notification-rules
       model=model
-      createNotification=(route-action 'createNotification' model)
-      saveNotification=(route-action 'saveNotification' model)
-      deleteNotification=(route-action 'deleteNotification' model)}}
+      createNotification=(route-action "createNotification" model)
+      saveNotification=(route-action "saveNotification")
+      deleteNotification=(route-action "deleteNotification")}}
 </div>
 
 <div class="stretch section">
@@ -13,20 +13,20 @@
     class="name"
     placeholder="Location nickname"
     value="{{model.name}}"
-    oninput={{route-action 'fieldChanged' model 'name'}}
-    onchange={{route-action 'fieldChanged' model 'name'}}
-    onblur={{route-action 'saveLocation'}}>
+    oninput={{route-action "fieldChanged" model "name"}}
+    onchange={{route-action "fieldChanged" model "name"}}
+    onblur={{route-action "saveLocation"}}>
 
   {{sections/locations/address-manager
       changeset=(changeset model.address.content AddressValidations)
       addresses=addresses
-      switchAddress=(route-action 'switchAddress' model)
-      saveAddress=(route-action 'saveAddress' model)}}
+      switchAddress=(route-action "switchAddress" model)
+      saveAddress=(route-action "saveAddress" model)}}
 
   {{sections/locations/schedule-manager
       model=model
-      onVisitDayChange=(route-action 'onVisitDayChange')
-      onVisitWindowChange=(route-action 'onVisitWindowChange')
-      onVisitWindowDayChange=(route-action 'onVisitWindowDayChange')
-      createVisitWindow=(route-action 'createVisitWindow')}}
+      onVisitDayChange=(route-action "onVisitDayChange")
+      onVisitWindowChange=(route-action "onVisitWindowChange")
+      onVisitWindowDayChange=(route-action "onVisitWindowDayChange")
+      createVisitWindow=(route-action "createVisitWindow")}}
 </div>

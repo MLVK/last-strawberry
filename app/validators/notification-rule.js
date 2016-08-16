@@ -1,13 +1,13 @@
 import {
   validatePresence,
   validateFormat
-} from 'ember-changeset-validations/validators';
+} from "ember-changeset-validations/validators";
 
 export default {
   firstName: validatePresence(true),
   email: [
     validatePresence(true),
-    validateFormat({ type: 'email' })
+    validateFormat({ type: "email" })
   ],
   wantsInvoice:  validatePresence(true),
   wantsCredit:   validatePresence(true)

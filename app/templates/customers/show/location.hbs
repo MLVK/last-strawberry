@@ -1,38 +1,38 @@
 <div class="row stretch">
-  {{sections/locations/notification-settings
+  {{sections/locations/notification-rules
       model=model
-      createNotification=(route-action 'createNotification' model)
-      saveNotification=(route-action 'saveNotification' model)
-      deleteNotification=(route-action 'deleteNotification' model)}}
+      createNotification=(route-action "createNotification" model)
+      saveNotification=(route-action "saveNotification")
+      deleteNotification=(route-action "deleteNotification")}}
 </div>
 <div class="row wrap">
   <div class="col stretch section">
     {{sections/locations/location-settings
         model=model
-        fieldChanged=(route-action 'fieldChanged')
-        save=(route-action 'saveLocation')
-        delete=(route-action 'deleteLocation')}}
+        fieldChanged=(route-action "fieldChanged")
+        save=(route-action "saveLocation")
+        delete=(route-action "deleteLocation")}}
 
     {{sections/locations/address-manager
         changeset=(changeset model.address.content AddressValidations)
         addresses=addresses
-        switchAddress=(route-action 'switchAddress' model)
-        saveAddress=(route-action 'saveAddress' model)}}
+        switchAddress=(route-action "switchAddress" model)
+        saveAddress=(route-action "saveAddress" model)}}
 
     {{sections/locations/schedule-manager
         model=model
-        onVisitDayChange=(route-action 'onVisitDayChange')
-        onVisitWindowChange=(route-action 'onVisitWindowChange')
-        onVisitWindowDayChange=(route-action 'onVisitWindowDayChange')
-        createVisitWindow=(route-action 'createVisitWindow')}}
+        onVisitDayChange=(route-action "onVisitDayChange")
+        onVisitWindowChange=(route-action "onVisitWindowChange")
+        onVisitWindowDayChange=(route-action "onVisitWindowDayChange")
+        createVisitWindow=(route-action "createVisitWindow")}}
   </div>
 
   <div class="col stretch section">
     {{sections/locations/item-settings
         itemSettings=itemSettings
-        onDesireChange=(route-action 'updateItemDesire')
-        onCreditChange=(route-action 'updateItemCreditRate')
-        massApplyCreditRate=(route-action 'massApplyCreditRate' model)
-        massApplyDesire=(route-action 'massApplyDesire' model)}}
+        onDesireChange=(route-action "updateItemDesire")
+        onCreditChange=(route-action "updateItemCreditRate")
+        massApplyCreditRate=(route-action "massApplyCreditRate" model)
+        massApplyDesire=(route-action "massApplyDesire" model)}}
   </div>
 </div>

@@ -9,17 +9,17 @@
   <div class="col-2"></div>
 </div>
 {{#each model.notificationRules as |notification|}}
-  {{sections/locations/notification-setting
+  {{sections/locations/notification-rule
       changeset=(changeset notification NotificationValidations)
-      saveNotification=(action 'saveNotification')
+      saveNotification=(action "saveNotification")
       deleteNotification=(action deleteNotification notification)}}
 {{/each}}
 
 <div class="row">
   {{ui/icon-button
-      class='createNotification'
-      type='add'
-      label='New Rule'
+      class="createNotification"
+      type="add"
+      label="New Rule"
       size=1.5
       flat=true
       backgroundColor=colors.DARK_GREY

@@ -1,5 +1,9 @@
 <div class="row wrap">
   <div class="col stretch section">
+    {{sections/locations/notification-settings
+        model=model
+        createNotification=(route-action 'createNotification' model)}}
+
     {{sections/locations/location-settings
         model=model
         fieldChanged=(route-action 'fieldChanged')

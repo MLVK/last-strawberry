@@ -10,7 +10,8 @@ const INCLUDES = [
   'item-desires.item',
   'item-credit-rates',
   'item-credit-rates.item',
-  'visit-days'
+  'visit-days',
+  'notification-rules'
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
@@ -149,6 +150,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         item.set('enabled', massDesire);
         item.save();
       });
-    }
+    },
+
+    createNotification(location) {
+      this.store.createRecord('notification-rule', {location});
+    },
   }
 });

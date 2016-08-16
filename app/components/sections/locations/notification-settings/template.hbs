@@ -1,0 +1,16 @@
+<h4>Notifications</h4>
+{{#each model.notificationRules as |nr i|}}
+  {{sections/locations/notification-setting
+      index=i
+      model=nr}}
+{{/each}}
+
+{{ui/icon-button
+    class='createNotification'
+    type='add'
+    label='New Rule'
+    size=1.5
+    flat=true
+    backgroundColor=colors.DARK_GREY
+    padding=0.5
+    click=createNotification}}

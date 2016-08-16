@@ -5,7 +5,8 @@ const INCLUDES = [
   'address',
   'address.visit-windows',
   'address.visit-windows.visit-window-days',
-  'visit-days'
+  'visit-days',
+  'notification-rules'
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
@@ -78,6 +79,20 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       const location = this.modelFor('vendors.show.location');
       const address = location.get('address');
       this.store.createRecord('visit-window', {address});
+    },
+
+    createNotification(location) {
+      this.store.createRecord('notification-rule', { location });
+    },
+
+    async saveNotification(location, changeset){
+      await changeset.save();
+      location.save();
+    },
+
+    async deleteNotification(location, notification){
+      await notification.destroyRecord();
+      location.save();
     }
   }
 });

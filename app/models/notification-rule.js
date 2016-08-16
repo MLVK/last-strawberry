@@ -8,8 +8,8 @@ export default Model.extend({
   lastName:       attr('string'),
   email:          attr('string'),
   enabled:        attr('boolean', { defaultValue: true}),
-  wants_invoice:  attr('boolean', { defaultValue: false}),
-  wants_credit:   attr('boolean', { defaultValue: false}),
+  wantsInvoice:  attr('boolean', { defaultValue: true}),
+  wantsCredit:   attr('boolean', { defaultValue: true}),
 
   location:      belongsTo('location')
 });

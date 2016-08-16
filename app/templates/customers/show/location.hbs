@@ -1,9 +1,12 @@
+<div class="row stretch">
+  {{sections/locations/notification-settings
+      model=model
+      createNotification=(route-action 'createNotification' model)
+      saveNotification=(route-action 'saveNotification' model)
+      deleteNotification=(route-action 'deleteNotification' model)}}
+</div>
 <div class="row wrap">
   <div class="col stretch section">
-    {{sections/locations/notification-settings
-        model=model
-        createNotification=(route-action 'createNotification' model)}}
-
     {{sections/locations/location-settings
         model=model
         fieldChanged=(route-action 'fieldChanged')

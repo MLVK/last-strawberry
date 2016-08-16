@@ -1,16 +1,28 @@
 <h4>Notifications</h4>
-{{#each model.notificationRules as |nr i|}}
+
+<div class="row">
+  <div class="col-3">First Name</div>
+  <div class="col-3">Last Name</div>
+  <div class="col-3">Email</div>
+  <div class="col-2">Wants Invoice?</div>
+  <div class="col-2">Wants Credit?</div>
+  <div class="col-2"></div>
+</div>
+{{#each model.notificationRules as |notification|}}
   {{sections/locations/notification-setting
-      index=i
-      model=nr}}
+      changeset=(changeset notification NotificationValidations)
+      saveNotification=(action 'saveNotification')
+      deleteNotification=(action deleteNotification notification)}}
 {{/each}}
 
-{{ui/icon-button
-    class='createNotification'
-    type='add'
-    label='New Rule'
-    size=1.5
-    flat=true
-    backgroundColor=colors.DARK_GREY
-    padding=0.5
-    click=createNotification}}
+<div class="row">
+  {{ui/icon-button
+      class='createNotification'
+      type='add'
+      label='New Rule'
+      size=1.5
+      flat=true
+      backgroundColor=colors.DARK_GREY
+      padding=0.5
+      click=createNotification}}
+</div>

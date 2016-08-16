@@ -153,7 +153,17 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     createNotification(location) {
-      this.store.createRecord('notification-rule', {location});
+      this.store.createRecord('notification-rule', { location });
     },
+
+    async saveNotification(location, changeset){
+      await changeset.save();
+      location.save();
+    },
+
+    async deleteNotification(location, notification){
+      await notification.destroyRecord();
+      location.save();
+    }
   }
 });

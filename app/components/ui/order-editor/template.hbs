@@ -103,6 +103,11 @@
   {{/power-select}}
 </div>
 
+{{#if model.notifications.length}}
+  {{ui/order-editor/notifications
+      notifications=model.notifications}}
+{{/if}}
+
 {{#if showCreateItemModal}}
   {{#tether-dialog}}
     {{modals/new-item

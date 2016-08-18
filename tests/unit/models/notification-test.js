@@ -4,7 +4,6 @@ moduleForModel('notification', 'Unit | Model | notification', {
   // Specify the other units that are required for this test.
   needs: [
     "model:order",
-    "model:credit-note",
     "model:notification-rule"
   ]
 });

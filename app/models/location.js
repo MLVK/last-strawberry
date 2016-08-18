@@ -22,7 +22,6 @@ export default Model.extend(LocationHashable, {
   orders:               hasMany("order"),
   visitDays:            hasMany("visit-day"),
   notificationRules:    hasMany("notification-rule"),
-  creditNotes:          hasMany("credit-note"),
 
   visitWindows:         alias("address.visitWindows"),
   lat:                  alias("address.lat"),

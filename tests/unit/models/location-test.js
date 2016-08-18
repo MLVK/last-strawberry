@@ -11,8 +11,7 @@ moduleForModel("location", "Unit | Model | location", {
     "model:price-tier",
     "model:order",
     "model:item-credit-rate",
-    "model:notification-rule",
-    "model:credit-note"
+    "model:notification-rule"
   ]
 });
 

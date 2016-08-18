@@ -7,6 +7,5 @@ export default Model.extend({
   processedAt:        attr("date"),
 
   order:              belongsTo("order"),
-  creditNote:         belongsTo("credit-note"),
   notificationRule:   belongsTo("notification-rule")
 });

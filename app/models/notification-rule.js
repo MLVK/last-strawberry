@@ -10,7 +10,7 @@ export default Model.extend({
   lastName:       attr("string"),
   email:          attr("string"),
   enabled:        attr("boolean", { defaultValue: true}),
-  wantsInvoice:   attr("boolean", { defaultValue: true}),
+  wantsOrder:     attr("boolean", { defaultValue: true}),
   wantsCredit:    attr("boolean", { defaultValue: true}),
 
   location:       belongsTo("location"),

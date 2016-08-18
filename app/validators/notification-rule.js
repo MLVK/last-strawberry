@@ -9,6 +9,6 @@ export default {
     validatePresence(true),
     validateFormat({ type: "email" })
   ],
-  wantsInvoice:  validatePresence(true),
-  wantsCredit:   validatePresence(true)
+  wantsOrder:  validatePresence(true),
+  wantsCredit: validatePresence(true)
 }

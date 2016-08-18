@@ -75,7 +75,7 @@ const notificationPO = PO.create({
   fillLastName: fillable(".lastName"),
 
   email: value(".email"),
-  isWantsInvoiceChecked: is(":checked", ".wantsInvoice"),
+  iswantsOrderChecked: is(":checked", ".wantsOrder"),
   isWantsCreditChecked: is(":checked", ".wantsCredit"),
 
   delete: clickable(".deleteButton")

@@ -5,7 +5,7 @@ FactoryGuy.define("notification-rule", {
     firstName: FactoryGuy.generate(num => `firstName ${num}`),
     lastName: FactoryGuy.generate(num => `lastName ${num}`),
     email: FactoryGuy.generate(num => `email ${num}`),
-    wantsInvoice: false,
+    wantsOrder: false,
     wantsCredit: true,
     location: FactoryGuy.belongsTo("location")
   }

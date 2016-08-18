@@ -35,7 +35,7 @@ test("it shows notification information when present", function(assert) {
   assert.equal(page.firstName, changeset.get("firstName"));
   assert.equal(page.lastName, changeset.get("lastName"));
   assert.equal(page.email, changeset.get("email"));
-  assert.equal(page.isWantsInvoiceChecked, changeset.get("wantsInvoice"), "wantsInvoice");
+  assert.equal(page.iswantsOrderChecked, changeset.get("wantsOrder"), "wantsOrder");
   assert.equal(page.isWantsCreditChecked, changeset.get("wantsCredit"), "wantsCredit");
 });
 

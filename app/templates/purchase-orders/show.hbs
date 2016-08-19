@@ -1,13 +1,13 @@
 {{ui/order-editor
     model=model
     items=filteredItems
-    updateShipping=(route-action 'updateShipping')
-    saveOrder=(route-action 'saveOrder')
-    createOrderItem=(route-action 'createOrderItem')
-    updateOrderItem=(route-action 'updateOrderItem')
-    saveOrderItem=(route-action 'saveOrderItem')
-    deleteOrderItem=(route-action 'deleteOrderItem')
-    onOrderItemChange=(action 'onOrderItemChange')
-    createNewItem=(route-action 'createNewItem')
-    emailOrder=(route-action 'emailOrder')
-    deleteOrder=(route-action 'deleteOrder' model)}}
+    updateShipping=(route-action "updateShipping")
+    saveOrder=(route-action "saveOrder")
+    createOrderItem=(route-action "createOrderItem")
+    updateOrderItem=(route-action "updateOrderItem")
+    saveOrderItem=(route-action "saveOrderItem")
+    deleteOrderItem=(route-action "deleteOrderItem")
+    onOrderItemChange=(action "onOrderItemChange")
+    createNewItem=(route-action "createNewItem")
+    emailOrder=(route-action "emailOrder" model)
+    deleteOrder=(route-action "deleteOrder" model)}}

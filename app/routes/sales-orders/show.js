@@ -8,6 +8,7 @@ const INCLUDES = [
   "location.company",
   "location.item-desires",
   "location.item-desires.item",
+	"location.notification-rules",
 	"notifications"
 ];
 
@@ -74,6 +75,18 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			await model.destroyRecord();
 
 			this.transitionTo("sales-orders");
+		},
+
+		emailOrder(model) {
+			const notificationRules = model.get("location.notificationRules");
+			notificationRules.forEach(nr => {
+				const notification = this.store.createRecord("notification");
+				notification.set("notificationState", "pending");
+				notification.set("order", model);
+				notification.set("notificationRule", nr);
+
+				notification.save();
+			});
 		}
 	}
 });

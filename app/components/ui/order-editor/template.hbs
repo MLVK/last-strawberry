@@ -7,43 +7,40 @@
       {{model.location.id}} - {{model.location.name}}
     </span>
 
-    {{#if model.isPurchaseOrder}}
+    <!-- {{#if model.isPurchaseOrder}}
       {{ui/order-editor/notification-status status=model.notificationState}}
-    {{/if}}
+    {{/if}} -->
 
     <div class="row orderInfo">
       <span class="title">
-        {{if isSalesOrder 'Invoice' 'Purchase Order'}}
+        {{if isSalesOrder "Invoice" "Purchase Order"}}
       </span>
       <span class="salesOrderNumber">
         {{model.orderNumber}}
       </span>
       <div class="row stretch toolbar">
         <div class="row">
-          {{#if model.isPurchaseOrder}}
-            {{ui/icon-button
-                type='send'
-                class='send'
-                flat=true
-                color=colors.DARK_GREY
-                size=1.2
-                action=emailOrder}}
-          {{/if}}
-
-        </div>
-        <div class="row">
           {{ui/icon-button
-              type='local_printshop'
-              class='print'
+              type="send"
+              class="send"
               flat=true
               color=colors.DARK_GREY
               size=1.2
-              action=(action 'printOrder')}}
+              action=emailOrder}}
         </div>
         <div class="row">
           {{ui/icon-button
-              type='close'
-              class='delete'
+              type="local_printshop"
+              class="print"
+              flat=true
+              color=colors.DARK_GREY
+              size=1.2
+              action=(action "printOrder")}}
+        </div>
+        <div class="row">
+          {{ui/icon-button
+              type="close"
+              class="delete"
               flat=true
               color=colors.DARK_GREY
               size=1.2
@@ -89,12 +86,12 @@
 
 <div class="addOrderItemContainer">
   {{#power-select
-      class='search'
-      placeholder='Add item'
-      searchField='name'
+      class="search"
+      placeholder="Add item"
+      searchField="name"
       noMatchesMessage=noMatchesMessage
-      onkeydown=(action 'onItemSearchKeyDown')
-      oninput=(action 'stashItemSearch')
+      onkeydown=(action "onItemSearchKeyDown")
+      oninput=(action "stashItemSearch")
       selected=customAddItemResult
       options=items
       onchange=(action "createOrderItem")
@@ -114,7 +111,7 @@
         isSold=true
         company=company
         name=itemSearchString
-        cancel=(action 'cancelCreateNewItem')
-        submit=(action 'requestCreateNewItem')}}
+        cancel=(action "cancelCreateNewItem")
+        submit=(action "requestCreateNewItem")}}
   {{/tether-dialog}}
 {{/if}}

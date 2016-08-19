@@ -31,7 +31,7 @@ test("it shows notification list when present", function(assert) {
   assert.equal(page.notifications().count, 3);
 });
 
-test("it shows id and notificationState", function(assert) {
+test("it shows id and notificationState and renderer", function(assert) {
   const notification = make("notification");
 
   this.set("notifications", [notification]);
@@ -43,4 +43,5 @@ test("it shows id and notificationState", function(assert) {
 
   assert.equal(firstRow.id, notification.get("id"));
   assert.equal(firstRow.notificationState, notification.get("notificationState"));
+  assert.equal(firstRow.renderer, notification.get("renderer"));
 });

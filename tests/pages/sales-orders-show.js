@@ -31,7 +31,8 @@ const notificationsPO = PO.create({
     itemScope: ".notificationRow",
     item: {
       id: text(".id"),
-      notificationState: text(".notificationState")
+      notificationState: text(".notificationState"),
+      renderer: text(".renderer")
     }
   })
 });

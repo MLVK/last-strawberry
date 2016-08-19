@@ -1,7 +1,14 @@
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 import Ember from "ember";
 
-import { PENDING_UPDATED_NOTIFICATION, AWAITING_NOTIFICATION, NOTIFIED } from "last-strawberry/models/order";
+import {
+	PENDING_UPDATED_NOTIFICATION,
+	AWAITING_NOTIFICATION,
+	NOTIFIED
+} from "last-strawberry/models/order";
+
+import NotificationState from 'last-strawberry/constants/notification-states';
+import NotificationRenderer from 'last-strawberry/constants/notification-renderers';
 
 const INCLUDES = [
 	"order-items",
@@ -67,7 +74,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			const notificationRules = model.get("location.notificationRules");
 			notificationRules.forEach(nr => {
 				const notification = this.store.createRecord("notification");
-				notification.set("notificationState", "pending");
+				notification.set("notificationState", NotificationState.PENDING);
+				notification.set("renderer", NotificationRenderer.UPDATED_PURCHASE_ORDER);
 				notification.set("order", model);
 				notification.set("notificationRule", nr);
 

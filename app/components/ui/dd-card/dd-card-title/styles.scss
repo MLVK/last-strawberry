@@ -1,0 +1,29 @@
+& {
+  justify-content: space-between;
+  align-items: center;
+  min-height: 1.9em;
+  background-color: rgba(white, 0.3);
+}
+
+.contentContainer {
+  align-items: baseline;
+  margin-left: 0.3em;
+}
+
+.title, .index{
+  margin-left: 0.5em;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: $dark-grey;
+  cursor:default;
+}
+
+.subTitle{
+  font-weight: normal;
+  font-size: 1em;
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 0.3em;
+}

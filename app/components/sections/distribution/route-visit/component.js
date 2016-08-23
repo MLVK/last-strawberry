@@ -1,42 +1,58 @@
-import Ember from 'ember';
-import computed from 'ember-computed-decorators';
-import colors from 'last-strawberry/constants/colors';
+import Ember from "ember";
+import computed from "ember-computed-decorators";
+import colors from "last-strawberry/constants/colors";
 
 const { alias, gt, filter } = Ember.computed;
 
 export default Ember.Component.extend({
-  classNames: ['card-1'],
-  attributeBindings: ['data-location-hash'],
+  classNames: ["card-1"],
+  attributeBindings: ["data-location-hash"],
 
-  locations: alias('model.address.locations'),
-  company: alias('model.address.locations.firstObject.company'),
+  locations: alias("model.address.locations"),
+  company: alias("model.address.locations.firstObject.company"),
 
-  addressHasMultipleLocations: gt('locations.length', 1),
+  addressHasMultipleLocations: gt("locations.length", 1),
 
-  visitWindows: alias('model.address.visitWindows'),
+  visitWindows: alias("model.address.visitWindows"),
 
-  validVisitWindows: filter('visitWindows', function(vw){
-    return vw.validForDate(this.get('date'));
+  validVisitWindows: filter("visitWindows", function(vw){
+    return vw.validForDate(this.get("date"));
   }),
 
-  validVisitWindow: alias('validVisitWindows.firstObject'),
+  validVisitWindow: alias("validVisitWindows.firstObject"),
 
   colorScheme: {color:colors.DARK_GREY, backgroundColor:colors.DARK_ORANGE},
 
-  @computed('company.name', 'locations.firstObject.id', 'addressHasMultipleLocations')
+  @computed("company.name", "locations.firstObject.id", "addressHasMultipleLocations")
   title(companyName, locationId, hasMultiple) {
     return hasMultiple ? `${companyName} - Multiple` : `${companyName} - ${locationId}`;
   },
 
-  @computed('model.address', 'model.date')
+  @computed("model.address", "model.date")
   visitWindow(address, date) {
     return address.content.visitWindowForDate(date);
+  },
+
+  @computed("model.fulfillments.[]", "company")
+  infoIcons(fulfillments, company) {
+    const icons = [];
+
+    const hasMultipleFulfillments = fulfillments.get("length") > 1;
+    if(hasMultipleFulfillments){
+      icons.push("content_copy");
+    }
+
+    if(company.get("isVendor")){
+      icons.push("local_shipping");
+    }
+
+    return icons;
   },
 
   actions: {
     removeRouteVisit() {
       if(this.attrs.removeRouteVisit) {
-        this.attrs.removeRouteVisit(this.get('model'));
+        this.attrs.removeRouteVisit(this.get("model"));
       }
     }
   }

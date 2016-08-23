@@ -1,31 +1,37 @@
-<div class="row headerContainer">
-  {{#power-select
-      selected=model.user
-      options=users
-      placeholder="Select a driver"
-      searchEnabled=false
-      onchange=(action updateRoutePlan model 'user')
-      as |user|}}
-    {{user.name}}
-  {{/power-select}}
+<div class="headerContainer" style="background-color: {{model.colorScheme.backgroundColor}}">
+  <div class="row headerInner">
+    <div class="drivers col-5">
+      {{#power-select
+          selected=model.user
+          options=users
+          placeholder="Select a driver"
+          searchEnabled=false
+          onchange=(action updateRoutePlan model 'user')
+          as |user|}}
+        {{user.name}}
+      {{/power-select}}
+    </div>
+    <div class="col">
+      <i class="material-icons">settings</i>
+    </div>
 
-  <div class="col uiContainer">
-    {{ui/icon-button
-      class='delete'
-      type='clear'
-      flat=true
-      color=colors.DARK_GREY
-      padding=0.5
-      click=(action 'delete')}}
+    <!-- <div class="col uiContainer">
+      {{ui/icon-button
+        class='delete'
+        type='clear'
+        flat=true
+        color=colors.DARK_GREY
+        padding=0.5
+        click=(action 'delete')}}
 
-    {{ui/icon-button
-      type='save'
-      class='saveRoutePlanBlueprint'
-      flat=true
-      color=colors.DARK_GREY
-      padding=0.5
-      click=(action 'saveRoutePlanBlueprint')}}
-
+      {{ui/icon-button
+        type='save'
+        class='saveRoutePlanBlueprint'
+        flat=true
+        color=colors.DARK_GREY
+        padding=0.5
+        click=(action 'saveRoutePlanBlueprint')}}
+    </div> -->
   </div>
 </div>
 

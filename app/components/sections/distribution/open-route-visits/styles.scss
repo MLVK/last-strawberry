@@ -1,16 +1,16 @@
 & {
-  margin: 0.5em 0.5em;
   min-width: 14em;
   max-width: 14em;
+  background: $off-white;
 }
 
 .openOrdersHeader {
   align-items: flex-end;
-  color: #4C4C4C;
-  margin: 0.9em 0 1.1em 0;
-  padding-left: 0.5em;
+  padding: 0.6em;
+  background: $light-orange;
+  text-transform: uppercase;
 
   .title {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 }

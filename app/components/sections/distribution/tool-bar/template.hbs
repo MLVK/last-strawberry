@@ -10,7 +10,7 @@
         triggerClass='templateSelect'
         selected=currentSelectedRoutePlanTemplate
         options=routePlanBlueprints
-        placeholder="Select a template"
+        placeholder="Apply Template"
         searchEnabled=false
         onchange=(action 'selectRouteTemplate')
         as |blueprint|}}
@@ -18,14 +18,14 @@
     {{/power-select}}
   {{/if}}
 
-  {{ui/icon-button
+  <!-- {{ui/icon-button
       type='local_printshop'
       class='print'
       flat=true
       size=1.5
       backgroundColor=colors.LIGHT_GREEN
       color=colors.DARK_GREY
-      action=printFulfillmentDocuments}}
+      action=printFulfillmentDocuments}} -->
 
   {{ui/icon-button
     class='add'

@@ -1,21 +1,13 @@
 {{#ui/dd-card colorScheme=colorScheme as |card|}}
   {{card.title-bar
-      title=(concat model.id ' - ' title)
+      title=(concat model.id "." "YU001")
+      subTitle=company.name
       index=index
-      actionIcon='clear'
-      action=(if (not model.isOrphan) (action 'removeRouteVisit'))}}
+      actionIcon="clear"
+      action=(if (not model.isOrphan) (action "removeRouteVisit"))}}
 
-  {{card.address model.address}}
-
-  {{#card.footer}}
-    <div class="row spaceBetween">
-      <div class="visitWindow">
-        {{minutes-to-time validVisitWindow.min}} - {{minutes-to-time validVisitWindow.max}}
-      </div>
-      <div class="estimatedArrival">
-        {{minutes-to-time model.arriveAt}}
-      </div>
-    </div>
-  {{/card.footer}}
-
+  {{card.body
+    content=locations.firstObject.name
+    infoIcons=infoIcons
+    colorScheme=colorScheme}}
 {{/ui/dd-card}}

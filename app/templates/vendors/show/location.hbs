@@ -7,15 +7,10 @@
 </div>
 
 <div class="stretch section">
-  <input
-    type="text"
-    name="name"
-    class="name"
-    placeholder="Location nickname"
-    value="{{model.name}}"
-    oninput={{route-action "fieldChanged" model "name"}}
-    onchange={{route-action "fieldChanged" model "name"}}
-    onblur={{route-action "saveLocation"}}>
+  {{sections/locations/location-settings
+      model=model
+      isVendor=true
+      save=(route-action "saveLocation")}}
 
   {{sections/locations/address-manager
       changeset=(changeset model.address.content AddressValidations)

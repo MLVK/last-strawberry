@@ -25,13 +25,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   actions: {
-    fieldChanged(model, key, e) {
-      model.set(key, e.target.value);
-    },
-
-    async saveLocation() {
-      const location = this.modelFor("vendors.show.location");
-      location.save();
+    saveLocation(changeset) {
+      changeset.save();
     },
 
     switchAddress(location, address) {

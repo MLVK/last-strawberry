@@ -1,10 +1,10 @@
 <div class="col section">
   <div class="row card-1 section">
-    <div class="vendorName">
-      {{one-way-input model.name
-          update=(route-action "updateModelField" model "name")
-          onblur=(route-action "saveModelIfDirty" model)}}
-    </div>
+    {{sections/companies/company-settings
+        model=model
+        isVendor=true
+        save=(route-action "saveCompany")}}
+  
     {{sections/companies/location-manager
         locations=model.locations
         showLocation=(route-action "showLocation")

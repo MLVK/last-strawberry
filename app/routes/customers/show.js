@@ -1,58 +1,49 @@
-import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-
-const { run } = Ember;
+import Ember from "ember";
+import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 
 const INCLUDES = [
-  'locations',
-	'locations.address'
+  "locations",
+	"locations.address"
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   setupController(controller, model) {
-    controller.set('priceTiers', this.store.peekAll('price-tier'));
+    controller.set("priceTiers", this.store.peekAll("price-tier"));
     this._super(controller, model);
   },
 
   model(params){
-    return this.store.findRecord('company', params.company_id, { reload:true, include:INCLUDES.join(',')});
+    return this.store.findRecord("company", params.company_id, { reload:true, include:INCLUDES.join(",")});
   },
 
   actions: {
     updatePriceTier(priceTier) {
-      const company = this.modelFor('customers.show');
+      const company = this.modelFor("customers.show");
 
-      company.set('priceTier', priceTier);
+      company.set("priceTier", priceTier);
       company.save();
     },
 
-    fieldChanged(model, key, value) {
-      model.set(key, value);
-    },
-
     showLocation(id) {
-      this.transitionTo('customers.show.location', id);
+      this.transitionTo("customers.show.location", id);
     },
 
     companyChanged(model, key, value) {
       model.set(key, value);
     },
 
-    async saveCompany() {
-      const company = this.modelFor('customers.show');
-      if(!company.get('isSaving')) {
-        run(() => company.save());
-      }
+    saveCompany(changeset) {
+      changeset.save();
     },
 
     async createNewLocation() {
-      const company = this.modelFor('customers.show');
+      const company = this.modelFor("customers.show");
 
-      const location = this.store.createRecord('location', {company, name});
+      const location = this.store.createRecord("location", {company, name});
       await location.save();
 
-      this.transitionTo('customers.show.location', location);
+      this.transitionTo("customers.show.location", location);
     }
 
   }

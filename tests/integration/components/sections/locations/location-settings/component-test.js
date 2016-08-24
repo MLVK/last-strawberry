@@ -1,37 +1,30 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent('sections/locations/location-settings', 'Integration | Component | sections/locations/location settings', {
+moduleForComponent("sections/locations/location-settings", "Integration | Component | sections/locations/location settings", {
   integration: true
 });
 
-test('field and update and triggers a save', function(assert) {
-  assert.expect(7);
-  const locationData = {name:'Silverlake', deliveryRate:10};
-  this.set('location', locationData);
+test("field and update and triggers a save", function(assert) {
+  assert.expect(4);
+  const locationData = {name:"Silverlake", deliveryRate:10, code: "AA123"};
+  this.set("location", locationData);
 
-  this.set('fieldChanged', (model, key, val) => {
-    assert.ok(model, 'model undefined');
-    assert.ok(key, 'key undefined');
-    assert.ok(val, 'val undefined');
-  });
-
-  this.set('save', () => {
+  this.set("save", () => {
     assert.ok(true);
   });
 
   this.render(hbs`{{sections/locations/location-settings
                       model=location
-                      fieldChanged=(action fieldChanged)
-                      save=save}}`);
+                      save=(action save)}}`);
 
-  assert.equal(this.$('.name').val(), locationData.name);
-  assert.equal(this.$('.code').val(), locationData.code);
-  assert.equal(this.$('.deliveryRate').val(), locationData.deliveryRate);
+  assert.equal(this.$(".name").val(), locationData.name, "Name does not render correctly");
+  assert.equal(this.$(".code").val(), locationData.code, "Code does not render correctly");
+  assert.equal(this.$(".deliveryRate").val(), locationData.deliveryRate, "Delivery Rate does not render correctly");
 
   // Should trigger addressChanged
-  this.$('.name').change();
+  this.$(".name").change();
 
   // Should trigger save
-  this.$('.name').trigger('onblur');
+  this.$(".name").trigger("onblur");
 });

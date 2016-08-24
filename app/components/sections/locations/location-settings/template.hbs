@@ -1,19 +1,40 @@
-<input
-  type="text"
-  name="name"
-  class="name"
-  placeholder="Location nickname"
-  value="{{model.name}}"
-  oninput={{action 'fieldChanged' 'name'}}
-  onchange={{action 'fieldChanged' 'name'}}
-  onblur={{action save}}>
+{{#with (changeset model validators) as |changeset|}}
+  <div class="row">
+    <input
+      type="text"
+      name="name"
+      class="col-5 name"
+      placeholder="Location nickname"
+      value="{{changeset.name}}"
+      oninput={{action "fieldChanged" changeset "name"}}
+      onchange={{action "fieldChanged" changeset "name"}}
+      onblur={{action "save" changeset}}>
 
-<input
-  type="text"
-  name="deliveryRate"
-  class="deliveryRate"
-  placeholder='Delivery rate'
-  value="{{model.deliveryRate}}"
-  oninput={{action 'fieldChanged' 'deliveryRate'}}
-  onchange={{action 'fieldChanged' 'deliveryRate'}}
-  onblur={{action save}}>
+      <input
+        type="text"
+        name="code"
+        class="col-2 code"
+        placeholder="Code"
+        value="{{changeset.code}}"
+        oninput={{action "fieldChanged" changeset "code"}}
+        onchange={{action "fieldChanged" changeset "code"}}
+        onblur={{action "save" changeset}}>
+    {{#unless isVendor}}
+      <input
+      type="text"
+      name="deliveryRate"
+      class="col-2 deliveryRate"
+      maxlength="7"
+      placeholder="Delivery rate"
+      value="{{changeset.deliveryRate}}"
+      oninput={{action "fieldChanged" changeset "deliveryRate"}}
+      onchange={{action "fieldChanged" changeset "deliveryRate"}}
+      onblur={{action "save" changeset}}>
+    {{/unless}}
+  </div>
+  <div class="errorMessageContainer">
+    {{#each changeset.errors as |error|}}
+      <div class="row">{{error.key}}:{{error.validation}}</div>
+    {{/each}}
+  </div>
+{{/with}}

@@ -9,9 +9,7 @@
   <div class="col stretch section">
     {{sections/locations/location-settings
         model=model
-        fieldChanged=(route-action "fieldChanged")
-        save=(route-action "saveLocation")
-        delete=(route-action "deleteLocation")}}
+        save=(route-action "saveLocation")}}
 
     {{sections/locations/address-manager
         changeset=(changeset model.address.content AddressValidations)

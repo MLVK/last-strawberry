@@ -1,5 +1,6 @@
-import Ember from 'ember';
-import config from 'last-strawberry/config/environment';
+import Ember from "ember";
+import config from "last-strawberry/config/environment";
+import { toUnderscore } from "last-strawberry/utils/string";
 
 export default function(options) {
   const { session, type } = options;
@@ -9,15 +10,17 @@ export default function(options) {
       return true;
     }
 
+    key = toUnderscore(key);
+
     return new Ember.RSVP.Promise(res => {
-      session.authorize('authorizer:devise', (headerName, headerValue) => {
+      session.authorize("authorizer:devise", (headerName, headerValue) => {
         const headers = {};
         headers[headerName] = headerValue;
         const payload = {
           url:`${config.apiHost}/custom/unique_check`,
           data:{type, key, value},
           headers,
-          type:'POST'
+          type:"POST"
         };
 
         Ember.$.ajax(payload)

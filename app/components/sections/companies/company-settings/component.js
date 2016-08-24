@@ -1,11 +1,26 @@
-import Ember from 'ember';
+import Ember from "ember";
+import CompanyValidations from "last-strawberry/validators/company";
+import computed from "ember-computed-decorators";
 
 export default Ember.Component.extend({
-  classNames: ['row'],
+  session:     Ember.inject.service(),
+
+  classNames: ["row"],
+
+  @computed("session")
+  validators(session) {
+    return CompanyValidations(session);
+  },
 
   actions: {
-    fieldChanged(field, e) {
-      this.attrs.fieldChanged(this.get('model'), field, e.target.value);
+    fieldChanged(changeset, field, e) {
+      changeset.set(field, e.target.value);
+    },
+
+    save(changeset){
+      if(changeset.get("isValid")){
+        this.attrs.save(changeset);
+      }
     }
   }
 });

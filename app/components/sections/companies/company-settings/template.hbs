@@ -1,32 +1,57 @@
 <div class="col">
+  {{#with (changeset model validators) as |changeset|}}
     <input
       type="text"
       name="name"
       class="name"
       placeholder="name"
-      value="{{model.name}}"
-      oninput={{action 'fieldChanged' 'name'}}
-      onchange={{action 'fieldChanged' 'name'}}
-      onblur={{action save}}>
+      value="{{changeset.name}}"
+      oninput={{action "fieldChanged" changeset "name"}}
+      onchange={{action "fieldChanged" changeset "name"}}
+      onblur={{action "save" changeset}}>
 
-    <input
-      type="text"
-      name="terms"
-      class="terms"
-      placeholder="terms"
-      value="{{model.terms}}"
-      oninput={{action 'fieldChanged' 'terms'}}
-      onchange={{action 'fieldChanged' 'terms'}}
-      onblur={{action save}}>
+    <div class="row">
+      <input
+        type="text"
+        name="locationCodePrefix"
+        class="locationCodePrefix"
+        placeholder="Prefix"
+        value="{{changeset.locationCodePrefix}}"
+        oninput={{action "fieldChanged" changeset "locationCodePrefix"}}
+        onchange={{action "fieldChanged" changeset "locationCodePrefix"}}
+        maxlength="4"
+        onblur={{action "save" changeset}}>
 
-  {{#power-select
-      class='priceTiers'
-      selected=model.priceTier
-      options=priceTiers
-      placeholder="Select a price tier"
-      searchEnabled=false
-      onchange=(action updatePriceTier)
-      as |priceTier|}}
-    {{priceTier.name}}
-  {{/power-select}}
+      {{#unless isVendor}}
+        <input
+          type="text"
+          name="terms"
+          class="terms"
+          placeholder="terms"
+          value="{{changeset.terms}}"
+          oninput={{action "fieldChanged" changeset "terms"}}
+          onchange={{action "fieldChanged" changeset "terms"}}
+          onblur={{action "save" changeset}}>
+      {{/unless}}
+    </div>
+
+    <div class="errorMessageContainer">
+      {{#each changeset.errors as |error|}}
+        <div class="row">{{error.key}}:{{error.validation}}</div>
+      {{/each}}
+    </div>
+
+    {{#unless isVendor}}
+      {{#power-select
+          class="priceTiers"
+          selected=model.priceTier
+          options=priceTiers
+          placeholder="Select a price tier"
+          searchEnabled=false
+          onchange=(action updatePriceTier)
+          as |priceTier|}}
+        {{priceTier.name}}
+    {{/power-select}}
+    {{/unless}}
+  {{/with}}
 </div>

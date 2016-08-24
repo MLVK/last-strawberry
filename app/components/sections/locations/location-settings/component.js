@@ -1,11 +1,26 @@
-import Ember from 'ember';
+import Ember from "ember";
+import CompanyValidations from "last-strawberry/validators/location";
+import computed from "ember-computed-decorators";
 
 export default Ember.Component.extend({
-  classNames: ['section_location_location-settings', 'row'],
+  session:     Ember.inject.service(),
+
+  classNames: ["section_location_location-settings", "col"],
+
+  @computed("session")
+  validators(session) {
+    return CompanyValidations(session);
+  },
 
   actions: {
-    fieldChanged(field, e) {
-      this.attrs.fieldChanged(this.get('model'), field, e.target.value);
+    fieldChanged(changeset, field, e) {
+      changeset.set(field, e.target.value);
+    },
+
+    save(changeset){
+      if(changeset.get("isValid")){
+        this.attrs.save(changeset);
+      }
     }
   }
 });

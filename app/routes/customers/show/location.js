@@ -108,13 +108,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       this.store.createRecord("visit-window", {address});
     },
 
-    fieldChanged(model, key, value) {
-      model.set(key, value);
-    },
-
-    async saveLocation() {
-      const location = this.modelFor("customers.show.location");
-      location.save();
+    saveLocation(changeset) {
+      changeset.save();
     },
 
     switchAddress(location, address) {

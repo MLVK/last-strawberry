@@ -1,24 +1,21 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent('ui/dd-card/dd-card-body', 'Integration | Component | ui/dd card/dd card body', {
+moduleForComponent("ui/dd-card/dd-card-body", "Integration | Component | ui/dd card/dd card body", {
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test("it renders", function(assert) {
 
-  this.render(hbs`{{ui/dd-card/dd-card-body}}`);
+  const content = "this is content";
+  const infoIcons = ["delete", "add"]
 
-  assert.equal(this.$().text().trim(), '');
+  this.set("content", content);
+  this.set("infoIcons", infoIcons);
+  this.render(hbs`{{ui/dd-card/dd-card-body
+    content=content
+    infoIcons=infoIcons}}`);
 
-  // Template block usage:
-  this.render(hbs`
-    {{#ui/dd-card/dd-card-body}}
-      template block text
-    {{/ui/dd-card/dd-card-body}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$(".content").text().trim(), content);
+  assert.equal(this.$(".material-icons").length, infoIcons.length);
 });

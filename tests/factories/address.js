@@ -1,6 +1,6 @@
-import FactoryGuy from 'ember-data-factory-guy';
+import FactoryGuy from "ember-data-factory-guy";
 
-FactoryGuy.define('address', {
+FactoryGuy.define("address", {
   default: {
     street: FactoryGuy.generate(num => `Address ${num}`),
     city: FactoryGuy.generate(num => `City ${num}`),
@@ -9,8 +9,8 @@ FactoryGuy.define('address', {
     lat: FactoryGuy.generate(num => Math.random() * num),
     lng: FactoryGuy.generate(num => Math.random() * num),
 
-    locations: FactoryGuy.hasMany('location'),
-    visitWindows: FactoryGuy.hasMany('visit-window'),
-    routeVisits: FactoryGuy.hasMany('route-visit')
+    locations: FactoryGuy.hasMany("location"),
+    visitWindows: FactoryGuy.hasMany("visit-window"),
+    routeVisits: FactoryGuy.hasMany("route-visit")
   }
 });

@@ -43,10 +43,10 @@ export default Ember.Component.extend({
       icons.push("content_copy");
     }
 
-    // if(company.get("isVendor")){
-    //   icons.push("local_shipping");
-    // }
-// debugger;
+    if(company.get("isVendor")){
+      icons.push("local_shipping");
+    }
+
     return icons;
   },
 

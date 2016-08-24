@@ -1,24 +1,24 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { moduleForComponent, test } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
 
-moduleForComponent('ui/dd-card/dd-card-title', 'Integration | Component | ui/dd card/dd card title', {
+moduleForComponent("ui/dd-card/dd-card-title", "Integration | Component | ui/dd card/dd card title", {
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test("it renders", function(assert) {
+  const index = 3;
+  const title = "this is title";
+  const subTitle = "this is sub title";
 
-  this.render(hbs`{{ui/dd-card/dd-card-title}}`);
+  this.set("index", index);
+  this.set("title", title);
+  this.set("subTitle", subTitle);
+  this.render(hbs`{{ui/dd-card/dd-card-title
+    index=index
+    title=title
+    subTitle=subTitle}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#ui/dd-card/dd-card-title}}
-      template block text
-    {{/ui/dd-card/dd-card-title}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$(".index").text().trim(), "04.");
+  assert.equal(this.$(".title").text().trim(), `${title} -`);
+  assert.equal(this.$(".subTitle").text().trim(), subTitle);
 });

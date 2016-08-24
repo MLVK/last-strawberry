@@ -6,19 +6,9 @@ moduleForComponent('sections/distribution/route-plan/route-plan-header', 'Integr
 });
 
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  assert.expect(0);
 
-  this.render(hbs`{{sections/distribution/route-plan/route-plan-header}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#sections/distribution/route-plan/route-plan-header}}
-      template block text
-    {{/sections/distribution/route-plan/route-plan-header}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.set("updateRoutePlan", () => {});
+  this.render(hbs`{{sections/distribution/route-plan/route-plan-header
+    updateRoutePlan=updateRoutePlan}}`);
 });

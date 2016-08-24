@@ -10,4 +10,13 @@
   <span class="subTitle">
     {{subTitle}}
   </span>
+  {{#if hasAction}}
+    {{ui/icon-button
+      class='action'
+      flat=true
+      padding=0.5
+      color=colors.DARK_GREY
+      type=actionIcon
+      click=action}}
+  {{/if}}
 </span>

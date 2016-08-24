@@ -4,6 +4,7 @@ import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-
 import page from "last-strawberry/tests/pages/distribution";
 
 import {
+  build,
   buildList,
   make,
   makeList,
@@ -35,16 +36,14 @@ test("visiting distribution defaults to tomorrows date", async function(assert) 
 });
 
 test("valid orphaned route-visits show up", async function(assert) {
-  //mockFindAll("route-visit", 2);
-  //const location = make('location');
+
   const company = make('company');
-  const location = make('location', {company});
-  const salesOrder = make('sales_order', {location});
-  const routeVisits = makeList('route-visit', 2, {address:location.address});
+  const address = make('address');
+  const location = make('location', {company, address});
+  const routeVisits = buildList('route-visit', 2, {address});
 
   mockFindAll("route-plan");
-  //mockFindAll("route-visit").returns({models:routeVisits});
-  mockFindAll("route-visit");
+  mockFindAll('route-visit').returns({json:routeVisits});
 
   await page.visit();
 
@@ -85,8 +84,13 @@ test("can create new route plans", async function(assert) {
 // });
 
 test("can delete individual route visit", async function(assert) {
-  const routePlan = make("route-plan");
-  const routeVisits = buildList("route-visit", 2, {routePlan});
+  const company = make('company');
+  const address1 = make('address');
+  const address2 = make('address');
+  const routePlan = make('route-plan');
+  makeList('location', {company, address:address1}, {company, address:address2});
+
+  const routeVisits = buildList('route-visit', {address:address1, routePlan}, {address:address2, routePlan});
 
   mockFindAll("route-plan");
   mockQuery("route-visit").returns({json:routeVisits});
@@ -101,7 +105,12 @@ test("can delete individual route visit", async function(assert) {
 });
 
 test("deleting handled route-visit moves it to open route-visit area", async function(assert) {
-  const routeVisits = buildList("route-visit", 1, "with_route_plan");
+  const company = make('company');
+  const address = make('address');
+  const routePlan = make('route-plan');
+  make('location', {company, address});
+
+  const routeVisits = buildList('route-visit', {address:address, routePlan});
 
   mockFindAll("route-plan");
   mockQuery("route-visit").returns({json: routeVisits});

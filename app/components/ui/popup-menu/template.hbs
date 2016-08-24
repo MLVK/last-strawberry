@@ -1,11 +1,11 @@
 {{ui/icon-button
   class='trigger'
   type=(or icon 'menu')
-  size=1.4
-  padding=0
+  size=(if size size 1.4)
+  padding=(if padding padding 1.4)
   flat=true
   color=colors.DARK_GREY
-  backgroundColor=colors.BABY_BLUE
+  backgroundColor=(if backgroundColor backgroundColor colors.BABY_BLUE)
   click=(action 'toggle')}}
 
 {{#if showMenu}}

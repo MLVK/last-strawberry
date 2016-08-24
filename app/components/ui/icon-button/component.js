@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import style from 'last-strawberry/utils/styles';
+import { style } from 'last-strawberry/utils/styles';
 import computed from 'ember-computed-decorators';
 
 const { notEmpty } = Ember.computed;
@@ -45,7 +45,8 @@ export default Ember.Component.extend({
     backgroundColor = "",
     borderRadius = 0
   ) {
-    padding = padding || size;
+    padding = padding === undefined ? size: padding;
+
     return {
       'padding': `${padding}em`,
       'font-size': `${size/2}em`,

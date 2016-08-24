@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import style from 'last-strawberry/utils/styles';
+import { style } from 'last-strawberry/utils/styles';
 
 export default Ember.Component.extend({
   classNameBindings: ['enabled::disabled'],

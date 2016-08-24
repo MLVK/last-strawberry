@@ -1,13 +1,13 @@
 {{#ui/dd-card colorScheme=colorScheme as |card|}}
   {{card.title-bar
-      title=(concat model.id "." "YU001")
+      title=location.code
       subTitle=company.name
       index=index
       actionIcon="clear"
       action=(if (not model.isOrphan) (action "removeRouteVisit"))}}
 
   {{card.body
-    content=locations.firstObject.name
+    content=location.name
     infoIcons=infoIcons
     colorScheme=colorScheme}}
 {{/ui/dd-card}}

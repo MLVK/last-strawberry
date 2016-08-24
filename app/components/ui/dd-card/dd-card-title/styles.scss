@@ -16,12 +16,13 @@
   font-weight: 600;
   color: $dark-grey;
   cursor:default;
+  text-transform: uppercase;
 }
 
 .subTitle{
   font-weight: normal;
   font-size: 1em;
-  width: 6em;
+  width: 5em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

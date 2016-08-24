@@ -6,10 +6,11 @@ import { belongsTo, hasMany } from 'ember-data/relationships';
 const { alias } = Ember.computed;
 
 export default Model.extend({
-  name:       attr('string'),
-  terms:      attr('number', { defaultValue: 14 }),
-  isCustomer: attr('boolean', { defaultValue: true}),
-  isVendor:   attr('boolean', { defaultValue: false}),
+  name:                attr('string'),
+  terms:               attr('number', { defaultValue: 14 }),
+  isCustomer:          attr('boolean', { defaultValue: true}),
+  isVendor:            attr('boolean', { defaultValue: false}),
+  locationCodePrefix:  attr('string'),
 
   priceTier:  belongsTo('price-tier'),
   locations:  hasMany('location'),

@@ -5,9 +5,10 @@
 </span>
 {{#layouts/scroll-container}}
   {{#layouts/dd-container registerContainer=registerDropContainer disableDrop=true}}
-    {{#each model as |rv|}}
+    {{#each model as |rv i|}}
       {{sections/distribution/route-visit
           model=rv
+          index=i
           data-location-hash=rv.id}}
     {{/each}}
   {{/layouts/dd-container}}

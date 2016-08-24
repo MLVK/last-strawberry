@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   attributeBindings: ["data-location-hash"],
 
   locations: alias("model.address.locations"),
+  location: alias("locations.firstObject"),
   company: alias("model.address.locations.firstObject.company"),
 
   addressHasMultipleLocations: gt("locations.length", 1),
@@ -42,10 +43,10 @@ export default Ember.Component.extend({
       icons.push("content_copy");
     }
 
-    if(company.get("isVendor")){
-      icons.push("local_shipping");
-    }
-
+    // if(company.get("isVendor")){
+    //   icons.push("local_shipping");
+    // }
+// debugger;
     return icons;
   },
 

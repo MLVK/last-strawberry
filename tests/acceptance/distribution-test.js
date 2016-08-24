@@ -62,6 +62,8 @@ test('can delete route plans', async function(assert) {
 
   await page.visit();
 
+  // debugger;
+
   assert.equal(page.routePlans().count, 1);
 
   mockDelete('route-plan', 1);

@@ -1,41 +1,12 @@
-<div class="headerContainer" style="background-color: {{model.colorScheme.backgroundColor}}">
-  <div class="row headerInner">
-    <div class="drivers col-5">
-      {{#power-select
-          selected=model.user
-          options=users
-          placeholder="Select a driver"
-          searchEnabled=false
-          onchange=(action updateRoutePlan model 'user')
-          as |user|}}
-        {{user.name}}
-      {{/power-select}}
-    </div>
-    <div class="col">
-      <i class="material-icons">settings</i>
-    </div>
+{{sections/distribution/route-plan/route-plan-header
+    updateRoutePlan=(action updateRoutePlan model "user")
+    users=users
+    selectedUser=model.user
+    delete=(action "delete")
+    saveRoutePlanBlueprint=(action "saveRoutePlanBlueprint")
+    colorScheme=model.colorScheme}}
 
-    <!-- <div class="col uiContainer">
-      {{ui/icon-button
-        class='delete'
-        type='clear'
-        flat=true
-        color=colors.DARK_GREY
-        padding=0.5
-        click=(action 'delete')}}
-
-      {{ui/icon-button
-        type='save'
-        class='saveRoutePlanBlueprint'
-        flat=true
-        color=colors.DARK_GREY
-        padding=0.5
-        click=(action 'saveRoutePlanBlueprint')}}
-    </div> -->
-  </div>
-</div>
-
-{{#layouts/scroll-container class='routeVisitsContainer'}}
+{{#layouts/scroll-container class="routeVisitsContainer"}}
   {{#layouts/dd-container registerContainer=registerDropContainer registerId=(action registerRoutePlan model)}}
     {{#each model.sortedRouteVisits as |rv i|}}
       {{sections/distribution/route-visit

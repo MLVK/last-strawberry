@@ -1,0 +1,33 @@
+<div class="drivers col-5">
+  {{#power-select
+      selected=selectedUser
+      options=users
+      placeholder="Select a driver"
+      searchEnabled=false
+      onchange=(action updateRoutePlan)
+      as |user|}}
+    {{user.name}}
+  {{/power-select}}
+</div>
+
+<div class="col">
+  {{#ui/popup-menu
+      icon="settings"
+      class="settingMenu"
+      padding="0"
+      backgroundColor="transparent"}}
+    {{ui/icon-button
+      class="delete"
+      flat=true
+      label="Delete"
+      type="clear"
+      click=(action delete)}}
+
+    {{ui/icon-button
+      type="save"
+      class="saveRoutePlanBlueprint"
+      flat=true
+      label="Save as template"
+      click=(action saveRoutePlanBlueprint)}}
+  {{/ui/popup-menu}}
+</div>

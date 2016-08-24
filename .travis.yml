@@ -25,6 +25,6 @@ script:
   - ember test
 
 after_success:
-  if [ "${TRAVIS_BRANCH}" == "master" ] && [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then
+  if [ "${TRAVIS_BRANCH}" == "development" ] && [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then
     ember build --environment production && firebase deploy --token ${FIREBASE_TOKEN};
   fi

@@ -111,7 +111,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     async onRouteVisitUpdate(routeVisit, routePlan, position) {
       routeVisit.setProperties({routePlan, position});
       await routeVisit.save();
-      this.optimizeRoutePlan(routePlan);
+      // this.optimizeRoutePlan(routePlan);
     },
 
     removeRouteVisit(routeVisit) {

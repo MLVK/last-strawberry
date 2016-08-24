@@ -51,17 +51,17 @@ module.exports = function(defaults) {
   app.import('bower_components/firebase/firebase.js');
   app.import('bower_components/ramda/dist/ramda.min.js');
 
-  app.import('bower_components/mlvk-google-fonts/opensans/OpenSans-Bold.ttf', {
-    destDir: 'assets'
-  });
-
-  app.import('bower_components/mlvk-google-fonts/opensans/OpenSans-Light.ttf', {
-    destDir: 'assets'
-  });
-
-  app.import('bower_components/mlvk-google-fonts/opensans/OpenSans-Regular.ttf', {
-    destDir: 'assets'
-  });
+  // app.import('bower_components/mlvk-google-fonts/opensans/OpenSans-Bold.ttf', {
+  //   destDir: 'assets'
+  // });
+  //
+  // app.import('bower_components/mlvk-google-fonts/opensans/OpenSans-Light.ttf', {
+  //   destDir: 'assets'
+  // });
+  //
+  // app.import('bower_components/mlvk-google-fonts/opensans/OpenSans-Regular.ttf', {
+  //   destDir: 'assets'
+  // });
 
   app.import('bower_components/mlvk-google-fonts/iconfont/MaterialIcons-Regular.ttf', {
     destDir: 'assets'

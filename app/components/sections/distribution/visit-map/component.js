@@ -1,13 +1,12 @@
 import Em from 'ember';
 import computed from 'ember-computed-decorators';
-
 export default Em.Component.extend({
   classNames:['row', 'stretch'],
 
   // Los Angeles defaults
-  lat: 33.89891688437142,
-  lng: -117.90527343750001,
-  zoom: 10,
+  lat: 33.96216,
+  lng: -118.31994,
+  zoom: 12,
 
   @computed('routeVisits.@each.{isOrphan,position}')
   openRouteVisits(routeVisits) {

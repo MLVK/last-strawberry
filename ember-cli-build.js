@@ -50,6 +50,7 @@ module.exports = function(defaults) {
   app.import('bower_components/gsap/src/minified/easing/EasePack.min.js');
   app.import('bower_components/firebase/firebase.js');
   app.import('bower_components/ramda/dist/ramda.min.js');
+  app.import('bower_components/polyline/src/polyline.js');
 
   // app.import('bower_components/mlvk-google-fonts/opensans/OpenSans-Bold.ttf', {
   //   destDir: 'assets'

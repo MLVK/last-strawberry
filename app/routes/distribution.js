@@ -1,6 +1,7 @@
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import Ember from 'ember';
 import { timeToMinutes } from 'last-strawberry/utils/time';
+import { decodePolyline } from 'last-strawberry/utils/maps';
 
 const ROUTE_VISIT_INCLUDES = [
   'route-plan',
@@ -43,6 +44,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     controller.set('routePlanBlueprints', this.store.peekAll('route-plan-blueprint'));
     controller.set('routeVisits', this.store.peekAll('route-visit'));
     controller.set('users', this.store.peekAll('user'));
+
+    const routePlans = this.store.peekAll('route-plan');
+    routePlans.forEach(rp => {
+      // Set default value for not showing error
+      rp.set("polyline", decodePolyline(""));
+
+      this.setPolyline(rp);
+    });
   },
 
   model (params) {
@@ -80,6 +89,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     });
   },
 
+  async setPolyline(routePlan){
+    const url = `routing/direction/${routePlan.get('id')}`;
+    const {polyline} = await this.get('requestGenerator').getRequest(url);
+
+    routePlan.set("polyline", decodePolyline(polyline));
+  },
+
   actions: {
     publishRoutePlans() {
       this.setPublishedState('published');
@@ -111,6 +127,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     async onRouteVisitUpdate(routeVisit, routePlan, position) {
       routeVisit.setProperties({routePlan, position});
       await routeVisit.save();
+
+      await this.setPolyline(routePlan);
       // this.optimizeRoutePlan(routePlan);
     },
 

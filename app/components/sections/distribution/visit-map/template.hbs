@@ -5,6 +5,13 @@
 
   {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"}}
 
+  {{#each routePlans as |rp i|}}
+    {{geojson-layer
+        geoJSON=rp.polyline
+        color=rp.colorScheme.backgroundColor
+        weight=6}}
+  {{/each}}
+
   {{#each openRouteVisits as |rv|}}
     {{sections/distribution/map-pin model=rv}}
   {{/each}}

@@ -90,10 +90,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   async setPolyline(routePlan){
-    const url = `routing/direction/${routePlan.get('id')}`;
-    const {polyline} = await this.get('requestGenerator').getRequest(url);
 
-    routePlan.set("polyline", decodePolyline(polyline));
+    //@TODO try to make google maps api request directly
+    const url = "https://maps.googleapis.com/maps/api/directions/json?origin=34.1184582,-118.2546306&destination=34.1184582,-118.2546306&waypoints=760+South+Central+Ave,90021|1217+North+Kingsley+Dr+90029";
+    const reponse = await this.get('requestGenerator').getThirdPartyRequest(url);
+    console.log(reponse);
+    // const url = `routing/direction/${routePlan.get('id')}`;
+    // const {polyline} = await this.get('requestGenerator').getRequest(url);
+    // routePlan.set("polyline", decodePolyline(polyline));
   },
 
   actions: {

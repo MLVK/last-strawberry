@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import config from 'last-strawberry/config/environment'; 
+import config from 'last-strawberry/config/environment';
 
 export default Ember.Service.extend({
   session: Ember.inject.service(),
@@ -29,5 +29,24 @@ export default Ember.Service.extend({
 
   getRequest(url, headers = {}){
     return this.send('GET', url, {}, headers);
+  },
+
+  sendThirParty(type, url, data, headers = {}){
+    return new Ember.RSVP.Promise((res, rej) => {
+      const options = {
+        url:`${url}`,
+        data,
+        headers,
+        type
+      };
+
+      Ember.$.ajax(options)
+        .fail(rej)
+        .always(res);
+    });
+  },
+
+  getThirdPartyRequest(url, headers = {}){
+    return this.sendThirParty('GET', url, {}, headers);
   }
 });

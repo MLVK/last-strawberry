@@ -8,9 +8,22 @@
   {{#each routePlans as |rp i|}}
     {{geojson-layer
         geoJSON=rp.polyline
-        color=rp.colorScheme.backgroundColor
-        weight=6}}
+        color=rp.colorScheme.backgroundColor}}
   {{/each}}
+
+  {{#marker-layer lat=34.1693692 lng=-118.3149415 icon=(rp-icon "" "red")}}
+    <div class="col">
+      <span class="company">
+        Headquarters
+      </span>
+      <span class="street">
+        Citigroup center, 444 S Flower St
+      </span>
+      <span class="addressSecond">
+        Los Angeles, CA 90071
+      </span>
+    </div>
+  {{/marker-layer}}
 
   {{#each openRouteVisits as |rv|}}
     {{sections/distribution/map-pin model=rv}}

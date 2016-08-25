@@ -9,8 +9,8 @@ const { equal } = Ember.computed;
 
 const colorSchemes = [
   {backgroundColor:colors.HOT_PINK, color:'white'},
-  {backgroundColor:colors.DOPE_BLUE, color:'white'},
-  {backgroundColor:colors.DARK_GREEN, color:'white'}
+  {backgroundColor:colors.DARK_GREEN, color:'white'},
+  {backgroundColor:colors.DOPE_BLUE, color:'white'}
 ]
 
 export default Model.extend({

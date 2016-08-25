@@ -30,6 +30,7 @@
       "TweenMax": true,
       "numeral": true,
       "Firebase": true,
-      "R": true
+      "R": true,
+      "polyline": true
     }
 }

@@ -39,6 +39,7 @@
       "Linear": true,
       "L": true,
       "numeral": true,
-      "Firebase": true
+      "Firebase": true,
+      "polyline": true
     }
 }

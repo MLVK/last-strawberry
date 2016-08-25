@@ -6,21 +6,24 @@
   {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"}}
 
   {{#each routePlans as |rp i|}}
-    {{geojson-layer
-        geoJSON=rp.polyline
-        color=rp.colorScheme.backgroundColor}}
+    {{#if rp.polyline}}
+      {{geojson-layer
+          geoJSON=rp.polyline
+          color=rp.colorScheme.backgroundColor}}
+
+    {{/if}}
   {{/each}}
 
-  {{#marker-layer lat=34.1693692 lng=-118.3149415 icon=(rp-icon "" "red")}}
+  {{#marker-layer lat=34.1693137 lng=-118.317191 icon=(rp-icon "" "red")}}
     <div class="col">
       <span class="company">
         Headquarters
       </span>
       <span class="street">
-        Citigroup center, 444 S Flower St
+        435 South Main Street
       </span>
       <span class="addressSecond">
-        Los Angeles, CA 90071
+        Burbank CA 91506
       </span>
     </div>
   {{/marker-layer}}

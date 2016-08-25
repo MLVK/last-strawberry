@@ -1,4 +1,3 @@
-// @TODO does not use polyline, try to use google maps function
 const decodePolyline = raw => {
   raw = raw || "";
 

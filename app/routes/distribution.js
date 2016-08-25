@@ -31,6 +31,7 @@ const ROUTE_PLAN_INCLUDES = [
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   requestGenerator: Ember.inject.service(),
+  session: Ember.inject.service(),
 
   queryParams: {
     date: {
@@ -90,14 +91,25 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   async setPolyline(routePlan){
+    const hq = [[-118.317191, 34.1693137]];
+    const routeVisits = await routePlan.get('routeVisits');
+    const coordinates = routeVisits
+      .map(rv => [rv.get('lng'), rv.get('lat')]);
 
-    //@TODO try to make google maps api request directly
-    const url = "https://maps.googleapis.com/maps/api/directions/json?origin=34.1184582,-118.2546306&destination=34.1184582,-118.2546306&waypoints=760+South+Central+Ave,90021|1217+North+Kingsley+Dr+90029";
-    const reponse = await this.get('requestGenerator').getThirdPartyRequest(url);
-    console.log(reponse);
-    // const url = `routing/direction/${routePlan.get('id')}`;
-    // const {polyline} = await this.get('requestGenerator').getRequest(url);
-    // routePlan.set("polyline", decodePolyline(polyline));
+    const total = _.merge(coordinates, hq);
+    const radiuses = _.fill(Array(total.length + 1), 10000).join(';');
+
+    const query = total.reduce((acc, cur) => `${acc};${cur.join(',')}`, hq.join(','));
+
+    const apiToken = this.get('session.data.authenticated.mapbox_api_token');
+
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${query}?radiuses=${radiuses}&geometries=polyline&access_token=${apiToken}`;
+
+    const payload = { url, type:'GET' };
+
+    const result = await Ember.$.ajax(payload);
+
+    routePlan.set("polyline", decodePolyline(result.routes[0].geometry));
   },
 
   actions: {
@@ -132,7 +144,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       routeVisit.setProperties({routePlan, position});
       await routeVisit.save();
 
-      await this.setPolyline(routePlan);
+      this.setPolyline(routePlan);
       // this.optimizeRoutePlan(routePlan);
     },
 

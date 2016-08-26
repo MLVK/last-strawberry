@@ -32,10 +32,6 @@
   font-size: 0.5em;
 }
 
-.label {
-  // font-size: 0.8em;
-}
-
 .homeLink {
   font-size: 1.4em;
 }
@@ -44,7 +40,14 @@
   align-items: center;
   margin-left: 2em;
   color: $off-white;
+
   a {
     margin-right: 1em;
+    padding: 0.6em;
+
+    &:hover, &.active{
+      background-color: $baby-blue;
+      color: $dark-grey;
+    }
   }
 }

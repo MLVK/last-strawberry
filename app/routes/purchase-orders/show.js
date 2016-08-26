@@ -9,6 +9,7 @@ import {
 
 import NotificationState from 'last-strawberry/constants/notification-states';
 import NotificationRenderer from 'last-strawberry/constants/notification-renderers';
+import OrderState from "last-strawberry/constants/order-states";
 
 const INCLUDES = [
 	"order-items",
@@ -124,6 +125,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			await model.destroyRecord();
 
 			this.transitionTo("purchase-orders");
+		},
+
+		toggleOrderState(model) {
+			const updatedState = model.get("isDraft")? OrderState.APPROVED: OrderState.DRAFT;
+			model.set("orderState", updatedState);
+
+			model.save()
 		}
 	}
 });

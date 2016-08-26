@@ -19,25 +19,30 @@
         {{model.orderNumber}}
       </span>
       <div class="row stretch toolbar">
-        <div class="row">
-          {{ui/icon-button
-              type="send"
-              class="send"
-              flat=true
-              color=colors.DARK_GREY
-              size=1.2
-              action=emailOrder}}
-        </div>
-        <div class="row">
-          {{ui/icon-button
-              type="local_printshop"
-              class="print"
-              flat=true
-              color=colors.DARK_GREY
-              size=1.2
-              action=(action "printOrder")}}
-        </div>
-        <div class="row">
+        {{ui/icon-button
+            type=(if model.isApproved "check" "publish")
+            class="state"
+            flat=true
+            color=(if model.isApproved colors.DARK_GREEN colors.HOT_PINK)
+            size=1.2
+            action=toggleOrderState}}
+
+        {{ui/icon-button
+            type="send"
+            class="send"
+            flat=true
+            color=colors.DARK_GREY
+            size=1.2
+            action=emailOrder}}
+
+        {{ui/icon-button
+            type="local_printshop"
+            class="print"
+            flat=true
+            color=colors.DARK_GREY
+            size=1.2
+            action=(action "printOrder")}}
+
           {{ui/icon-button
               type="close"
               class="delete"
@@ -45,7 +50,6 @@
               color=colors.DARK_GREY
               size=1.2
               click=deleteOrder}}
-        </div>
       </div>
     </div>
   </div>

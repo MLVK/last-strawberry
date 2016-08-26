@@ -3,7 +3,11 @@ import LocationHashable from "last-strawberry/mixins/location-hashable";
 import computed from "ember-computed-decorators";
 import Model from "ember-data/model";
 import attr from "ember-data/attr";
-import { belongsTo, hasMany } from "ember-data/relationships";
+import {
+  belongsTo,
+  hasMany
+} from "ember-data/relationships";
+import OrderState from "last-strawberry/constants/order-states";
 
 const { equal, alias } = Ember.computed;
 
@@ -22,6 +26,7 @@ export default Model.extend(LocationHashable, {
   deliveryDate:                 attr("string"),
   notificationState:            attr("string", {defaultValue: PENDING_NOTIFICATION}),
   shipping:                     attr("number"),
+  orderState:                   attr("string", {defaultValue: OrderState.DRAFT}),
 
   location:                     belongsTo("location"),
   orderItems:                   hasMany("order-item"),
@@ -38,6 +43,9 @@ export default Model.extend(LocationHashable, {
   awaitingNotification:         equal("notificationState", AWAITING_NOTIFICATION),
   awaitingUpdatedNotification:  equal("notificationState", AWAITING_UPDATED_NOTIFICATION),
   notified:                     equal("notificationState", NOTIFIED),
+
+  isDraft:                      equal("orderState", OrderState.DRAFT),
+  isApproved:                   equal("orderState", OrderState.APPROVED),
 
   @computed("orderItems.@each.{quantity}")
   empty(orderItems) {

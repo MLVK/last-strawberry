@@ -2,6 +2,7 @@ import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-rout
 import Ember from "ember";
 import NotificationState from 'last-strawberry/constants/notification-states';
 import NotificationRenderer from 'last-strawberry/constants/notification-renderers';
+import OrderState from "last-strawberry/constants/order-states";
 
 const INCLUDES = [
 	"order-items",
@@ -73,9 +74,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			model.destroyRecord();
 		},
 
-		async deleteOrder(model) {
-			await model.destroyRecord();
-
+		deleteOrder(model) {
+			model.destroyRecord();
 			this.transitionTo("sales-orders");
 		},
 
@@ -90,6 +90,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
 				notification.save();
 			});
+		},
+
+		toggleOrderState(model) {
+			const updatedState = model.get("isDraft")? OrderState.APPROVED: OrderState.DRAFT;
+			model.set("orderState", updatedState);
+
+			model.save()
 		}
 	}
 });

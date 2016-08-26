@@ -2,29 +2,47 @@
   {{ui/date-picker
     date=deliveryDate
     onSelected=onDateSelected
-    format='ddd MM-DD-YYYY'}}
+    format="ddd MM-DD-YYYY"}}
 </div>
 
-<div class="row">
+<div class="row filterBar">
   {{ui/filter-bar
-      placeholder='Search...'
-      onChange=(action 'filterOrders')}}
+      placeholder="Search..."
+      onChange=(action "filterOrders")}}
 
-    {{#ui/popup-menu}}
-      {{#if hasStubAction}}
-        {{ui/icon-button
-          class='stubOrders'
-          flat=true
-          label='Stub Orders'
-          type='add'
-          click=stubOrders}}
-      {{/if}}
+  <div class="col center baseline">
+    <div class="row">
+      {{one-way-checkbox
+        includeDraft
+        class="includeDraft"
+        update=(action "updateFilter" "includeDraft")}}
+      Draft
+    </div>
+
+    <div class="row">
+      {{one-way-checkbox
+        includeApproved
+        class="includeApproved"
+        update=(action "updateFilter" "includeApproved")}}
+        Approved
+      </div>
+  </div>
+
+  {{#ui/popup-menu}}
+    {{#if hasStubAction}}
+      {{ui/icon-button
+        class="stubOrders"
+        flat=true
+        label="Stub Orders"
+        type="add"
+        click=stubOrders}}
+    {{/if}}
 
     {{ui/icon-button
-      class='createOrder'
+      class="createOrder"
       flat=true
-      label='New Order'
-      type='add'
+      label="New Order"
+      type="add"
       click=onRequestNewOrder}}
 
   {{/ui/popup-menu}}

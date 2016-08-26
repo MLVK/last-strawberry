@@ -1,4 +1,4 @@
 export default {
-  INGREDIENT: 'ingredient',
-  PRODUCT: 'product'
+  INGREDIENT: "ingredient",
+  PRODUCT: "product"
 }

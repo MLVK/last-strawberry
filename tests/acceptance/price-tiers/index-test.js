@@ -5,7 +5,7 @@ import { index as page } from "last-strawberry/tests/pages/price-tiers";
 
 import {
   make,
-  // makeList
+  mockCreate,
   mockFind,
   mockFindAll
 } from "ember-data-factory-guy";
@@ -52,6 +52,7 @@ test("can create new price tiers", async function(assert) {
 
   mockFindAll("item");
   mockFindAll("price-tier");
+  mockCreate("price-tier");
 
   await page
     .visit()

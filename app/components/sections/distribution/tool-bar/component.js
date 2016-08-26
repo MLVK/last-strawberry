@@ -21,7 +21,7 @@ export default Ember.Component.extend({
   },
 
   @computed('routePlans.@each.{isValid}')
-  allPlansValid(routePlans){
+  allPlansValid(routePlans = []){
     return routePlans.every(rp => rp.get('isValid'));
   },
 

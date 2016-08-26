@@ -109,7 +109,9 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     const result = await Ember.$.ajax(payload);
 
-    routePlan.set("polyline", decodePolyline(result.routes[0].geometry));
+    if(Ember.isPresent(result.routes)){
+      routePlan.set("polyline", decodePolyline(result.routes[0].geometry));
+    }
   },
 
   actions: {

@@ -3,6 +3,7 @@ import moduleForAcceptance from "last-strawberry/tests/helpers/module-for-accept
 import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-auth";
 import page from "last-strawberry/tests/pages/navigation";
 import { buildRouteVisitesWithCompany } from "last-strawberry/tests/helpers/factory";
+import Ember from 'ember';
 
 import {
   mockFindAll
@@ -15,6 +16,7 @@ moduleForAcceptance("Acceptance | navigation", {
     mockFindAll("company", 10);
     mockFindAll("price-tier", 10);
     mockFindAll("item", 10);
+    Ember.$.mockjax({ url: `https://api.mapbox.com*`, responseText: {}, type: 'GET' });
   }
 });
 

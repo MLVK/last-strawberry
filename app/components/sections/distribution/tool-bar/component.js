@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 
-const { not, notEmpty, every } = Ember.computed;
+const { not, notEmpty } = Ember.computed;
 
 export default Ember.Component.extend({
   classNames: ['row'],

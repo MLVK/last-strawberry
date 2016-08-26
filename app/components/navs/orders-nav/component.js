@@ -10,15 +10,18 @@ export default Ember.Component.extend({
   includeApproved: true,
   includeDraft: true,
 
-  @computed("orders", "query", "includeApproved", "includeDraft")
+  @computed("orders.@each.{orderState,isDeleted}", "query", "includeApproved", "includeDraft")
   filterOrders(orders, query, includeApproved, includeDraft){
     return orders
       .filter(order => {
-        const reg = new RegExp(query, "i");
 
-        return reg.test(order.get("location.company.name")) &&
-          (includeApproved || order.get("isApproved")) &&
-          (includeDraft || order.get("isDraft"));
+        const reg = new RegExp(query, "i"),
+              nameMatch = reg.test(order.get("location.company.name")),
+              showApproved = includeApproved && order.get("isApproved"),
+              showDraft = includeDraft && order.get("isDraft"),
+              notDeleted = !order.get('isDeleted');
+
+        return nameMatch && (showApproved || showDraft) && notDeleted;
       });
   },
 

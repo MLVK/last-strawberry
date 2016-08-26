@@ -74,9 +74,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			model.destroyRecord();
 		},
 
-		async deleteOrder(model) {
-			await model.destroyRecord();
-
+		deleteOrder(model) {
+			model.destroyRecord();
 			this.transitionTo("sales-orders");
 		},
 
@@ -96,7 +95,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 		toggleOrderState(model) {
 			const updatedState = model.get("isDraft")? OrderState.APPROVED: OrderState.DRAFT;
 			model.set("orderState", updatedState);
-			
+
 			model.save()
 		}
 	}

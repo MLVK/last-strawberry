@@ -47,7 +47,7 @@ test("should display correct number of sales orders", async function(assert) {
 });
 
 test("should not display draft orders after uncheck Draft checkbox", async function(assert) {
-  const salesOrders = makeList("sales_order", 5, "approved");
+  const salesOrders = makeList("sales_order", 5, "draft");
   mockFindAll("order").returns({models: salesOrders});
 
   await page
@@ -58,7 +58,7 @@ test("should not display draft orders after uncheck Draft checkbox", async funct
 });
 
 test("should not display approved orders after uncheck Approved checkbox", async function(assert) {
-  const salesOrders = makeList("sales_order", 5, "draft");
+  const salesOrders = makeList("sales_order", 5, "approved");
   mockFindAll("order").returns({models: salesOrders});
 
   await page

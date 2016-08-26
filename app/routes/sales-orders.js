@@ -32,11 +32,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 		controller.set("salesOrders", this.store.peekAll("order"));
 		controller.set("companies", this.store.peekAll("company"));
     controller.set("locations", this.store.peekAll("location"));
-
-    // Display a banner with notice when deliveryDate query param is <=  Today
-    const tomorrow = moment().add(1,"days");
-    const isDisplayBanner = moment(this.params.deliveryDate).isBefore(tomorrow, "day")
-    controller.set("isDisplayBanner", isDisplayBanner);
 	},
 
 	model(params){

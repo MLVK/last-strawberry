@@ -1,20 +1,31 @@
 {{navs/orders-nav
     currentSelectedOrder=currentSelectedOrder
     deliveryDate=deliveryDate
-    onDateSelected=(route-action 'onDateSelected')
-    stubOrders=(route-action 'stubOrders')
-    onRequestNewOrder=(action 'onRequestNewOrder')
-    onOrderSelected=(route-action 'onOrderSelected')
+    onDateSelected=(route-action "onDateSelected")
+    stubOrders=(route-action "stubOrders")
+    onRequestNewOrder=(action "onRequestNewOrder")
+    onOrderSelected=(route-action "onOrderSelected")
     orders=filteredSalesOrders}}
-{{outlet}}
+
+<div class="col stretch">
+  {{#if isOldDate}}
+    {{#ui/alert-banner type="warning"}}
+      You are working with a past date. Please manage these orders through xero
+    {{/ui/alert-banner }}
+  {{/if}}
+
+  <div class="row">
+    {{outlet}}
+  </div>
+</div>
 
 {{#if showCreateSalesOrderModal}}
-  {{#tether-dialog close=(action 'closeCreateSalesOrder')}}
+  {{#tether-dialog close=(action "closeCreateSalesOrder")}}
     {{ui/item-selector
-        title='Create new sales order'
-        placeholder='Search for location'
+        title="Create new sales order"
+        placeholder="Search for location"
         model=unfulfilledLocations
-        close=(action 'closeCreateSalesOrder')
-        onSubmit=(route-action 'createSalesOrder')}}
+        close=(action "closeCreateSalesOrder")
+        onSubmit=(route-action "createSalesOrder")}}
   {{/tether-dialog}}
 {{/if}}

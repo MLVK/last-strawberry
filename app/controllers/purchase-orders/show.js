@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
 
   company: alias('model.location.company'),
 
-  @computed('items', 'company.id')
+  @computed('items.[]', 'company.id')
   filteredItems(items, companyId) {
     return items.filter(item => item.get('company.id') === companyId);
   },

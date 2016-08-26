@@ -7,8 +7,8 @@ import {
 	NOTIFIED
 } from "last-strawberry/models/order";
 
-import NotificationState from 'last-strawberry/constants/notification-states';
-import NotificationRenderer from 'last-strawberry/constants/notification-renderers';
+import NotificationState from "last-strawberry/constants/notification-states";
+import NotificationRenderer from "last-strawberry/constants/notification-renderers";
 import OrderState from "last-strawberry/constants/order-states";
 
 const INCLUDES = [
@@ -94,8 +94,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
 		async createOrderItem(item) {
 			const order = this.modelFor("purchase-orders.show");
-			const company = await order.get("location.company");
-			const unitPrice = await company.priceForItem(item);
+			const unitPrice = item.get("defaultPrice");
 			this.store
 				.createRecord("order-item", {item, order, unitPrice})
 				.save();

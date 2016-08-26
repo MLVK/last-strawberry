@@ -2,9 +2,10 @@ import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 
 const { filterBy } = Ember.computed;
+const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
 
 export default Ember.Controller.extend({
-  deliveryDate: moment().add(1, 'days').format('YYYY-MM-DD'),
+  deliveryDate: tomorrow,
 
   @computed('salesOrders.@each.{deliveryDate}', 'deliveryDate')
   filteredSalesOrders(salesOrders, deliveryDate) {
@@ -18,8 +19,13 @@ export default Ember.Controller.extend({
   unfulfilledLocations(salesOrders) {
     const fulfilledLocations = salesOrders.map(o => o.get('location').content);
     const allLocations = this.get('locations').toArray();
-    
+
     return _.difference(allLocations, fulfilledLocations);
+  },
+
+  @computed('deliveryDate')
+  isOldDate(deliveryDate) {
+    return moment(deliveryDate).isBefore(tomorrow);
   },
 
   filteredItems: filterBy('items', 'isSold', true),

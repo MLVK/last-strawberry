@@ -27,7 +27,7 @@ const rgba = function(hex, alpha = 1) {
         b: parseInt(regex[3], 16)
     };
 
-    return `rgba(${result.r}, ${result.b}, ${result.g}, ${alpha})`;
+    return `rgba(${result.r}, ${result.g}, ${result.b}, ${alpha})`;
 }
 
 function handleDescriptor(target, key, desc, params = []) {

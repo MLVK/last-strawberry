@@ -19,11 +19,9 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    printOrder() {
-      return this.get('pdfGenerator')
-        .generateInvoices([this.get('model')])
-        .then(pdfData => downloadFile(pdfData.url, `${this.get('model.orderNumber')}.pdf`))
-        .catch(err => err);
+    async printOrder() {
+      const { url, key } = await this.get('pdfGenerator').generateInvoices([this.get('model')]);
+      return downloadFile(url, key);
     },
 
     createOrderItem(item) {

@@ -17,11 +17,11 @@ export default Ember.Component.extend({
 
         const reg = new RegExp(query, "i"),
               nameMatch = reg.test(order.get("location.company.name")),
+              notDeleted = !order.get('isDeleted'),
               showApproved = includeApproved && order.get("isApproved"),
-              showDraft = includeDraft && order.get("isDraft"),
-              notDeleted = !order.get('isDeleted');
+              showDraft = includeDraft && order.get("isDraft");
 
-        return nameMatch && (showApproved || showDraft) && notDeleted;
+        return nameMatch && notDeleted && (showApproved || showDraft);
       });
   },
 

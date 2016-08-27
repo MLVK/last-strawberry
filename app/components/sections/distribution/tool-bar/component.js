@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 
-const { not, notEmpty } = Ember.computed;
+const { not, notEmpty, every } = Ember.computed;
 
 export default Ember.Component.extend({
   classNames: ['row'],
@@ -18,6 +18,11 @@ export default Ember.Component.extend({
   @computed('routePlans.@each.{publishedState}')
   allPublished(routePlans = []){
     return routePlans.every(rp => rp.get('isPublished'));
+  },
+
+  @computed('routePlans.@each.{isValid}')
+  allPlansValid(routePlans){
+    return routePlans.every(rp => rp.get('isValid'));
   },
 
   actions: {

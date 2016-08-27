@@ -18,24 +18,25 @@
     {{/power-select}}
   {{/if}}
 
-  <!-- {{ui/icon-button
+  {{ui/icon-button
       type='local_printshop'
       class='print'
       flat=true
       size=1.5
+      disabled=(not allPlansValid)
       backgroundColor=colors.LIGHT_GREEN
       color=colors.DARK_GREY
-      action=printFulfillmentDocuments}} -->
+      action=printFulfillmentDocuments}}
 
   {{ui/icon-button
-    class='add'
-    type='add'
-    disabled=disabled
-    size=1.5
-    flat=true
-    backgroundColor=colors.LIGHT_GREEN
-    color=colors.DARK_GREY
-    click=(action 'handleCreateRoutePlan')}}
+      class='add'
+      type='add'
+      disabled=disabled
+      size=1.5
+      flat=true
+      backgroundColor=colors.LIGHT_GREEN
+      color=colors.DARK_GREY
+      click=(action 'handleCreateRoutePlan')}}
 
   {{ui/icon-button
       type=(if allPublished 'check' 'publish')

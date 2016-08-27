@@ -5,7 +5,12 @@ import { belongsTo, hasMany } from 'ember-data/relationships';
 import computed from 'ember-computed-decorators';
 import colors from 'last-strawberry/constants/colors';
 
-const { equal } = Ember.computed;
+const {
+  and,
+  equal,
+  gt,
+  notEmpty
+} = Ember.computed;
 
 const colorSchemes = [
   {backgroundColor:colors.HOT_PINK, color:'white'},
@@ -34,6 +39,10 @@ export default Model.extend({
   formattedDate(date) {
     return moment(date, 'YYYY-MM-DD').format("dddd, MMM Do - YYYY");
   },
+
+  hasUser: notEmpty('user.id'),
+  hasRouteVisits: gt('routeVisits.length', 0),
+  isValid: and('hasUser', 'hasRouteVisits'),
 
   isDraft: equal('publishedState', 'draft'),
   isPublished: equal('publishedState', 'published'),

@@ -3,7 +3,6 @@ import computed from 'ember-computed-decorators';
 import downloadFile from 'last-strawberry/utils/download-file';
 
 export default Ember.Controller.extend({
-  store:          Ember.inject.service(),
   pdfGenerator:   Ember.inject.service(),
 
   queryParams:    ['date'],
@@ -15,16 +14,14 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    printFulfillmentDocuments() {
-      return this.get('pdfGenerator')
-        .printFulfillmentDocuments(this.get('activeRoutePlans'))
-        .then(pdfData => downloadFile(pdfData.url, `ya.pdf`))
-        .catch(err => err);
+    async printFulfillmentDocuments() {
+      const { url, key } = await this.get('pdfGenerator')
+        .printFulfillmentDocuments(this.get('activeRoutePlans'));
+      return downloadFile(url, key);
     },
 
     onDateSelected(date) {
       this.set('date', moment(date).format('YYYY-MM-DD'));
     }
-
   }
 });

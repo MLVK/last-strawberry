@@ -4,7 +4,8 @@ const {
   collection,
   text,
   visitable,
-  clickable
+  clickable,
+  isVisible
 } = PO;
 
 const page = PO.create({
@@ -35,7 +36,9 @@ const page = PO.create({
   createOrder: clickable(".createOrder"),
 
   toggleIncludeDraft: clickable(".includeDraft"),
-  toggleIncludeApproved: clickable(".includeApproved")
+  toggleIncludeApproved: clickable(".includeApproved"),
+
+  bannerIsVisible: isVisible(".debug_ui_alert-banner")
 });
 
 

@@ -4,13 +4,9 @@ import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-
 import { page } from "last-strawberry/tests/pages/purchase-orders";
 
 import {
-  make,
-  makeList,
   mockFind,
   mockFindAll
 } from "ember-data-factory-guy";
-
-const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
 
 moduleForAcceptance("Acceptance | purchase orders", {
   beforeEach() {

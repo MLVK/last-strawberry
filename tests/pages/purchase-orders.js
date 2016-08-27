@@ -1,10 +1,7 @@
 import PO from "last-strawberry/tests/page-object";
 
 const {
-  collection,
-  text,
   visitable,
-  clickable,
   isVisible
 } = PO;
 

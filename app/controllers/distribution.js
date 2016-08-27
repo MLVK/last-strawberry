@@ -8,9 +8,12 @@ export default Ember.Controller.extend({
   queryParams:    ['date'],
   date:           moment().add(1, 'days').format('YYYY-MM-DD'),
 
-  @computed('routePlans.@each.{date}', 'date')
+  @computed('routePlans.@each.{date,isDeleted}', 'date')
   activeRoutePlans(routePlans, date) {
-    return routePlans.filter(rp => rp.get('date') === date);
+    console.log('called!');
+    return routePlans
+      .filter(rp => rp.get('date') === date)
+      .filter(rp => !rp.get('isDeleted'));
   },
 
   actions: {

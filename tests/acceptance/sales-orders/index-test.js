@@ -35,6 +35,7 @@ test("should automatically show tomorrows orders", async function(assert) {
   await page.visit({deliveryDate: tomorrow});
 
   assert.equal(currentURL(), `/sales-orders?deliveryDate=${tomorrow}`);
+  assert.notOk(page.bannerIsVisible);
 });
 
 test("should display correct number of sales orders", async function(assert) {
@@ -80,6 +81,16 @@ test("should show sales order when location is clicked", async function(assert) 
     .click();
 
   assert.equal(currentURL(), `/sales-orders/${salesOrder.get("id")}`, "URL does not match expected");
+});
+
+test("should display warning banner when deliveryDate param <= today", async function(assert) {
+  mockFindAll("order");
+  mockFind("order");
+
+  const deliveryDate = moment().format("YYYY-MM-DD");
+
+  await page.visit({deliveryDate});
+  assert.ok(page.bannerIsVisible);
 });
 
 // @TODO: Not able to select the popup menu items since they are placed in the body

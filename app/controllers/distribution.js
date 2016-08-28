@@ -2,6 +2,8 @@ import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 import downloadFile from 'last-strawberry/utils/download-file';
 
+const { filterBy } = Ember.computed;
+
 export default Ember.Controller.extend({
   pdfGenerator:   Ember.inject.service(),
 
@@ -10,11 +12,12 @@ export default Ember.Controller.extend({
 
   @computed('routePlans.@each.{date,isDeleted}', 'date')
   activeRoutePlans(routePlans, date) {
-    console.log('called!');
     return routePlans
       .filter(rp => rp.get('date') === date)
       .filter(rp => !rp.get('isDeleted'));
   },
+
+  activeRouteVisits: filterBy('routeVisits', 'isValid', true),
 
   actions: {
     async printFulfillmentDocuments() {

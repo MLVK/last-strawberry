@@ -1,15 +1,15 @@
 <div class="row stretch route-plans-container">
   {{sections/distribution/open-route-visits
-      model=orphanedRouteVisits
+      model=orphanRouteVisits
       registerDropContainer=(action 'registerDropContainer')}}
 
-  {{#if (eq activeRoutePlans.length 0)}}
+  {{#if (eq routePlans.length 0)}}
     <div class="empty col-5 center">
       DRAG HERE TO CREAT ROUTE
     </div>
   {{/if}}
 
-  {{#each activeRoutePlans as |routePlan index|}}
+  {{#each routePlans as |routePlan index|}}
     {{sections/distribution/route-plan
         index=index
         model=routePlan

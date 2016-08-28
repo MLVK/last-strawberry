@@ -4,17 +4,17 @@
     selectedUser=model.user
     delete=(action "delete")
     saveRoutePlanBlueprint=(action "saveRoutePlanBlueprint")
-    colorScheme=model.colorScheme}}
+    colorScheme=colorScheme}}
 
 {{#layouts/scroll-container class="routeVisitsContainer"}}
   {{#layouts/dd-container registerContainer=registerDropContainer registerId=(action registerRoutePlan model)}}
     {{#each model.sortedRouteVisits as |rv i|}}
       {{sections/distribution/route-visit
-        colorScheme=model.colorScheme
-        model=rv
-        index=i
-        removeRouteVisit=removeRouteVisit
-        data-location-hash=rv.id}}
+          model=rv
+          index=i
+          colorScheme=colorScheme
+          removeRouteVisit=removeRouteVisit
+          data-location-hash=rv.id}}
     {{/each}}
   {{/layouts/dd-container}}
 {{/layouts/scroll-container}}

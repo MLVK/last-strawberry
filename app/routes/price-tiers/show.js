@@ -29,7 +29,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
   model(params) {
     return Ember.RSVP.all([
-      this.store.query("item", {"filter[tag]":PRODUCT}),
+      this.store.query("item", {"filter[tag]":PRODUCT})
     ])
     .then(() => {
       return this.store.findRecord("price-tier", params.id, { reload: true, include:MODEL_INCLUDES.join(",") });

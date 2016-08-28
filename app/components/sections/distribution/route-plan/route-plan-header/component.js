@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import colors from "last-strawberry/constants/colors";
 import {
   style,
   rgba
@@ -10,7 +9,7 @@ export default Ember.Component.extend({
     attributeBindings:["componentStyles:style"],
 
     @style("colorScheme.backgroundColor")
-    componentStyles(backgroundColor = colors.DARK_GREY) {
+    componentStyles(backgroundColor) {
       return {
         "background-color": rgba(backgroundColor, 0.5)
       };

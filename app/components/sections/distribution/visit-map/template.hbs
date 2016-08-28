@@ -9,8 +9,7 @@
     {{#if rp.polyline}}
       {{geojson-layer
           geoJSON=rp.polyline
-          color=rp.colorScheme.backgroundColor}}
-
+          color=(get COLOR_SCHEMES (concat i '.backgroundColor'))}}
     {{/if}}
   {{/each}}
 
@@ -28,12 +27,17 @@
     </div>
   {{/marker-layer}}
 
-  {{#each openRouteVisits as |rv|}}
+  {{#each routeVisits as |rv|}}
     {{sections/distribution/map-pin model=rv}}
   {{/each}}
 
-  {{#each handledRouteVisitsNormalized as |data|}}
-    {{sections/distribution/map-pin model=data.rv index=data.index}}
+  {{#each routePlans as |rp i|}}
+    {{#each rp.routeVisits as |rv j|}}
+      {{sections/distribution/map-pin
+          model=rv
+          index=j
+          color=(get COLOR_SCHEMES (concat i '.backgroundColor'))}}
+    {{/each}}
   {{/each}}
 
 {{/leaflet-map}}

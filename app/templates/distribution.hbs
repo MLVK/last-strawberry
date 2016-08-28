@@ -1,28 +1,28 @@
-<div class='col stretch'>
+<div class="col stretch">
   {{sections/distribution/tool-bar
       date=date
       canCreateRoutePlans=true
-      routePlans=routePlans
+      routePlans=activeRoutePlans
       routePlanBlueprints=routePlanBlueprints
-      createRoutePlan=(route-action 'createRoutePlan')
-      onDateSelected=(action 'onDateSelected')
-      printFulfillmentDocuments=(action 'printFulfillmentDocuments')
-      publishRoutePlans=(route-action 'publishRoutePlans')
-      unPublishRoutePlans=(route-action 'unPublishRoutePlans')
-      applyTemplate=(route-action 'applyTemplate')}}
+      createRoutePlan=(route-action "createRoutePlan")
+      onDateSelected=(action "onDateSelected")
+      printFulfillmentDocuments=(action "printFulfillmentDocuments")
+      publishRoutePlans=(route-action "publishRoutePlans")
+      unPublishRoutePlans=(route-action "unPublishRoutePlans")
+      applyTemplate=(route-action "applyTemplate")}}
 
   {{sections/distribution/route-plan-canvas
       date=date
-      routePlans=routePlans
-      routeVisits=routeVisits
-      saveRoutePlanBlueprint=(route-action 'saveRoutePlanBlueprint')
-      destroyRoutePlan=(route-action 'destroyRoutePlan')
-      onRouteVisitUpdate=(route-action 'onRouteVisitUpdate')
-      removeRouteVisit=(route-action 'removeRouteVisit')
-      updateRoutePlan=(route-action 'updateRoutePlan')
+      routePlans=activeRoutePlans
+      routeVisits=activeRouteVisits
+      saveRoutePlanBlueprint=(route-action "saveRoutePlanBlueprint")
+      destroyRoutePlan=(route-action "destroyRoutePlan")
+      onRouteVisitUpdate=(route-action "onRouteVisitUpdate")
+      removeRouteVisit=(route-action "removeRouteVisit")
+      updateRoutePlan=(route-action "updateRoutePlan")
       users=users}}
 </div>
 
 {{sections/distribution/visit-map
-  routeVisits=routeVisits
-  routePlans=routePlans}}
+    routeVisits=orphanRouteVisits
+    routePlans=activeRoutePlans}}

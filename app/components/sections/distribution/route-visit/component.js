@@ -1,6 +1,5 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
-import colors from "last-strawberry/constants/colors";
 
 const { alias, gt, filter } = Ember.computed;
 
@@ -21,8 +20,6 @@ export default Ember.Component.extend({
   }),
 
   validVisitWindow: alias("validVisitWindows.firstObject"),
-
-  colorScheme: {color:colors.DARK_GREY, backgroundColor:colors.DARK_ORANGE},
 
   @computed("company.name", "locations.firstObject.id", "addressHasMultipleLocations")
   title(companyName, locationId, hasMultiple) {

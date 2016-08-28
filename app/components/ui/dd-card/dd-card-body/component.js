@@ -1,15 +1,15 @@
 import Ember from "ember";
 import { style } from "last-strawberry/utils/styles";
-import colors from "last-strawberry/constants/colors";
+import COLOR_SCHEMES from 'last-strawberry/constants/color-schemes';
 
 export default Ember.Component.extend({
   classNames: ["row"],
   attributeBindings:["componentStyles:style"],
 
-  @style("colorScheme.color")
-  componentStyles(color = colors.DARK_GREY) {
+  @style("index")
+  componentStyles(index = 0) {
     return {
-      "color": color
+      "color": COLOR_SCHEMES[index].color
     };
   }
 });

@@ -1,31 +1,18 @@
 import Ember from 'ember';
-import computed from 'ember-computed-decorators';
+const { filterBy } = Ember.computed;
 
 const SCROLL_SPEED = 20;
 
 export default Ember.Component.extend({
   classNames: ['col', 'stretch'],
 
-  @computed('routeVisits.@each.{isOrphan}')
-  orphanedRouteVisits(routeVisits) {
-    return routeVisits.filter(rv => rv.get('isOrphan'));
-  },
-
-  @computed('routePlans.@each.{date}', 'date')
-  activeRoutePlans(routePlans, date) {
-    return routePlans
-      .filter(rp => rp.get('date') === date)
-      .map((rp, index) => {
-        rp.set('index', index)
-        return rp;
-      });
-  },
-
   init() {
     this._super();
     this._setupStreams();
     this._setupDragula();
   },
+
+  orphanRouteVisits: filterBy('routeVisits', 'isOrphan', true),
 
   _routeVisitWithId(id) {
     return this.get('routeVisits').find(rv => rv.get('id') === `${id}`);

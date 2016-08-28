@@ -2,13 +2,13 @@ import { test } from "qunit";
 import moduleForAcceptance from "last-strawberry/tests/helpers/module-for-acceptance";
 import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-auth";
 import page from "last-strawberry/tests/pages/distribution";
-import { buildRouteVisitesWithCompany } from "last-strawberry/tests/helpers/factory";
+import {
+  buildRouteVisits,
+  buildRouteVisitsWithSharedRoutePlan
+} from "last-strawberry/tests/factories/route-visit";
 import Ember from 'ember';
 
 import {
-  buildList,
-  make,
-  makeList,
   mockUpdate,
   mockFindAll,
   mockCreate,
@@ -37,7 +37,7 @@ test("visiting distribution defaults to tomorrows date", async function(assert) 
 });
 
 test("valid orphaned route-visits show up", async function(assert) {
-  const routeVisits = buildRouteVisitesWithCompany(2);
+  const routeVisits = buildRouteVisits(2);
 
   mockFindAll("route-plan");
   mockFindAll("route-visit").returns({json:routeVisits});
@@ -81,13 +81,7 @@ test("can create new route plans", async function(assert) {
 // });
 
 test("can delete individual route visit", async function(assert) {
-  const company = make("company");
-  const address1 = make("address");
-  const address2 = make("address");
-  const routePlan = make("route-plan");
-  makeList("location", {company, address:address1}, {company, address:address2});
-
-  const routeVisits = buildList("route-visit", {address:address1, routePlan}, {address:address2, routePlan});
+  const routeVisits = buildRouteVisitsWithSharedRoutePlan(2);
 
   mockFindAll("route-plan");
   mockQuery("route-visit").returns({json:routeVisits});
@@ -102,12 +96,7 @@ test("can delete individual route visit", async function(assert) {
 });
 
 test("deleting handled route-visit moves it to open route-visit area", async function(assert) {
-  const company = make("company");
-  const address = make("address");
-  const routePlan = make("route-plan");
-  make("location", {company, address});
-
-  const routeVisits = buildList("route-visit", {address:address, routePlan});
+  const routeVisits = buildRouteVisitsWithSharedRoutePlan(1);
 
   mockFindAll("route-plan");
   mockQuery("route-visit").returns({json: routeVisits});

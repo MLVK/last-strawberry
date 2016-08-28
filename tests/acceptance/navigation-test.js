@@ -2,7 +2,6 @@ import { test } from "qunit";
 import moduleForAcceptance from "last-strawberry/tests/helpers/module-for-acceptance";
 import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-auth";
 import page from "last-strawberry/tests/pages/navigation";
-import { buildRouteVisitesWithCompany } from "last-strawberry/tests/helpers/factory";
 import Ember from 'ember';
 
 import {
@@ -13,9 +12,9 @@ moduleForAcceptance("Acceptance | navigation", {
   beforeEach() {
     authenticateSession(this.application);
 
-    mockFindAll("company", 10);
-    mockFindAll("price-tier", 10);
-    mockFindAll("item", 10);
+    mockFindAll("company");
+    mockFindAll("price-tier");
+    mockFindAll("item");
     Ember.$.mockjax({ url: `https://api.mapbox.com*`, responseText: {}, type: 'GET' });
   }
 });
@@ -27,8 +26,7 @@ test("redirects to companies page when navigating to index", async function(asse
 });
 
 test("redirects to companies page when clicking on Home link", async function(assert) {
-
-  mockFindAll("order", 10);
+  mockFindAll("order");
   await page
     .visitOrders()
     .clickHomeLink();
@@ -36,9 +34,8 @@ test("redirects to companies page when clicking on Home link", async function(as
   assert.equal(currentURL(), "/customers")
 });
 
-test("redirects to orders page when clicking on Orders item", async function(assert) {
-
-  mockFindAll("order", 10);
+test("redirects to orders page when clicking on an order", async function(assert) {
+  mockFindAll("order");
   await page
     .visitIndex()
     .clickOrdersItem();
@@ -47,8 +44,7 @@ test("redirects to orders page when clicking on Orders item", async function(ass
 });
 
 test("redirects to purchases page when clicking on Purchases item", async function(assert) {
-
-  mockFindAll("order", 10);
+  mockFindAll("order");
 
   await page
     .visitIndex()
@@ -58,13 +54,10 @@ test("redirects to purchases page when clicking on Purchases item", async functi
 });
 
 test("redirects to distribution page when clicking on Distribution item", async function(assert) {
-
-  const routeVisits = buildRouteVisitesWithCompany(2);
-  mockFindAll("route-visit").returns({json:routeVisits});
-
-  mockFindAll("route-plan-blueprint", 10);
-  mockFindAll("route-plan", 10);
-  mockFindAll("user", 10);
+  mockFindAll("route-visit");
+  mockFindAll("route-plan-blueprint");
+  mockFindAll("route-plan");
+  mockFindAll("user");
 
   await page
     .visitIndex()

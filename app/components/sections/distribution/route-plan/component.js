@@ -1,5 +1,6 @@
 import Em from 'ember';
 import computed from 'ember-computed-decorators';
+import COLOR_SCHEMES from 'last-strawberry/constants/color-schemes';
 
 export default Em.Component.extend({
   classNames: ['col'],
@@ -8,6 +9,11 @@ export default Em.Component.extend({
   @computed('model.id')
   saveRoutePlanBlueprintDomId(id) {
     return `saveRoutePlanBlueprint-${id}`
+  },
+
+  @computed("index")
+  colorScheme(index = 0) {
+    return COLOR_SCHEMES[index];
   },
 
   actions: {

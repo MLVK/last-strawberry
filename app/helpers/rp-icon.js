@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import COLORS from 'last-strawberry/constants/colors';
 
 function buildStyles(data) {
   const str = Object.keys(data).reduce((acc, cur) => `${acc}${cur}:${data[cur]};`, '');
@@ -7,7 +8,7 @@ function buildStyles(data) {
 
 export function rpIcon(params) {
   const label = params[0] + 1 || '';
-  const backgroundColor = params[1] || '#e3e3e3';
+  const backgroundColor = params[1] || COLORS.SKY_BLUE;
   const color = params[2] || '#fff';
   const labelStyles = {
     'text-align': 'center',

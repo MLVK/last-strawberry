@@ -14,20 +14,24 @@ const style = function(...params) {
 }
 
 const rgba = function(hex, alpha = 1) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
+  if(hex === undefined) {
+    return "";
+  }
 
-    var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    const result  = {
-        r: parseInt(regex[1], 16),
-        g: parseInt(regex[2], 16),
-        b: parseInt(regex[3], 16)
-    };
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+      return r + r + g + g + b + b;
+  });
 
-    return `rgba(${result.r}, ${result.g}, ${result.b}, ${alpha})`;
+  var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result  = {
+      r: parseInt(regex[1], 16),
+      g: parseInt(regex[2], 16),
+      b: parseInt(regex[3], 16)
+  };
+
+  return `rgba(${result.r}, ${result.g}, ${result.b}, ${alpha})`;
 }
 
 function handleDescriptor(target, key, desc, params = []) {

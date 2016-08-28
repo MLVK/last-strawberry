@@ -141,15 +141,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     destroyRoutePlan(routePlan) {
-      routePlan.deleteRecord();
-      // routePlan.destroyRecord();
+      routePlan.destroyRecord();
     },
 
     async onRouteVisitUpdate(routeVisit, routePlan, position) {
       routeVisit.setProperties({routePlan, position});
       await routeVisit.save();
 
-      this.setPolyline(routePlan);
+      // this.setPolyline(routePlan);
       // this.optimizeRoutePlan(routePlan);
     },
 

@@ -93,23 +93,16 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   async setPolyline(routePlan){
-    const hq = [[-118.317191, 34.1693137]];
+    const hq = "-118.317191,34.1693137";
     const routeVisits = await routePlan.get('routeVisits');
     const coordinates = routeVisits
-      .map(rv => [rv.get('lng'), rv.get('lat')]);
-
-    const total = _.merge(coordinates, hq);
-    const radiuses = _.fill(Array(total.length + 1), 10000).join(';');
-
-    const query = total.reduce((acc, cur) => `${acc};${cur.join(',')}`, hq.join(','));
+      .map(rv => [rv.get('lng'), rv.get('lat')])
+      .map(coords => coords.join(','));
+    const query = R.flatten([hq, coordinates, hq]).join(';');
 
     const apiToken = this.get('session.data.authenticated.mapbox_api_token');
-
-    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${query}?radiuses=${radiuses}&geometries=polyline&access_token=${apiToken}`;
-
-    const payload = { url, type:'GET' };
-
-    const result = await Ember.$.ajax(payload);
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${query}?geometries=polyline&access_token=${apiToken}`;
+    const result = await Ember.$.ajax({ url, type:'GET' });
 
     if(Ember.isPresent(result.routes)){
       routePlan.set("polyline", decodePolyline(result.routes[0].geometry));
@@ -148,7 +141,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       routeVisit.setProperties({routePlan, position});
       await routeVisit.save();
 
-      // this.setPolyline(routePlan);
+      this.setPolyline(routePlan);
       // this.optimizeRoutePlan(routePlan);
     },
 

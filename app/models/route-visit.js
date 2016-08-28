@@ -4,7 +4,7 @@ import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
 
-const { alias, empty, notEmpty } = Ember.computed;
+const { alias, not, notEmpty, or } = Ember.computed;
 
 export default Model.extend(LocationHashable, {
   date:             attr('date'),
@@ -25,5 +25,7 @@ export default Model.extend(LocationHashable, {
   lat:              alias('address.lat'),
   lng:              alias('address.lng'),
 
-  isOrphan:         empty('routePlan.id')
+  hasRoutePlan:     notEmpty('routePlan.id'),
+  noRoutePlan:      not('hasRoutePlan'),
+  isOrphan:         or('noRoutePlan', 'routePlan.isDeleted')
 });

@@ -1,26 +1,26 @@
 {{pikaday-input
-    class='datePicker'
+    class="datePicker"
     value=formattedDate
     onSelected=onDateSelected
-    format='dddd - MM/DD/YY'}}
+    format="dddd - MM/DD/YY"}}
 
 <div class="row uiContainer">
   {{#if hasRoutePlanTemplates}}
     {{#power-select
-        triggerClass='templateSelect'
+        triggerClass="templateSelect"
         selected=currentSelectedRoutePlanTemplate
         options=routePlanBlueprints
         placeholder="Apply Template"
         searchEnabled=false
-        onchange=(action 'selectRouteTemplate')
+        onchange=(action "selectRouteTemplate")
         as |blueprint|}}
       {{blueprint.name}}
     {{/power-select}}
   {{/if}}
 
   {{ui/icon-button
-      type='local_printshop'
-      class='print'
+      type="local_printshop"
+      class="print"
       flat=true
       size=1.5
       disabled=(not allPlansValid)
@@ -29,20 +29,12 @@
       action=printFulfillmentDocuments}}
 
   {{ui/icon-button
-      class='add'
-      type='add'
+      class="add"
+      type="add"
       disabled=disabled
       size=1.5
       flat=true
       backgroundColor=colors.LIGHT_GREEN
       color=colors.DARK_GREY
-      click=(action 'handleCreateRoutePlan')}}
-
-  {{ui/icon-button
-      type=(if allPublished 'check' 'publish')
-      flat=true
-      size=1.5
-      backgroundColor=(if allPublished colors.DARK_GREEN colors.HOT_PINK)
-      color=colors.OFF_WHITE
-      action=(if allPublished unPublishRoutePlans publishRoutePlans)}}
+      click=(action "handleCreateRoutePlan")}}
 </div>

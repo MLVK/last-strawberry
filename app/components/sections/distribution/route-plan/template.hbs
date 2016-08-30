@@ -8,7 +8,7 @@
 
 {{#layouts/scroll-container class="routeVisitsContainer"}}
   {{#layouts/dd-container registerContainer=registerDropContainer registerId=(action registerRoutePlan model)}}
-    {{#each model.sortedRouteVisits as |rv i|}}
+    {{#each model.sortedRouteVisits key="key" as |rv i|}}
       {{sections/distribution/route-visit
           model=rv
           index=i

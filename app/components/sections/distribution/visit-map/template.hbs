@@ -32,7 +32,7 @@
   {{/each}}
 
   {{#each routePlans as |rp i|}}
-    {{#each rp.routeVisits as |rv j|}}
+    {{#each rp.sortedRouteVisits key="key" as |rv j|}}
       {{sections/distribution/map-pin
           model=rv
           index=j

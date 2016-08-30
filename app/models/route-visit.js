@@ -3,6 +3,7 @@ import LocationHashable from 'last-strawberry/mixins/location-hashable';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
+import computed from "ember-computed-decorators";
 
 const { alias, not, notEmpty, or } = Ember.computed;
 
@@ -27,5 +28,10 @@ export default Model.extend(LocationHashable, {
 
   hasRoutePlan:     notEmpty('routePlan.id'),
   noRoutePlan:      not('hasRoutePlan'),
-  isOrphan:         or('noRoutePlan', 'routePlan.isDeleted')
+  isOrphan:         or('noRoutePlan', 'routePlan.isDeleted'),
+
+  @computed('id', 'position')
+  key(id, position) {
+    return `${id}${position}`;
+  }
 });

@@ -13,14 +13,18 @@
       date=date
       routePlans=activeRoutePlans
       routeVisits=activeRouteVisits
+      selectedRouteVisit=selectedRouteVisit
       saveRoutePlanBlueprint=(route-action "saveRoutePlanBlueprint")
       destroyRoutePlan=(route-action "destroyRoutePlan")
       onRouteVisitUpdate=(route-action "onRouteVisitUpdate")
       removeRouteVisit=(route-action "removeRouteVisit")
       updateRoutePlan=(route-action "updateRoutePlan")
+      selectRouteVisit=(action "selectRouteVisit")
       users=users}}
 </div>
 
 {{sections/distribution/visit-map
     routeVisits=orphanRouteVisits
-    routePlans=activeRoutePlans}}
+    routePlans=activeRoutePlans
+    selectedRouteVisit=selectedRouteVisit
+    selectRouteVisit=(action "selectRouteVisit")}}

@@ -1,14 +1,22 @@
-import Ember from 'ember';
-import computed from 'ember-computed-decorators';
+import Ember from "ember";
+import computed from "ember-computed-decorators";
 
-const { filterBy, notEmpty } = Ember.computed;
+const { notEmpty } = Ember.computed;
 
 export default Ember.Controller.extend({
-  hasDataPath: notEmpty('dataPath'),
+  hasDataPath: notEmpty("dataPath"),
 
-  filteredItems: filterBy('items', 'isSold', true),
+  @computed("items.@each.{isSold}", "model.orderItems.[]")
+  filteredItems(items, orderItems) {
 
-  @computed('item.name', 'model.location.id')
+    return items.filter(item => {
+      const matchingOrderItem = orderItems.any(oi => oi.get("item.id") === item.get("id"));
+
+      return item.get("isSold") && !matchingOrderItem
+    });
+  },
+
+  @computed("item.name", "model.location.id")
   dataPath(name, id) {
     if(name) {
       return `locations/${id}/${name}`;
@@ -19,7 +27,7 @@ export default Ember.Controller.extend({
 
   actions: {
     onOrderItemChange(item) {
-      this.set('item', item);
+      this.set("item", item);
     }
   }
 });

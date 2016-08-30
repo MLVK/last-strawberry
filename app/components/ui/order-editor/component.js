@@ -14,13 +14,13 @@ export default Ember.Component.extend({
   isPurchaseOrder:  not("isSalesOrder"),
 
   @computed("itemSearchString")
-  noMatchesMessage(str) {
+  noMatchesMessage(str = "") {
     return this.get("isPurchaseOrder")? `Create new item: ${str}`: `Item not found: ${str}`;
   },
 
   actions: {
     async printOrder() {
-      const { url, key } = await this.get('pdfGenerator').generateInvoices([this.get('model')]);
+      const { url, key } = await this.get("pdfGenerator").generateInvoices([this.get("model")]);
       return downloadFile(url, key);
     },
 

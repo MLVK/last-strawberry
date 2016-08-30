@@ -1,12 +1,15 @@
-{{#ui/dd-card colorScheme=colorScheme as |card|}}
-  {{card.title-bar
-      title=location.code
-      subTitle=company.name
-      index=index
-      actionIcon="clear"
-      action=(if (not model.isOrphan) (action "removeRouteVisit"))}}
+{{#ui/dd-card
+    colorScheme=colorScheme
+    isSelected=isSelected
+    as |card|}}
+      {{card.title-bar
+          title=location.code
+          subTitle=company.name
+          index=index
+          actionIcon="clear"
+          action=(if (not model.isOrphan) (action "removeRouteVisit"))}}
 
-  {{card.body
-      content=location.name
-      infoIcons=infoIcons}}
+      {{card.body
+          content=location.name
+          infoIcons=infoIcons}}
 {{/ui/dd-card}}

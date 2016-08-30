@@ -1,4 +1,7 @@
 {{#marker-layer
+    onPopupopen=(action selectRouteVisit model)
+    onPopupclose=(action selectRouteVisit undefined)
+    popupOpen=(eq selectedRouteVisit.id model.id)
     lat=model.address.lat
     lng=model.address.lng
     icon=(if model.isOrphan defaultIcon (rp-icon index color))}}

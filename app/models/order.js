@@ -61,5 +61,10 @@ export default Model.extend(LocationHashable, {
   totalPrice(orderItems, shipping) {
     const orderItemsTotal = orderItems.reduce((acc, cur) => acc + Number(cur.get("quantity") * cur.get("unitPrice")), 0);
     return orderItemsTotal + shipping;
+  },
+
+  @computed("orderItems.[]")
+  isValid(orderItems) {
+    return orderItems.get("length") !== 0;
   }
 });

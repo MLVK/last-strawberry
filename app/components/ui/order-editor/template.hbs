@@ -33,7 +33,9 @@
             flat=true
             color=colors.DARK_GREY
             size=1.2
-            action=emailOrder}}
+            action=emailOrder
+            disabled=(not model.isValid)
+        }}
 
         {{ui/icon-button
             type="local_printshop"

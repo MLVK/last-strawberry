@@ -80,11 +80,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 		},
 
 		emailOrder(model) {
-			// Should not be able to send an empty order
-			if(model.get("orderItems.length") === 0){
-				return;
-			}
-
 			const notificationRules = model.get("location.notificationRules");
 			notificationRules.forEach(nr => {
 				const notification = this.store.createRecord("notification");

@@ -1,3 +1,16 @@
+<div class="row">
+  {{ui/icon-button
+      class="deleteLocation"
+      type="delete"
+      label="Delete Location"
+      size=1.5
+      flat=true
+      backgroundColor=colors.DARK_GREY
+      padding=0.5
+      click=(route-action "deleteLocation" model)
+  }}
+</div>
+
 <div class="row stretch">
   {{sections/locations/notification-rules
       model=model

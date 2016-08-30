@@ -1,6 +1,5 @@
 import Ember from "ember";
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
-const { run } = Ember;
 
 const INCLUDES = [
   "address",
@@ -122,11 +121,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       location.save();
     },
 
-    async deleteLocation() {
-      const location = this.modelFor("customers.show.location");
-      if(!location.get("isDeleted")) {
-        run(() => location.destroyRecord());
-      }
+    deleteLocation(location){
+      const company = location.get("company");
+      this.transitionTo('customers.show', company);
+
+      location.destroyRecord();
     },
 
     async massApplyCreditRate(location, massCreditRate){

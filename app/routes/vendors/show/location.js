@@ -86,6 +86,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     deleteNotification(notification){
       notification.destroyRecord();
+    },
+
+    deleteLocation(location){
+      const company = location.get("company");
+      this.transitionTo('customers.show', company);
+
+      location.destroyRecord();
     }
   }
 });

@@ -2,7 +2,7 @@ import { test } from "qunit";
 import moduleForAcceptance from "last-strawberry/tests/helpers/module-for-acceptance";
 import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-auth";
 import page from "last-strawberry/tests/pages/navigation";
-import Ember from 'ember';
+import Ember from "ember";
 
 import {
   mockFindAll
@@ -13,29 +13,28 @@ moduleForAcceptance("Acceptance | navigation", {
     authenticateSession(this.application);
 
     mockFindAll("company");
-    mockFindAll("price-tier");
     mockFindAll("item");
-    Ember.$.mockjax({ url: `https://api.mapbox.com*`, responseText: {}, type: 'GET' });
+    mockFindAll("order");
+
+    Ember.$.mockjax({ url: `https://api.mapbox.com*`, responseText: {}, type: "GET" });
   }
 });
 
-test("redirects to companies page when navigating to index", async function(assert) {
+test("redirects to sales orders page when navigating to index", async function(assert) {
   await page.visitIndex();
 
-  assert.equal(currentURL(), "/customers")
+  assert.equal(currentURL(), "/sales-orders")
 });
 
-test("redirects to companies page when clicking on Home link", async function(assert) {
-  mockFindAll("order");
+test("redirects to sales orders page when clicking on Home link", async function(assert) {
   await page
     .visitOrders()
     .clickHomeLink();
 
-  assert.equal(currentURL(), "/customers")
+  assert.equal(currentURL(), "/sales-orders")
 });
 
 test("redirects to orders page when clicking on an order", async function(assert) {
-  mockFindAll("order");
   await page
     .visitIndex()
     .clickOrdersItem();
@@ -44,8 +43,6 @@ test("redirects to orders page when clicking on an order", async function(assert
 });
 
 test("redirects to purchases page when clicking on Purchases item", async function(assert) {
-  mockFindAll("order");
-
   await page
     .visitIndex()
     .clickPurchasesItem();

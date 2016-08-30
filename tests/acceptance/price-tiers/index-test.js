@@ -5,7 +5,6 @@ import { index as page } from "last-strawberry/tests/pages/price-tiers";
 
 import {
   make,
-  mockCreate,
   mockFind,
   mockFindAll
 } from "ember-data-factory-guy";
@@ -48,17 +47,16 @@ test("selecting an item navigates to the price-tier show route for that item", a
 });
 
 test("can create new price tiers", async function(assert) {
-  const newPriceTierName = "Test Name - 1";
+  const priceTier = make("price-tier");
 
   mockFindAll("item");
-  mockFindAll("price-tier");
-  mockCreate("price-tier");
+  mockFindAll("price-tier").returns({models: [priceTier]})
+  mockFind("price-tier").returns({model:priceTier});
 
   await page
     .visit()
-    .fillNewPriceTierInput(newPriceTierName)
+    .fillNewPriceTierInput(priceTier.get("name"))
     .submitNewPriceTier();
 
-  assert.equal(page.priceTiers().count, 1);
-  assert.equal(page.priceTiers(0).label, newPriceTierName);
+  assert.equal(page.priceTiers().count, 2);
 });

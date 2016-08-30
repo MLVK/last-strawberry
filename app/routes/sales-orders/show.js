@@ -1,7 +1,7 @@
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 import Ember from "ember";
-import NotificationState from 'last-strawberry/constants/notification-states';
-import NotificationRenderer from 'last-strawberry/constants/notification-renderers';
+import NotificationState from "last-strawberry/constants/notification-states";
+import NotificationRenderer from "last-strawberry/constants/notification-renderers";
 import OrderState from "last-strawberry/constants/order-states";
 
 const INCLUDES = [
@@ -80,6 +80,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 		},
 
 		emailOrder(model) {
+			// Should not be able to send an empty order
+			if(model.get("orderItems.length") === 0){
+				return;
+			}
+
 			const notificationRules = model.get("location.notificationRules");
 			notificationRules.forEach(nr => {
 				const notification = this.store.createRecord("notification");

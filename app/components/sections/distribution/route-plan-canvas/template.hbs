@@ -1,6 +1,7 @@
 <div class="row stretch route-plans-container">
   {{sections/distribution/open-route-visits
       model=orphanRouteVisits
+      selectedRouteVisit=selectedRouteVisit
       registerDropContainer=(action 'registerDropContainer')}}
 
   {{#if (eq routePlans.length 0)}}
@@ -13,13 +14,15 @@
     {{sections/distribution/route-plan
         index=index
         model=routePlan
+        selectedRouteVisit=selectedRouteVisit
         users=users
         saveRoutePlanBlueprint=(action 'startSaveRoutePlanBlueprint')
         updateRoutePlan=updateRoutePlan
         destroyRoutePlan=destroyRoutePlan
         removeRouteVisit=removeRouteVisit
         registerDropContainer=(action 'registerDropContainer')
-        registerRoutePlan=(action 'registerRoutePlan')}}
+        registerRoutePlan=(action 'registerRoutePlan')
+        selectRouteVisit=selectRouteVisit}}
   {{/each}}
 </div>
 

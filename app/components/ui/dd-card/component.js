@@ -1,15 +1,19 @@
 import Ember from "ember";
-import { style } from "last-strawberry/utils/styles";
+import {
+  style,
+  rgba
+} from "last-strawberry/utils/styles";
 import colors from "last-strawberry/constants/colors";
 
 export default Ember.Component.extend({
   classNames: ["col"],
   attributeBindings:["componentStyles:style"],
 
-  @style("colorScheme.backgroundColor")
-  componentStyles(backgroundColor = colors.DARK_ORANGE) {
+  @style("colorScheme.backgroundColor", "isSelected")
+  componentStyles(backgroundColor = colors.DARK_ORANGE, isSelected = false) {
+    const color = isSelected ? rgba(backgroundColor, 0.8) : backgroundColor;
     return {
-      "background-color": backgroundColor
+      "background-color": color
     };
   }
 });

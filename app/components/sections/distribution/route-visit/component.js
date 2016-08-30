@@ -5,6 +5,7 @@ const { alias, gt, filter } = Ember.computed;
 
 export default Ember.Component.extend({
   classNames: ["card-1"],
+  classNameBindings: ["isSelected:selected"],
   attributeBindings: ["data-location-hash"],
 
   locations: alias("model.address.locations"),
@@ -18,6 +19,11 @@ export default Ember.Component.extend({
   validVisitWindows: filter("visitWindows", function(vw){
     return vw.validForDate(this.get("date"));
   }),
+
+  @computed("selectedRouteVisit.id", "model.id")
+  isSelected(a, b) {
+    return a === b;
+  },
 
   validVisitWindow: alias("validVisitWindows.firstObject"),
 
@@ -45,6 +51,10 @@ export default Ember.Component.extend({
     }
 
     return icons;
+  },
+
+  click() {
+    this.attrs.selectRouteVisit(this.get("model"));
   },
 
   actions: {

@@ -36,7 +36,9 @@
       {{sections/distribution/map-pin
           model=rv
           index=j
-          color=(get COLOR_SCHEMES (concat i '.backgroundColor'))}}
+          color=(get COLOR_SCHEMES (concat i '.backgroundColor'))
+          selectedRouteVisit=selectedRouteVisit
+          selectRouteVisit=selectRouteVisit}}
     {{/each}}
   {{/each}}
 

@@ -29,7 +29,9 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     const items = this.store.peekAll("item");
 
-    items.forEach(item => {
+    items
+    .filter(i => i.get("isProduct"))
+    .forEach(item => {
       const matchingItemDesire = itemDesires.find(itemDesire => itemDesire.get("item.id") === item.get("id"));
 
       if(!matchingItemDesire) {
@@ -123,7 +125,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     deleteLocation(location){
       const company = location.get("company");
-      this.transitionTo('customers.show', company);
+      this.transitionTo("customers.show", company);
 
       location.destroyRecord();
     },

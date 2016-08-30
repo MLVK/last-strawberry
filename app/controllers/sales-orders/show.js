@@ -6,7 +6,7 @@ const { notEmpty } = Ember.computed;
 export default Ember.Controller.extend({
   hasDataPath: notEmpty("dataPath"),
 
-  @computed("items.[]", "model.orderItems.[]")
+  @computed("items.@each.{isSold}", "model.orderItems.[]")
   filteredItems(items, orderItems) {
 
     return items.filter(item => {

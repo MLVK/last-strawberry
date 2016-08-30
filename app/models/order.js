@@ -9,7 +9,11 @@ import {
 } from "ember-data/relationships";
 import OrderState from "last-strawberry/constants/order-states";
 
-const { equal, alias } = Ember.computed;
+const {
+  equal,
+  alias,
+  gt
+} = Ember.computed;
 
 const SALES_ORDER = "sales-order";
 const PURCHASE_ORDER = "purchase-order";
@@ -47,6 +51,8 @@ export default Model.extend(LocationHashable, {
   isDraft:                      equal("orderState", OrderState.DRAFT),
   isApproved:                   equal("orderState", OrderState.APPROVED),
 
+  isValid: gt("orderItems.length", 0),
+
   @computed("orderItems.@each.{quantity}")
   empty(orderItems) {
     return orderItems.every(so => so.get("empty"));
@@ -61,10 +67,5 @@ export default Model.extend(LocationHashable, {
   totalPrice(orderItems, shipping) {
     const orderItemsTotal = orderItems.reduce((acc, cur) => acc + Number(cur.get("quantity") * cur.get("unitPrice")), 0);
     return orderItemsTotal + shipping;
-  },
-
-  @computed("orderItems.[]")
-  isValid(orderItems) {
-    return orderItems.get("length") !== 0;
   }
 });

@@ -15,6 +15,7 @@ const ROUTE_VISIT_INCLUDES = [
 ];
 
 const ROUTE_PLAN_BLUEPRINT_INCLUDES = [
+  "user",
   "route-plan-blueprint-slots",
   "route-plan-blueprint-slots.address"
 ];
@@ -101,11 +102,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
   actions: {
-    async saveRoutePlanBlueprint(routePlan, name) {
+    async saveRoutePlanBlueprint(changeset) {
       const routePlanBlueprint = await this.store
-        .createRecord("route-plan-blueprint", {name})
+        .createRecord("route-plan-blueprint", {name: changeset.get("name"), user: changeset.get("user")})
         .save();
 
+      const routePlan = changeset.get("routePlan");
       const routeVisits = await routePlan.get("sortedRouteVisits");
 
       routeVisits.forEach((rv, i) => {
@@ -135,7 +137,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     async applyTemplate(routePlanBlueprint) {
       const routePlan = await this.store
-        .createRecord("route-plan", {date:this.controller.get("date")})
+        .createRecord("route-plan", {date:this.controller.get("date"), user: routePlanBlueprint.get("user")})
         .save();
 
       const orphanedRouteVisits = this.store.peekAll("route-visit")

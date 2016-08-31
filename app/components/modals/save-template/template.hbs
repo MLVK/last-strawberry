@@ -1,0 +1,31 @@
+{{#modals/base-modal
+    title="Save Template"
+    cancelLabel="Cancel"
+    cancel=(action cancel)
+    submitLabel="Create"
+    submit=(action "submitForm")}}
+    <input
+      type="text"
+      name="name"
+      class="name"
+      placeholder="Template name"
+      value="{{changeset.name}}"
+      oninput={{action "fieldChanged" "name"}}
+      onchange={{action "fieldChanged" "name"}}>
+
+    {{#power-select
+        selected=changeset.user
+        options=drivers
+        placeholder="Select a driver"
+        searchEnabled=false
+        onchange=(action "setSelectedDriver")
+        as |user|}}
+      {{user.name}}
+    {{/power-select}}
+
+    <div class="errorMessageContainer">
+      {{#each changeset.errors as |error|}}
+        <div class="row">{{error.key}}:{{error.validation}}</div>
+      {{/each}}
+    </div>
+{{/modals/base-modal}}

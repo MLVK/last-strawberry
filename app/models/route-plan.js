@@ -10,7 +10,6 @@ import PublishedState from "last-strawberry/constants/route-plan-states"
 
 const {
   and,
-  gt,
   notEmpty
 } = Ember.computed;
 
@@ -32,6 +31,6 @@ export default Model.extend({
   },
 
   hasUser: notEmpty("user.id"),
-  hasRouteVisits: gt("routeVisits.length", 0),
+  hasRouteVisits: notEmpty("routeVisits"),
   isValid: and("hasUser", "hasRouteVisits")
 });

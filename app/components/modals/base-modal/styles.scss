@@ -1,0 +1,49 @@
+& {
+  @extend .card-2;
+  background: $off-white;
+  color: $slate;
+  overflow: hidden;
+}
+
+header {
+  background: rgba(white, 1);
+  padding: 1em 1.5em;
+  border-bottom: 4px solid $light-grey;
+}
+
+.title {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.body {
+  padding: 1em;
+
+  input {
+    width: 20em;
+    border: none;
+    font-size: 1.2em;
+    background-color: rgba(white, 1);
+    border: 4px solid $light-grey;
+    padding: 0.5em;
+    margin: 0.5em;
+  }
+
+  input[type="text"]:focus {
+    border: 4px solid $sky-blue;
+  }
+
+  .code, .unit, .price {
+    width: 5em;
+  }
+}
+
+footer {
+  padding: 1em 1.5em;
+  background: rgba(white, 1);
+  border-top: 4px solid $light-grey;
+
+  .submit {
+    margin-left: 0.5em;
+  }
+}

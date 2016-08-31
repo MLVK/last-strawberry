@@ -1,0 +1,32 @@
+<header>
+  <span class="title">
+    {{title}}
+  </span>
+</header>
+
+<div class="body">
+  {{yield}}
+</div>
+
+<footer class="row right">
+  {{ui/icon-button
+    class="cancel"
+    type="clear"
+    label=cancelLabel
+    flat=true
+    color=white
+    backgroundColor=colors.DARK_GREY
+    size=1.5
+    padding=1
+    click=cancel}}
+
+  {{ui/icon-button
+    label=submitLabel
+    class="submit"
+    type="add"
+    flat=true
+    backgroundColor=colors.SKY_BLUE
+    size=1.5
+    padding=1
+    click=submit}}
+</footer>

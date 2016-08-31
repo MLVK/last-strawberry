@@ -1,9 +1,7 @@
 @import 'material';
 
 .ember-modal-dialog {
-  // @extend .card-1;
-  // background-color: $light-blue;
-  // padding: 10px;
+  z-index: 1001;
 }
 
 .ember-modal-overlay {

@@ -1,10 +1,19 @@
-import Ember from 'ember';
-const { filterBy } = Ember.computed;
+import Ember from "ember";
+import TemplateValidations from "last-strawberry/validators/route-plan-blueprint";
+import computed from "ember-computed-decorators";
 
+const { filterBy } = Ember.computed;
 const SCROLL_SPEED = 20;
 
 export default Ember.Component.extend({
-  classNames: ['col', 'stretch'],
+  session:     Ember.inject.service(),
+
+  classNames: ["col", "stretch"],
+
+  @computed("session")
+  validators(session) {
+    return TemplateValidations(session);
+  },
 
   init() {
     this._super();
@@ -12,19 +21,19 @@ export default Ember.Component.extend({
     this._setupDragula();
   },
 
-  orphanRouteVisits: filterBy('routeVisits', 'isOpen', true),
+  orphanRouteVisits: filterBy("routeVisits", "isOpen", true),
 
   _routeVisitWithId(id) {
-    return this.get('routeVisits').find(rv => rv.get('id') === `${id}`);
+    return this.get("routeVisits").find(rv => rv.get("id") === `${id}`);
   },
 
   _setupStreams() {
     this.dragSubject = new Rx.Subject();
-    this.mouseMoves = Rx.Observable.fromEvent(window, 'mousemove');
+    this.mouseMoves = Rx.Observable.fromEvent(window, "mousemove");
     this.dragOverSubject = new Rx.Subject();
     this.dragOvers = this.dragOverSubject
       .map(container => {
-        const $c = $(container).closest('.container');
+        const $c = $(container).closest(".container");
         const cDom = $c[0];
         return {$c, cDom}
       });
@@ -70,31 +79,31 @@ export default Ember.Component.extend({
     this.ddMapping = new Immutable.Map();
     this.drake = dragula([], {
       accepts: (el, target) => {
-        const disableDrop = this.$(target).hasClass('disable-drop');
-        return this.$(target).data('drop-zone-id') !== undefined && !disableDrop;
+        const disableDrop = this.$(target).hasClass("disable-drop");
+        return this.$(target).data("drop-zone-id") !== undefined && !disableDrop;
       }
     });
     this._addDragulaListeners();
   },
 
   _addDragulaListeners() {
-     this.drake.on('cloned', (item) => {
+     this.drake.on("cloned", (item) => {
        this.dragSubject.onNext($(item));
      });
 
-    this.drake.on('over', (node, container) => {
+    this.drake.on("over", (node, container) => {
       this.dragOverSubject.onNext(container);
     });
 
-    this.drake.on('cancel', () => this.dropSubject.onNext())
+    this.drake.on("cancel", () => this.dropSubject.onNext())
 
-    this.drake.on('drop', (dragNode, dropNode, fromNode, sibNode) => {
+    this.drake.on("drop", (dragNode, dropNode, fromNode, sibNode) => {
 
       this.dropSubject.onNext();
 
       const ot = this._createRouteTransform(dragNode, dropNode, fromNode, sibNode);
 
-      Ember.run.schedule('afterRender', this, () => {
+      Ember.run.schedule("afterRender", this, () => {
         if(dragNode.parentElement && !ot.fromRoutePlan) {
           dragNode.parentElement.removeChild(dragNode)
         }
@@ -105,36 +114,31 @@ export default Ember.Component.extend({
   },
 
   _createRouteTransform(dragNode, dropNode, fromNode, sibNode) {
-    const fromPlanId = this.$(fromNode).data('drop-zone-id');
-    const toPlanId = this.$(dropNode).data('drop-zone-id');
-    const routeVisit = this._routeVisitWithId(this.$(dragNode).data('location-hash'));
-    const nextRouteVisitId = this.$(sibNode).data('location-hash');
+    const fromPlanId = this.$(fromNode).data("drop-zone-id");
+    const toPlanId = this.$(dropNode).data("drop-zone-id");
+    const routeVisit = this._routeVisitWithId(this.$(dragNode).data("location-hash"));
+    const nextRouteVisitId = this.$(sibNode).data("location-hash");
     const nextRouteVisit = this._routeVisitWithId(nextRouteVisitId);
     const fromRoutePlan = this.ddMapping.get(fromPlanId);
     const toRoutePlan = this.ddMapping.get(toPlanId);
-    const sortedRouteVisits = toRoutePlan.get('routeVisits').sortBy('position');
-    const lastPosition = sortedRouteVisits.get('lastObject.position') || 10;
+    const sortedRouteVisits = toRoutePlan.get("routeVisits").sortBy("position");
+    const lastPosition = sortedRouteVisits.get("lastObject.position") || 10;
     let position = lastPosition + 10;
 
     if(nextRouteVisit) {
       const index = sortedRouteVisits.indexOf(nextRouteVisit);
-      let startRange = nextRouteVisit.get('position');
+      let startRange = nextRouteVisit.get("position");
       let endRange = 0;
 
       const previousRouteVisit = sortedRouteVisits.objectAt(index-1);
       if(previousRouteVisit) {
-        endRange = previousRouteVisit.get('position');
+        endRange = previousRouteVisit.get("position");
       }
 
       position = startRange - ((startRange - endRange)/2);
     }
 
     return {routeVisit, position, fromRoutePlan, toRoutePlan};
-  },
-
-  _clearSaveRoutePlanBlueprint() {
-    this.set('showSaveRoutePlanBlueprintModal', false);
-    this.set('saveRoutePlanBlueprintOptions', undefined);
   },
 
   actions: {
@@ -146,18 +150,24 @@ export default Ember.Component.extend({
       this.ddMapping = this.ddMapping.set(containerId, routePlan);
     },
 
-    submitTemplateName(name) {
-      this.attrs.saveRoutePlanBlueprint(this.get('saveRoutePlanBlueprintOptions.routePlan'), name);
-      this._clearSaveRoutePlanBlueprint();
+    submitTemplateName(changeset) {
+      this.attrs.saveRoutePlanBlueprint(changeset);
+      this.set("showSaveRoutePlanBlueprintModal", false);
     },
 
-    startSaveRoutePlanBlueprint(routePlan, trigger) {
-      this.set('saveRoutePlanBlueprintOptions', {trigger, routePlan});
-      this.set('showSaveRoutePlanBlueprintModal', true);
+    startSaveRoutePlanBlueprint(routePlan) {
+
+      const stashedSaveAsTemplateData = {
+        routePlan,
+        user: routePlan.get("user")
+      }
+
+      this.set("stashedSaveAsTemplateData", stashedSaveAsTemplateData);
+      this.set("showSaveRoutePlanBlueprintModal", true);
     },
 
     cancelSaveRoutePlanBlueprint() {
-      this._clearSaveRoutePlanBlueprint();
+      this.set("showSaveRoutePlanBlueprintModal", false);
     }
   }
 });

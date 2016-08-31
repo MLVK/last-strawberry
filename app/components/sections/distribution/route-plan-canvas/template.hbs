@@ -2,7 +2,7 @@
   {{sections/distribution/open-route-visits
       model=orphanRouteVisits
       selectedRouteVisit=selectedRouteVisit
-      registerDropContainer=(action 'registerDropContainer')}}
+      registerDropContainer=(action "registerDropContainer")}}
 
   {{#if (eq routePlans.length 0)}}
     <div class="empty col-5 center">
@@ -16,23 +16,22 @@
         model=routePlan
         selectedRouteVisit=selectedRouteVisit
         users=users
-        saveRoutePlanBlueprint=(action 'startSaveRoutePlanBlueprint')
+        saveRoutePlanBlueprint=(action "startSaveRoutePlanBlueprint")
         updateRoutePlan=updateRoutePlan
         destroyRoutePlan=destroyRoutePlan
         removeRouteVisit=removeRouteVisit
-        registerDropContainer=(action 'registerDropContainer')
-        registerRoutePlan=(action 'registerRoutePlan')
+        registerDropContainer=(action "registerDropContainer")
+        registerRoutePlan=(action "registerRoutePlan")
         selectRouteVisit=selectRouteVisit}}
   {{/each}}
 </div>
 
 {{#if showSaveRoutePlanBlueprintModal}}
-  {{#tether-dialog close='cancelSaveRoutePlanBlueprint'
-      hasOverlay=false
-      attachment='top left'
-      targetAttachment='middle right'
-      target=saveRoutePlanBlueprintOptions.trigger}}
-    {{ui/input-action-bar submit=(action 'submitTemplateName') autoFocus=true}}
-    <button {{action 'cancelSaveRoutePlanBlueprint'}}>Close</button>
+  {{#tether-dialog}}
+    {{modals/save-template
+        users=users
+        changeset=(changeset stashedSaveAsTemplateData validators)
+        cancel=(action "cancelSaveRoutePlanBlueprint")
+        submit=(action "submitTemplateName")}}
   {{/tether-dialog}}
 {{/if}}

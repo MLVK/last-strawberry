@@ -28,6 +28,7 @@
       class="saveRoutePlanBlueprint"
       flat=true
       label="Save as template"
-      click=(action saveRoutePlanBlueprint)}}
+      click=(action saveRoutePlanBlueprint)
+      disabled=(not routePlan.hasRouteVisits)}}
   {{/ui/popup-menu}}
 </div>

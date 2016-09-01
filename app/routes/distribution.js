@@ -151,6 +151,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             match.save();
           }
         });
+
+      this.setPolyline(routePlan);
     },
 
     updateRoutePlan(routePlan, key, val) {

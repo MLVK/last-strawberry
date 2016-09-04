@@ -1,10 +1,12 @@
-{{pikaday-input
-    class="datePicker"
-    value=formattedDate
-    onSelected=onDateSelected
-    format="dddd - MM/DD/YY"}}
+<div class="row">
+  {{pikaday-input
+      class="datePicker"
+      value=formattedDate
+      onSelected=onDateSelected
+      format="dddd - MM/DD/YY"}}
+</div>
 
-<div class="row uiContainer">
+<div class="row uiContainer stretch right">
   {{#if hasRoutePlanTemplates}}
     {{#power-select
         triggerClass="templateSelect"
@@ -23,7 +25,7 @@
       class="print"
       flat=true
       size=1.5
-      disabled=(not allPlansValid)
+      disabled=(not canPrintDistributionDocuments)
       backgroundColor=colors.LIGHT_GREEN
       color=colors.DARK_GREY
       action=printFulfillmentDocuments}}
@@ -31,7 +33,7 @@
   {{ui/icon-button
       class="add"
       type="add"
-      disabled=disabled
+      disabled=(not canCreateRoutePlans)
       size=1.5
       flat=true
       backgroundColor=colors.LIGHT_GREEN

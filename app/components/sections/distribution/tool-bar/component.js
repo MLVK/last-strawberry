@@ -1,7 +1,7 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
 
-const { not, notEmpty } = Ember.computed;
+const { and, notEmpty } = Ember.computed;
 
 export default Ember.Component.extend({
   classNames: ["row"],
@@ -12,13 +12,14 @@ export default Ember.Component.extend({
     return moment(date).format("YYYY-MM-DD");
   },
 
-  disabled: not("canCreateRoutePlans"),
-  hasRoutePlanTemplates: notEmpty("routePlanBlueprints"),
-
   @computed("routePlans.@each.{isValid}")
   allPlansValid(routePlans = []){
     return routePlans.every(rp => rp.get("isValid"));
   },
+
+  hasRoutePlanTemplates:          notEmpty("routePlanBlueprints"),
+  hasRoutePlans:                  notEmpty('routePlans'),
+  canPrintDistributionDocuments:  and("hasRoutePlans", "allPlansValid"),
 
   actions: {
     handleCreateRoutePlan() {

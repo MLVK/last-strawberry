@@ -1,5 +1,4 @@
 & {
-  justify-content: space-between;
   background-color: $dark-grey;
   padding: 1em;
   align-items: center;
@@ -19,6 +18,10 @@ input:focus.datePicker {
    outline: 0;
 }
 
+.btn {
+  margin-left: 0.5em;
+}
+
 .uiContainer {
   align-items: center;
   .iconButton {
@@ -27,5 +30,5 @@ input:focus.datePicker {
 }
 
 .templateSelect {
-  width: 10em;
+  width: 12em;
 }

@@ -52,6 +52,16 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     this.transitionTo("sales-orders.show", order.get("id"));
   },
 
+  transitionToDate(toDate) {
+    const currentDate = this.paramsFor("sales-orders").deliveryDate;
+    const newDate = moment(toDate).format("YYYY-MM-DD");
+
+    if(newDate !== currentDate) {
+      this.controllerFor("sales-orders").set("deliveryDate", newDate);
+      this.transitionTo("sales-orders");
+    }
+  },
+
   actions: {
     onOrderSelected(order) {
       this.showSalesOrder(order);
@@ -86,13 +96,34 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       });
     },
 
-    onDateSelected(date) {
-      const deliveryDate = this.paramsFor("sales-orders").deliveryDate;
+    duplicateOrders(fromDate, toDate) {
+      return new Ember.RSVP.Promise((res, rej) => {
+        this.get("session").authorize("authorizer:devise", (headerName, headerValue) => {
 
-      if(deliveryDate !== moment(date).format("YYYY-MM-DD")) {
-        this.controllerFor("sales-orders").set("deliveryDate", moment(date).format("YYYY-MM-DD"));
-        this.transitionTo("sales-orders");
-      }
+          const headers = {};
+          headers[headerName] = headerValue;
+          const payload = {
+            url:`${config.apiHost}/orders/duplicate_sales_orders`,
+            data:{fromDate, toDate},
+            headers,
+            type:"POST"
+          };
+
+          Ember.$.ajax(payload)
+            .always(response => {
+              if(response.status) {
+                res();
+                this.transitionToDate(toDate);
+              } else {
+                rej(response.message);
+              }
+            });
+        });
+      });
+    },
+
+    onDateSelected(date) {
+      this.transitionToDate(date);
     }
   }
 });

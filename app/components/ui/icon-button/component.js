@@ -1,24 +1,24 @@
-import Ember from 'ember';
-import { style } from 'last-strawberry/utils/styles';
-import computed from 'ember-computed-decorators';
+import Ember from "ember";
+import { style } from "last-strawberry/utils/styles";
+import computed from "ember-computed-decorators";
 
 const { notEmpty } = Ember.computed;
 
 export default Ember.Component.extend({
-  classNames: ['row', 'ui_icon-button', 'btn'],
-  classNameBindings: ['disabled:disabled', 'flat:flat:card-1'],
-  attributeBindings:['componentStyles:style'],
+  classNames: ["row", "ui_icon-button", "btn"],
+  classNameBindings: ["disabled:disabled", "flat:flat:card-1", "hasError:error", "loading:loading"],
+  attributeBindings:["componentStyles:style"],
 
-  hasLabel: notEmpty('label'),
+  hasLabel: notEmpty("label"),
 
   startSpin() {
-    const targ = this.$('.iconContainer');
+    const targ = this.$(".iconContainer");
     this.spinTween = TweenMax.to(targ, 0.5, {rotation:360, repeat:-1});
   },
 
   stopSpin() {
     this.clearTween();
-    const targ = this.$('.iconContainer');
+    const targ = this.$(".iconContainer");
     TweenMax.to(targ, 0, {rotation:0});
   },
 
@@ -32,46 +32,60 @@ export default Ember.Component.extend({
     this.clearTween();
   },
 
-  @computed('type', 'loading')
+  @computed("type", "loading")
   iconName(type, loading) {
-    return loading ? 'loop' : type;
+    return loading ? "loop" : type;
   },
 
-  @style('size', 'padding', 'color', 'backgroundColor', 'borderRadius')
+  @computed("loading", "hasError", "label")
+  fmtLabel(loading, hasError, label) {
+    if(loading) {
+      return this.get("loadingMessage") || "Loading...";
+    } else if(hasError) {
+      return "Error";
+    } else {
+      return label;
+    }
+  },
+
+  @style("size", "padding", "color", "backgroundColor", "borderRadius")
   componentStyles(
-    size = '1',
+    size = "1",
     padding,
-    color = 'white',
+    color = "white",
     backgroundColor = "",
     borderRadius = 0
   ) {
     padding = padding === undefined ? size: padding;
 
     return {
-      'padding': `${padding}em`,
-      'font-size': `${size/2}em`,
-      'border-radius': `${borderRadius}px`,
-      'color': color,
-      'background-color': backgroundColor
+      "padding": `${padding}em`,
+      "font-size": `${size/2}em`,
+      "border-radius": `${borderRadius}px`,
+      "color": color,
+      "background-color": backgroundColor
     };
   },
 
   click() {
-    if(!this.get('loading')){
-      this.set('loading', true);
+    if(!this.get("loading")){
+      this.set("hasError", false);
+      this.set("loading", true);
+
       this.startSpin();
 
       const response = this.attrs.action();
       const promise = response ? response : Ember.RSVP.resolve();
 
-      Ember.RSVP.allSettled([promise])
+      promise
         .then(() => {
-          this.set('loading', false);
+          this.set("loading", false);
           this.stopSpin();
         })
         .catch(() => {
-          this.set('loading', false);
           this.stopSpin();
+          this.set("loading", false);
+          this.set("hasError", true);
         });
     }
   }

@@ -45,6 +45,16 @@
       type="add"
       click=onRequestNewOrder}}
 
+    {{#if hasDuplicateAction}}
+      {{ui/icon-button
+        class="duplicateOrders"
+        flat=true
+        label="Duplicate Orders"
+        type="content_copy"
+        disabled=(not hasOrders)
+        click=onRequestDuplicateOrders}}
+    {{/if}}
+
   {{/ui/popup-menu}}
 </div>
 

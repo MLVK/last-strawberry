@@ -1,0 +1,27 @@
+{{#modals/base-modal
+    title="Duplicate Sales Orders"
+    cancelLabel="Cancel"
+    cancel=close
+    submitLabel="Duplicate"
+    submit=(action "submitDuplicateOrders")
+    isValid=isValid
+    loadingMessage="Duplicating..."}}
+
+    <div class="col">
+      <div class="row baseline">
+        <span class="instruction">Will duplicate all sales orders from:</span>
+        <span class="fromDate">
+          {{moment-format fromDate "ddd - MM-DD-YY"}}
+        </span>
+      </div>
+
+      <div class="row baseline">
+        <span class="instruction">To date:</span>
+        {{pikaday-input
+          value=toDate
+          placeholder="Select date"
+          onSelected=(action "onToDateSelected")
+          format="ddd MM-DD-YYYY"}}
+      </div>
+    </div>
+{{/modals/base-modal}}

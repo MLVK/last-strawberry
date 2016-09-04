@@ -14,6 +14,11 @@
   pointer-events: none;
 }
 
+&.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .label {
   margin-right: 1em;
   font-size: 1.4em;

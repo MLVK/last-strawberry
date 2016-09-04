@@ -3,6 +3,7 @@
     deliveryDate=deliveryDate
     onDateSelected=(route-action "onDateSelected")
     stubOrders=(route-action "stubOrders")
+    onRequestDuplicateOrders=(action "onRequestDuplicateOrders")
     onRequestNewOrder=(action "onRequestNewOrder")
     onOrderSelected=(route-action "onOrderSelected")
     orders=filteredSalesOrders}}
@@ -27,5 +28,14 @@
         model=unfulfilledLocations
         close=(action "closeCreateSalesOrder")
         onSubmit=(route-action "createSalesOrder")}}
+  {{/tether-dialog}}
+{{/if}}
+
+{{#if showDuplicateOrdersModal}}
+  {{#tether-dialog close=(action "closeDuplicateOrders")}}
+    {{modals/duplicate-orders
+        fromDate=deliveryDate
+        close=(action "closeDuplicateOrders")
+        submit=(route-action "duplicateOrders")}}
   {{/tether-dialog}}
 {{/if}}

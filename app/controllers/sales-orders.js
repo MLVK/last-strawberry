@@ -35,8 +35,16 @@ export default Ember.Controller.extend({
       this.set('showCreateSalesOrderModal', true);
     },
 
+    onRequestDuplicateOrders() {
+      this.set('showDuplicateOrdersModal', true);
+    },
+
     closeCreateSalesOrder() {
       this.set('showCreateSalesOrderModal', false);
+    },
+
+    closeDuplicateOrders() {
+      this.set('showDuplicateOrdersModal', false);
     }
   }
 });

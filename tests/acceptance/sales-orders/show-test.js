@@ -20,7 +20,7 @@ moduleForAcceptance('Acceptance | sales orders/show', {
 });
 
 test('navigates to correct url', async function(assert) {
-  const order = make('order');
+  const order = make('sales_order');
   mockFindAll('order').returns({models: [order]});
   mockFind('order').returns({model: order});
 

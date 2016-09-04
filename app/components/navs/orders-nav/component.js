@@ -7,6 +7,8 @@ export default Ember.Component.extend({
   classNames: ["col", "stretch"],
 
   hasStubAction: notEmpty("stubOrders"),
+  hasDuplicateAction: notEmpty("onRequestDuplicateOrders"),
+  hasOrders: notEmpty("filterOrders"),
   includeApproved: true,
   includeDraft: true,
 

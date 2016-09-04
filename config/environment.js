@@ -8,7 +8,6 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'last-strawberry',
     environment: environment,
-    baseURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -69,7 +68,6 @@ module.exports = function(environment) {
     ENV.apiHost = '';
 
     // Testem prefers this...
-    ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter

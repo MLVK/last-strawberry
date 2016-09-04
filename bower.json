@@ -26,9 +26,6 @@
     "polyline": "^0.2.0"
   },
   "resolutions": {
-    "ember-qunit-notifications": "0.1.0",
-    "ceibo": "1.1.0",
-    "chartjs": "1.0.2",
     "ember": "v2.7.0"
   }
 }

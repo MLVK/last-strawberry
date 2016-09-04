@@ -18,6 +18,12 @@ export default Ember.Component.extend({
     return this.get("isPurchaseOrder")? `Create new item: ${str}`: `Item not found: ${str}`;
   },
 
+  @computed("model.orderItems.@each.{isDeleted}")
+  validOrderItems(orderItems) {
+    return orderItems
+      .filter(o => !o.get("isDeleted"));
+  },
+
   actions: {
     async printOrder() {
       const { url, key } = await this.get("pdfGenerator").generateInvoices([this.get("model")]);

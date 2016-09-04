@@ -57,7 +57,7 @@
   </div>
 </div>
 
-{{#each model.orderItems as |orderItem i|}}
+{{#each validOrderItems as |orderItem i|}}
   {{ui/order-editor/order-item-editor
       index=i
       model=orderItem

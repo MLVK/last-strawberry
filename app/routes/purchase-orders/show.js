@@ -7,15 +7,14 @@ import {
 	NOTIFIED
 } from "last-strawberry/models/order";
 
-import NotificationState from "last-strawberry/constants/notification-states";
 import NotificationRenderer from "last-strawberry/constants/notification-renderers";
 import OrderState from "last-strawberry/constants/order-states";
 
-const INCLUDES = [
+const ORDER_INCLUDES = [
 	"order-items",
 	"order-items.item",
-  "location",
-  "location.company",
+	"location",
+	"location.company",
 	"location.notification-rules",
 	"notifications"
 ];
@@ -25,14 +24,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 	setupController(controller, model) {
     this._super(controller, model);
 
-		controller.set("items", this.store.peekAll("item"));
-
 		const purchaseOrderController = this.controllerFor("purchase-orders");
 		purchaseOrderController.set("currentSelectedOrder", model);
+
+		controller.set("items", this.store.peekAll("item"));
 	},
 
 	model(params){
-    return this.store.findRecord("order", params.id, { reload:true, include:INCLUDES.join(",")});
+    return this.store.findRecord("order", params.id, { reload:true, include:ORDER_INCLUDES.join(",")});
 	},
 
 	clearPurchaseOrderController: function(){
@@ -73,12 +72,15 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
 		emailOrder(model) {
 			const notificationRules = model.get("location.notificationRules");
+			const notifications = model.get('notifications');
+			const renderer = Ember.isEmpty(notifications) ? NotificationRenderer.PURCHASE_ORDER : NotificationRenderer.UPDATED_PURCHASE_ORDER
+
 			notificationRules.forEach(nr => {
-				const notification = this.store.createRecord("notification");
-				notification.set("notificationState", NotificationState.PENDING);
-				notification.set("renderer", NotificationRenderer.UPDATED_PURCHASE_ORDER);
-				notification.set("order", model);
-				notification.set("notificationRule", nr);
+				const notification = this.store.createRecord("notification", {
+					renderer,
+					order: model,
+					notificationRule: nr
+				});
 
 				notification.save();
 			});

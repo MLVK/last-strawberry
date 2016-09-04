@@ -12,7 +12,7 @@ import OrderState from "last-strawberry/constants/order-states";
 const {
   equal,
   alias,
-  gt
+  notEmpty
 } = Ember.computed;
 
 const SALES_ORDER = "sales-order";
@@ -51,11 +51,16 @@ export default Model.extend(LocationHashable, {
   isDraft:                      equal("orderState", OrderState.DRAFT),
   isApproved:                   equal("orderState", OrderState.APPROVED),
 
-  isValid: gt("orderItems.length", 0),
+  isValid:                      notEmpty("orderItems"),
+
+  @computed("orderItems.@each.{hasDirtyAttributes}", "hasDirtyAttributes")
+  notifiable(orderItems) {
+    return !orderItems.any(oi => oi.get("hasDirtyAttributes")) && !this.get('hasDirtyAttributes');
+  },
 
   @computed("orderItems.@each.{quantity}")
   empty(orderItems) {
-    return orderItems.every(so => so.get("empty"));
+    return orderItems.every(oi => oi.get("empty"));
   },
 
   @computed("orderItems.@each.{quantity}")

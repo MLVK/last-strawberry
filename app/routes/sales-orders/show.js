@@ -1,10 +1,9 @@
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 import Ember from "ember";
-import NotificationState from "last-strawberry/constants/notification-states";
 import NotificationRenderer from "last-strawberry/constants/notification-renderers";
 import OrderState from "last-strawberry/constants/order-states";
 
-const INCLUDES = [
+const ORDER_INCLUDES = [
 	"order-items",
 	"order-items.item",
   "location",
@@ -28,7 +27,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 	},
 
 	model(params){
-    return this.store.findRecord("order", params.id, { reload:true, include:INCLUDES.join(",")});
+    return this.store.findRecord("order", params.id, { reload:true, include:ORDER_INCLUDES.join(",")});
 	},
 
 	clearSalesOrderController: function(){
@@ -81,12 +80,15 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
 		emailOrder(model) {
 			const notificationRules = model.get("location.notificationRules");
+			const notifications = model.get('notifications');
+			const renderer = Ember.isEmpty(notifications) ? NotificationRenderer.SALES_ORDER : NotificationRenderer.UPDATED_SALES_ORDER
+
 			notificationRules.forEach(nr => {
-				const notification = this.store.createRecord("notification");
-				notification.set("notificationState", NotificationState.PENDING);
-				notification.set("renderer", NotificationRenderer.UPDATED_SALES_ORDER);
-				notification.set("order", model);
-				notification.set("notificationRule", nr);
+				const notification = this.store.createRecord("notification", {
+					renderer,
+					order: model,
+					notificationRule: nr
+				});
 
 				notification.save();
 			});

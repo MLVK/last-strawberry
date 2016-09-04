@@ -34,8 +34,7 @@
             color=colors.DARK_GREY
             size=1.2
             action=emailOrder
-            disabled=(not model.isValid)
-        }}
+            disabled=(or (not model.isValid) (not model.notifiable))}}
 
         {{ui/icon-button
             type="local_printshop"
@@ -43,15 +42,16 @@
             flat=true
             color=colors.DARK_GREY
             size=1.2
+            disabled=(or (not model.isValid) (not model.notifiable))
             action=(action "printOrder")}}
 
-          {{ui/icon-button
-              type="close"
-              class="delete"
-              flat=true
-              color=colors.DARK_GREY
-              size=1.2
-              click=deleteOrder}}
+        {{ui/icon-button
+            type="close"
+            class="delete"
+            flat=true
+            color=colors.DARK_GREY
+            size=1.2
+            click=deleteOrder}}
       </div>
     </div>
   </div>

@@ -1,12 +1,14 @@
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 import Ember from "ember";
 
-const COMPANY_MODEL_INCLUDES = [
+const COMPANY_INCLUDES = [
   "items",
-  "locations"
+  "items.company",
+  "locations",
+  "locations.company"
 ];
 
-const MODEL_INCLUDES = [
+const ORDER_INCLUDES = [
 	"order-items",
 	"order-items.item",
   "location",
@@ -34,11 +36,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     return Ember.RSVP.all([
       this.store.query("item", {"filter[is_purchased]":true}),
-      this.store.query("company", {"filter[is_vendor]":true, include:COMPANY_MODEL_INCLUDES.join(",")}),
+      this.store.query("company", {"filter[is_vendor]":true, include:COMPANY_INCLUDES.join(",")}),
       this.store.query("order", {
         "filter[order_type]":"purchase-order",
         "filter[delivery_date]":params.deliveryDate,
-        include:MODEL_INCLUDES.join(",")
+        include:ORDER_INCLUDES.join(",")
       })
     ]);
 	},

@@ -14,7 +14,7 @@ export default Ember.Component.extend({
     return reg.test(routePlanBlueprint.get("name"));
   },
 
-  @computed("routePlanBlueprints.[]", "filterTerm")
+  @computed("routePlanBlueprints.@each.{name}", "filterTerm")
   filteredItems(routePlanBlueprints, query){
     return routePlanBlueprints
       .filter(i => this.hasMatch(i, query));
@@ -25,7 +25,7 @@ export default Ember.Component.extend({
     return TemplateValidations(session);
   },
 
-  @computed("users.[]")
+  @computed("users.@each.{name}")
   drivers(users) {
 
     const drivers = users.map(u => {

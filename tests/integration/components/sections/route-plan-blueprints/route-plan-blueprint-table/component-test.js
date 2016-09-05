@@ -20,12 +20,12 @@ test("it renders route plan blueprint list", function(assert) {
   this.set("routePlanBlueprints", routePlanBlueprints);
   this.set("users", users);
 
-  this.set("hander", () => {});
+  this.set("handler", () => {});
 
   this.render(hbs`{{sections/route-plan-blueprints/route-plan-blueprint-table
       users=users
       routePlanBlueprints=routePlanBlueprints
-      deleteRoutePlanBlueprint=hander}}`);
+      deleteRoutePlanBlueprint=handler}}`);
 
   assert.equal($(".tableRow").length, 10);
 });

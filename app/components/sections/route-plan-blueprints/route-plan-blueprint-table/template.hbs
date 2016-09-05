@@ -19,7 +19,7 @@
 {{#each filteredItems as |routePlanBlueprint index|}}
   <div class="tableRow row">
     {{#with (changeset routePlanBlueprint validators) as |changeset|}}
-      <div class="col-1 no">{{adding index 1}}</div>
+      <div class="col-1 no">{{sum index 1}}</div>
 
       <div class="col-2 nameContainer">
         {{one-way-input changeset.name

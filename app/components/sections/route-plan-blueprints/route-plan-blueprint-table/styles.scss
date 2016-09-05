@@ -1,0 +1,44 @@
+& {
+  padding: 1em;
+}
+
+.filterTermInput {
+  width: 50%;
+  margin-bottom: 1em;
+  border: 4px solid rgba($sky-blue, 0.5);
+  font-size: 1.3em;
+  padding: 0.5em;
+}
+
+.no {
+  width: 2.5em;
+}
+
+.tableHeader {
+  background: $sky-blue;
+  padding: 0.5em 1em;
+  color: white;
+
+  .empty-padding {
+    width: 2em;
+  }
+}
+
+.tableRow {
+  padding: 1em;
+  align-items: center;
+
+  &:nth-of-type(odd) {
+    background: $off-white;
+  }
+
+  .uiContainer {
+    width: 2em;
+  }
+
+  .nameContainer {
+    input {
+      width: 10em;
+    }
+  }
+}

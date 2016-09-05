@@ -7,6 +7,7 @@ export default Ember.Component.extend({
     {route:'items', label:'Items'},
     {route:'customers', label:'Customers'},
     {route:'vendors', label:'Vendors'},
-    {route:'price-tiers', label:'Price Tiers'}
+    {route:'price-tiers', label:'Price Tiers'},
+    {route:'route-plan-blueprints', label:'Route Plan Blueprints'}
   ]
 });

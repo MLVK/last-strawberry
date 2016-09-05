@@ -9,15 +9,13 @@ export default Ember.Component.extend({
 
   filterTerm: "",
 
-  hasMatch(routePlanBlueprint, query) {
-    const reg = new RegExp(query, "i");
-    return reg.test(routePlanBlueprint.get("name"));
-  },
-
   @computed("routePlanBlueprints.@each.{name}", "filterTerm")
   filteredItems(routePlanBlueprints, query){
     return routePlanBlueprints
-      .filter(i => this.hasMatch(i, query));
+      .filter(rpb => {
+        const reg = new RegExp(query, "i");
+        return reg.test(rpb.get("name"));
+      });
   },
 
   @computed("session")

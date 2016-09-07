@@ -1,54 +1,32 @@
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-import Ember from 'ember';
+import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
+import Ember from "ember";
+import ItemTypes from "last-strawberry/constants/item-types";
 
 const MODEL_INCLUDES = [
-	'company'
+	"company"
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
 	setupController(controller, model) {
     this._super(controller, model);
-
-		controller.set('items', this.store.peekAll('item'));
-		controller.set('companies', this.store.peekAll('company'));
+		controller.set("items", this.store.peekAll("item"));
 	},
 
 	model(){
-		return Ember.RSVP.all([
-			this.store.findAll('company'),
-			this.store.query('item', {
-				'filter[tag]':'ingredient',
-				include:MODEL_INCLUDES.join(',')
-			})
-		]);
+		return this.store.query("item", {
+							"filter[tag]": ItemTypes.INGREDIENT,
+							include:MODEL_INCLUDES.join(",")
+						});
 	},
 
   actions: {
-		createNewItem() {
-			this.store.createRecord('item');
-		},
+		saveItem(changeset) {
+      changeset.save();
+    },
 
-		updateItemField(model, key, value) {
-			model.set(key, value);
-		},
-
-		saveItem(model) {
-			if(model.get('hasDirtyAttributes')) {
-				model.save();
-			}
-		},
-
-		archiveItem(item) {
-			item.set('active', false);
-			item.save();
-		},
-
-		itemFieldChanged(model, field, value) {
-			model.set(field, value);
-		},
-
-		saveModel(model) {
-			model.save();
-		}
+    archiveItem(item) {
+      item.set("active", false);
+      item.save();
+    }
   }
 });

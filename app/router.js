@@ -24,9 +24,7 @@ Router.map(function() {
 
   this.route("distribution");
 
-  this.route("products", function() {
-    this.route("show", {path:":id"});
-  });
+  this.route("products");
 
   this.route("price-tiers", function() {
     this.route("show", {path:":id"});

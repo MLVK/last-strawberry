@@ -1,32 +1,67 @@
-<div class="col-2 codeContainer">
-  {{one-way-input model.code
-      onblur=(action saveItem model)
-      update=(action updateItemField model 'code')}}
-</div>
-<div class="col-3 companyContainer">
-  {{model.company.name}}
-</div>
-<div class="col-2 nameContainer">
-  {{one-way-input model.name
-      onblur=(action saveItem model)
-      update=(action updateItemField model 'name')}}
-</div>
-<div class="col-5 descriptionContainer">
-  {{one-way-input model.description
-      onblur=(action saveItem model)
-      update=(action updateItemField model 'description')}}
+<div class="col-1">
+  {{sum index 1}}
 </div>
 
-<div class="col-2 priceContainer">
-  {{one-way-input model.defaultPrice
-      onblur=(action saveItem model)
-      update=(action updateItemField model 'defaultPrice')}}
-</div>
+{{#with (changeset model validators) as |changeset|}}
+  <div class="col-1 codeContainer">
+    {{one-way-input changeset.code
+      onblur=(action "saveItem" changeset)
+      update=(action "updateItemField" changeset "code")
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="code"
+    }}
+  </div>
+
+  {{#if (not isProduct)}}
+    <div class="col-3 companyContainer">
+      {{model.company.name}}
+    </div>
+  {{/if}}
+
+  <div class="col-3 nameContainer">
+    {{one-way-input changeset.name
+      onblur=(action "saveItem" changeset)
+      update=(action "updateItemField" changeset "name")
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="name"
+    }}
+  </div>
+  <div class="col-5 descriptionContainer">
+    {{one-way-input changeset.description
+      onblur=(action "saveItem" changeset)
+      update=(action "updateItemField" changeset "description")
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="description"
+    }}
+  </div>
+
+  <div class="col-1 priceContainer">
+    {{one-way-input changeset.defaultPrice
+      onblur=(action "saveItem" changeset)
+      update=(action "updateItemField" changeset "defaultPrice")
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="defaultPrice"
+    }}
+  </div>
+{{/with}}
+
 <div class="uiContainer">
   {{ui/icon-button
-    class='archiveItemButton right'
+    class="archiveItemButton right"
     flat=true
     color=colors.DARK_GREY
-    type='close'
+    type="close"
     click=(action archiveItem model)}}
 </div>

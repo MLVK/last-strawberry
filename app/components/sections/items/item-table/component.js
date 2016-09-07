@@ -1,25 +1,20 @@
-import Ember from 'ember';
-import computed from 'ember-computed-decorators';
-
-const { filterBy } = Ember.computed;
+import Ember from "ember";
+import computed from "ember-computed-decorators";
 
 export default Ember.Component.extend({
+  classNames: "col stretch",
 
-  classNames: 'col stretch',
-
-  ingredients: filterBy('items', 'tag', 'ingredient'),
   showInactive: false,
-  filterTerm: '',
+  filterTerm: "",
 
-  hasMatch(item, query) {
-    const reg = new RegExp(query, 'i');
-    return reg.test(item.get('name')) || reg.test(item.get('code')) || reg.test(item.get('company.name'));
-  },
-
-  @computed('ingredients', 'filterTerm', 'showInactive')
+  @computed("items.@each.{active,name,code}", "filterTerm", "showInactive")
   filteredItems(items, query, showInactive){
     return items
-      .filter(item => item.get('active') || showInactive)
-      .filter(item => this.hasMatch(item, query));
+      .sortBy("description")
+      .filter(item => item.get("active") || showInactive)
+      .filter(item => {
+        const reg = new RegExp(query, "i");
+        return reg.test(item.get("name")) || reg.test(item.get("code")) || reg.test(item.get("company.name"));
+      });
   }
 });

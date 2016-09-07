@@ -1,20 +1,6 @@
-<div class="row stretch">
-
-  <div class="col">
-    {{lists/filterable-label-list
-        model=products
-        itemClicked=(route-action 'showProduct')}}
-
-    <div class="row">
-      {{ui/input-action-bar
-        class='create-new-product'
-        type='add'
-        placeholder='Create new product...'
-        submit=(route-action 'createNewProduct')}}
-    </div>
-  </div>
-
-  <div class="col-5">
-    {{outlet}}
-  </div>
-</div>
+{{sections/items/item-table
+    items=items
+    isProduct=true
+    archiveItem=(route-action "archiveItem")
+    saveItem=(route-action "saveItem")
+    createNewProduct=(route-action "createNewProduct")}}

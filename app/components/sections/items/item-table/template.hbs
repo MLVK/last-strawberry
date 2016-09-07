@@ -1,22 +1,40 @@
-{{one-way-input filterTerm
-    placeholder='Filter ingredients'
-    class='filterTermInput'
-    update=(action (mut filterTerm))}}
+<div class="row">
+  <div class="col-5">
+    {{one-way-input filterTerm
+      placeholder=(if isProduct "Filter products" "Filter ingredients")
+      class="filterTermInput"
+      update=(action (mut filterTerm))}}
+  </div>
 
-{{forms/elements/label-checkbox
+  {{#if isProduct}}
+    <div class="col-5">
+      {{ui/input-action-bar
+        class="create-new-product"
+        type="add"
+        placeholder="Create new product..."
+        submit=createNewProduct
+      }}
+    </div>
+  {{/if}}
+</div>
+
+<div class="row">
+  {{forms/elements/label-checkbox
     label="Show inactive"
     class="showInactiveCheckbox"
     selected=showInactive
     update=(action (mut showInactive))}}
+</div>
 
-{{sections/items/item-table/table-header}}
+{{sections/items/item-table/table-header isProduct=isProduct}}
 
 <div>
-  {{#each filteredItems as |item|}}
+  {{#each filteredItems as |item index|}}
     {{sections/items/item-table/table-row
         model=item
+        index=index
+        isProduct=isProduct
         saveItem=saveItem
-        updateItemField=updateItemField
         archiveItem=archiveItem}}
   {{/each}}
 </div>

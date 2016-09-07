@@ -1,30 +1,36 @@
-import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import Ember from "ember";
+import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
+import ItemTypes from "last-strawberry/constants/item-types";
+const MODEL_INCLUDES = [
+	"company"
+];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
-  setupController (controller, model) {
+  setupController(controller, model) {
     this._super(controller, model);
-    controller.set('items', this.store.peekAll('item'));
-  },
+		controller.set("items", this.store.peekAll("item"));
+	},
 
-  model() {
-    return this.store.query('item', {'filter[tag]':'product'})
-  },
+	model(){
+		return this.store.query("item", {
+              "filter[tag]": ItemTypes.PRODUCT,
+              include:MODEL_INCLUDES.join(",")
+            });
+	},
 
   actions: {
-    showProduct(id) {
-      this.transitionTo('products.show', id);
+    saveItem(changeset) {
+      changeset.save();
     },
 
-    async createNewProduct(name) {
-      const item = this.store.createRecord('item', {name, tag:'product', isSold:true, isPurchased:false});
-      await item
-        .save()
-        .then(() => this.transitionTo('products.show', item))
-        .catch(() => {
-          // @TODO: Should alert the user that something went wrong
-          this.store.unloadRecord(item)
-        });
+    archiveItem(item) {
+      item.set("active", false);
+      item.save();
+    },
+
+		createNewProduct(name) {
+      const item = this.store.createRecord('item', {name, tag:ItemTypes.PRODUCT, isSold:true, isPurchased:false});
+			item.save();
     }
   }
 });

@@ -1,16 +1,24 @@
-<div class="col-2">
+<div class="col-1">
+  No.
+</div>
+
+<div class="col-1">
   Code
 </div>
+
+{{#if (not isProduct)}}
+  <div class="col-3">
+    Company
+  </div>
+{{/if}}
+
 <div class="col-3">
-  Company
-</div>
-<div class="col-2">
   Name
 </div>
 <div class="col-5">
   Description
 </div>
-<div class="col-2">
+<div class="col-1">
   Price
 </div>
 <div class="empty-padding">

@@ -12,6 +12,11 @@
   flex-direction: column;
 }
 
+.col-1 {
+  @extend .col;
+  flex: 1;
+}
+
 .col-2 {
   @extend .col;
   flex: 2;

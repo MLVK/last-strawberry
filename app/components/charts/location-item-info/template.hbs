@@ -3,10 +3,16 @@
 <div class="col mainContentContainer">
   {{#if hasData}}
     <span>
-      <span class="value">{{data.quantity}}</span> <span class="copy">currently in stock</span>
+      <span class="value">{{salesData.returns}}</span> <span class="copy">returned</span>
     </span>
     <span>
-      <span class="value">{{data.returns}}</span> <span class="copy">returned</span>
+      <span class="value">{{salesData.ending}}</span> <span class="copy">today's ending</span>
+    </span>
+    <span>
+      <span class="value">{{salesData.previous_ending}}</span> <span class="copy">previous ending</span>
+    </span>
+    <span>
+      <span class="value">{{salesData.sold}}</span> <span class="copy">sales since last</span>
     </span>
   {{else}}
     <span class="noDataMessage">No sales data for this item.</span>

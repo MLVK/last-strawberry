@@ -69,8 +69,9 @@
 
 <div class="col right orderTotals">
   <div class="col content">
-    <span class="title">Shipping</span>
-    <input
+    {{#if isSalesOrder}}
+      <span class="title">Shipping</span>
+      <input
       type="text"
       name="name"
       placeholder="Shipping rate"
@@ -78,6 +79,7 @@
       oninput={{action updateShipping}}
       onchange={{action updateShipping}}
       onblur={{action saveOrder}}>
+    {{/if}}
     <span class="title">Totals</span>
     <span class="row spaceBetween baseline totalQuantity">
       <span>Total quantity: </span>

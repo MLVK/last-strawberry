@@ -27,7 +27,16 @@ test("guests cannot visit products", async function(assert) {
   assert.equal(currentURL(), "/login");
 });
 
-test("shows items when present", async function(assert) {
+test("does not show non product items", async function(assert) {
+  const items = buildList("item", 10);
+  mockQuery("item").returns({json:items});
+
+  await defaultPage.visit();
+
+  assert.equal(defaultPage.products().count, 0);
+});
+
+test("only shows items of tag product", async function(assert) {
   const products = buildList("product", 10);
   mockQuery("item").returns({json:products});
 

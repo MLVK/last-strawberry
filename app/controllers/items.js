@@ -4,5 +4,5 @@ import ItemTypes from "last-strawberry/constants/item-types";
 const { filterBy } = Ember.computed;
 
 export default Ember.Controller.extend({
-  products: filterBy("items", "tag", ItemTypes.PRODUCT)
+  ingredients: filterBy("items", "tag", ItemTypes.INGREDIENT)
 });

@@ -8,8 +8,6 @@ export default Ember.Component.extend({
 
   @computed('salesData.ts')
   lastUpdated(timestamp) {
-    console.log(timestamp);
     return moment.unix(timestamp);
   }
-
 });

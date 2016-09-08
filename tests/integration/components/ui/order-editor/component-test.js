@@ -5,7 +5,7 @@ import decorateComponentClass from 'last-strawberry/tests/helpers/decorate-compo
 
 let model;
 
-moduleForComponent('sections/sales-order/order-editor', 'Integration | Component | sections/sales orders/order editor', {
+moduleForComponent('sections/sales-order/order-editor', 'Integration | Component | ui/order editor', {
   integration: true,
 
   beforeEach: function () {
@@ -34,7 +34,7 @@ moduleForComponent('sections/sales-order/order-editor', 'Integration | Component
 });
 
 test('it displays the company name', function(assert) {
-  assert.equal(this.$('.locationInfo').text().trim(), `${model.get('location.id')} - ${model.get('location.name')}`);
+  assert.equal(this.$('.locationInfo').text().trim(), `${model.get('location.code')} - ${model.get('location.name')}`);
 });
 
 test('it displays a list of order-items', function(assert) {

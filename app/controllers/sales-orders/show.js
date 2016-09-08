@@ -1,8 +1,6 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
 
-const { notEmpty } = Ember.computed;
-
 export default Ember.Controller.extend({
   firebaseMgr: Ember.inject.service(),
 
@@ -45,20 +43,17 @@ export default Ember.Controller.extend({
     const itemCode = this.get('item.code'),
           locationCode = this.get('model.location.code'),
           dataPath = `locations/${locationCode}/${itemCode}`,
-          fbRef = this.get('firebaseMgr').buildRef(dataPath).orderByChild('ts').limitToFirst(4);
+          fbRef = this.get('firebaseMgr').buildRef(dataPath).orderByChild('ts').limitToLast(10);
 
     this.locationItemMetaStream = new Rx.Subject();
 
     this.locationItemMetaStream
       .subscribe(
-        metaRef => {
-          fbRef.on('value', ::this.processSnapshot, this.errorHander, this);
-        },
-        err => console.log(err),
-        () => fbRef.off('value', ::this.processSnapshot, this)
-      );
+        () => fbRef.on('value', ::this.processSnapshot, this.errorHander, this),
+        () => {},
+        () => fbRef.off('value', ::this.processSnapshot, this));
 
-    this.locationItemMetaStream.onNext(fbRef);
+    this.locationItemMetaStream.onNext();
   },
 
   actions: {

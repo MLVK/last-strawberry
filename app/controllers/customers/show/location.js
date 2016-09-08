@@ -5,7 +5,7 @@ import AddressValidations from "last-strawberry/validators/address";
 export default Ember.Controller.extend({
   AddressValidations,
 
-  @computed("items", "model.itemDesires", "model.itemCreditRates")
+  @computed("items.@each.{isProduct,active}", "model.itemDesires.[]", "model.itemCreditRates.[]")
   itemSettings(items, itemDesires, itemCreditRates) {
     return items
       .filter(i => i.get("isProduct") && i.get("active"))

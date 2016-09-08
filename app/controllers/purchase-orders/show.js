@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 
   company: alias("model.location.company"),
 
-  @computed("items.[]", "company.id", "model.orderItems.[]")
+  @computed("items.@each.{active}", "company.id", "model.orderItems.[]")
   filteredItems(items, companyId, orderItems) {
 
     return items.filter(item => {

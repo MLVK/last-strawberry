@@ -26,6 +26,10 @@ export default function(session){
 
     defaultPrice: [
       validateNumber()
+    ],
+
+    position: [
+      validateNumber()
     ]
   }
 }

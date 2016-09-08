@@ -3,6 +3,18 @@
 </div>
 
 {{#with (changeset model validators) as |changeset|}}
+  <div class="col-1 positionContainer">
+    {{one-way-input changeset.position
+      onblur=(action "saveItem" changeset)
+      update=(action "updateItemField" changeset "position")
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="position"
+    }}
+  </div>
+
   <div class="col-1 codeContainer">
     {{one-way-input changeset.code
       onblur=(action "saveItem" changeset)

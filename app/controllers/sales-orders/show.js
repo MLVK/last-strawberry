@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
     return items.filter(item => {
       const matchingOrderItem = orderItems.any(oi => oi.get("item.id") === item.get("id"));
 
-      return item.get("isSold") && item.get("active") && !matchingOrderItem
+      return item.get("isSold") && item.get("active") && !matchingOrderItem;
     });
   },
 

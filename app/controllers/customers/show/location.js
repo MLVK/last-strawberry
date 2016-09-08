@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
           item,
           itemDesire,
           itemCreditRate
-        }
+        };
       });
   },
 

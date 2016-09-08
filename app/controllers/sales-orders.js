@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
   filteredSalesOrders(salesOrders, deliveryDate) {
     return salesOrders.filter(order => {
       const matchesDate = order.get("deliveryDate") === deliveryDate;
-      return matchesDate && order.get("isSalesOrder")
+      return matchesDate && order.get("isSalesOrder");
     });
   },
 

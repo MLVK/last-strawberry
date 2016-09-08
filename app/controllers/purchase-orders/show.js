@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
       const isTheSameCompany = item.get("company.id") === companyId;
       const matchingOrderItem = orderItems.any(oi => oi.get("item.id") === item.get("id"));
 
-      return item.get("active") && isTheSameCompany && !matchingOrderItem
+      return item.get("active") && isTheSameCompany && !matchingOrderItem;
     });
   },
 

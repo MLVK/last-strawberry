@@ -4,35 +4,24 @@ import computed from 'ember-computed-decorators';
 export default Ember.Component.extend({
   classNames: ['col', 'card-1'],
 
-  //
-  // ending:
-  // 10
-  //  previous_ending:
-  // 0
-  //  returns:
-  // 0
-  //  sold:
-  // 0
-  //  starting:
-  // 0
-  //  ts:
-  // 1473285110
-
   init() {
-    this.yo = new Rx.Subject();
+    this.salesDataStream = new Rx.Subject();
 
-    this.yo
+    this.salesDataStreamSubscription = this.salesDataStream
       .debounce(500)
-      .subscribe(salesData => this.set('debouncedData', salesData));
+      .subscribe(salesData => {
+        this.set('debouncedData', salesData);
+      });
 
       this._super();
   },
 
   didReceiveAttrs() {
-    this.yo.onNext(this.get('salesData'));
-    // const name = this.get('name');
-    // const company = this.get('company');
-    // this.set('formData', Ember.Object.create({name, company}));
+    this.salesDataStream.onNext(this.get('salesData'));
+  },
+
+  willDestroy() {
+    this.salesDataStreamSubscription.dispose();
   },
 
   @computed('debouncedData.@each.{previous_ending,ending,returns,sold,starting,ts}')

@@ -1,9 +1,15 @@
 import Ember from "ember";
 import Model from "ember-data/model";
 import attr from "ember-data/attr";
-import { belongsTo, hasMany } from "ember-data/relationships";
+import {
+  belongsTo,
+  hasMany
+} from "ember-data/relationships";
 
-const { alias } = Ember.computed;
+const {
+  alias,
+  filterBy
+} = Ember.computed;
 
 export default Model.extend({
   name:                attr("string"),
@@ -17,6 +23,8 @@ export default Model.extend({
   items:      hasMany("item"),
 
   text:       alias("name"),
+
+  activeLocations: filterBy("locations", "active", true),
 
   async priceForItem(item) {
     const priceTier = await this.get("priceTier");

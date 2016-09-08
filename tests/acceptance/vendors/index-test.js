@@ -23,7 +23,7 @@ moduleForAcceptance("Acceptance | vendors", {
   beforeEach() {
     authenticateSession(this.application);
 
-    vendors = makeList("company", 3);
+    vendors = makeList("vendor", 3);
     mockFindAll("company").returns({models: vendors});
   }
 });

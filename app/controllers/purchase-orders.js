@@ -6,7 +6,7 @@ const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
 export default Ember.Controller.extend({
   deliveryDate: tomorrow,
 
-  @computed("orders.@each.{deliveryDate}", "deliveryDate")
+  @computed("orders.@each.{deliveryDate,isPurchaseOrder}", "deliveryDate")
   filteredOrders(orders, deliveryDate) {
     return orders.filter(order => {
       const matchesDate = order.get("deliveryDate") === deliveryDate;

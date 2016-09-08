@@ -2,15 +2,15 @@
 
   <div class="col">
     {{lists/filterable-label-list
-        model=companies
-        itemClicked=(route-action 'showCompany')}}
+        model=customers
+        itemClicked=(route-action "showCompany")}}
 
     <div class="row">
       {{ui/input-action-bar
-        class='create-new-company'
-        type='add'
-        placeholder='Create new company...'
-        submit=(route-action 'createNewCompany')}}
+        class="create-new-company"
+        type="add"
+        placeholder="Create new company..."
+        submit=(route-action "createNewCompany")}}
     </div>
   </div>
 

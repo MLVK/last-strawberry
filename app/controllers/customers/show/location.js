@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
       });
   },
 
-  @computed("model.company.locations.@each.{locationHash}")
+  @computed("model.company.activeLocations.@each.{locationHash}")
   addresses(locations) {
     return locations.map(location => location.get("address"));
   }

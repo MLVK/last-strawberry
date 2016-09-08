@@ -4,9 +4,9 @@
         model=model
         isVendor=true
         save=(route-action "saveCompany")}}
-  
+
     {{sections/companies/location-manager
-        locations=model.locations
+        locations=model.activeLocations
         showLocation=(route-action "showLocation")
         createNewLocation=(route-action "createNewLocation" model)}}
   </div>

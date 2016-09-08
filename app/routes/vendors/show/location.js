@@ -88,11 +88,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       notification.destroyRecord();
     },
 
-    deleteLocation(location){
+    archiveLocation(location){
       const company = location.get("company");
-      this.transitionTo('customers.show', company);
+      this.transitionTo("vendors.show", company);
 
-      location.destroyRecord();
+      location.set("active", false);
+      location.save();
     }
   }
 });

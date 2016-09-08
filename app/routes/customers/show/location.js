@@ -123,11 +123,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       location.save();
     },
 
-    deleteLocation(location){
+    archiveLocation(location){
       const company = location.get("company");
       this.transitionTo("customers.show", company);
 
-      location.destroyRecord();
+      location.set("active", false);
+      location.save();
     },
 
     async massApplyCreditRate(location, massCreditRate){

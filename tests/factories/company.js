@@ -5,5 +5,10 @@ FactoryGuy.define('company', {
     name: FactoryGuy.generate(num => `Company ${num}`),
     priceTier: FactoryGuy.belongsTo('price-tier'),
     locations: FactoryGuy.hasMany('location')
+  },
+
+  vendor: {
+    isVendor: true,
+    isCustomer: false
   }
 });

@@ -17,7 +17,7 @@ export default Model.extend({
   description:      attr("string"),
   code:             attr("string"),
   unitOfMeasure:    attr("string"),
-  position:         attr("number"),
+  position:         attr("number", {defaultValue: 0.0}),
   tag:              attr("string", {defaultValue: ItemType.INGREDIENT}),
   isPurchased:      attr("boolean", {defaultValue: true}),
   isSold:           attr("boolean", {defaultValue: false}),

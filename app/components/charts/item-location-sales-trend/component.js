@@ -1,41 +1,65 @@
 import Ember from 'ember';
+import computed from 'ember-computed-decorators';
 
 export default Ember.Component.extend({
   classNames: ['col', 'card-1'],
 
-  chartData: {
-    labels: ['10/4', '10/10', '10/14', '10/19'],
-    datasets: [
+  init() {
+    this.salesDataStream = new Rx.Subject();
+
+    this.salesDataStreamSubscription = this.salesDataStream
+      .debounce(500)
+      .subscribe(salesData => {
+        this.set('debouncedData', salesData);
+      });
+
+      this._super();
+  },
+
+  didReceiveAttrs() {
+    this.salesDataStream.onNext(this.get('salesData'));
+  },
+
+  willDestroy() {
+    this.salesDataStreamSubscription.dispose();
+  },
+
+  @computed('debouncedData.@each.{previous_ending,ending,returns,sold,starting,ts}')
+  chartData(salesData = []){
+    return {
+      labels: salesData.map(sd => moment(sd.ts).format("MM-DD")),
+      datasets: [
         {
-            label: "Sold",
-            fillColor: "rgba(220,220,220,0)",
-            strokeColor: "rgba(0,179,221,0.8)",
-            pointColor: "rgba(0,179,221,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [4, 5, 4, 6]
+          label: "Sold",
+          fillColor: "rgba(220,220,220,0)",
+          strokeColor: "rgba(0,179,221,0.8)",
+          pointColor: "rgba(0,179,221,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: salesData.map(sd => sd.sold)
         },
         {
-            label: "Stock",
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [6, 7, 6, 8]
+          label: "Previous Ending",
+          fillColor: "rgba(151,187,205,0)",
+          strokeColor: "rgba(151,187,205,0.8)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: salesData.map(sd => sd.previous_ending)
         },
         {
-            label: "Returns",
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(255,100,108,0.8)",
-            pointColor: "rgba(255,100,108,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [2, 3, 2, 2]
+          label: "Returned",
+          fillColor: "rgba(151,187,205,0)",
+          strokeColor: "rgba(255,100,108,0.8)",
+          pointColor: "rgba(255,100,108,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: salesData.map(sd => sd.returns)
         }
-    ]
-}
+      ]
+    }
+  }
 });

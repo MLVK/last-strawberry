@@ -1,12 +1,25 @@
-{{ui/title-bar title='Latest delivery info'}}
+<header class="col">
+  <span class="title">
+    Sales Info
+  </span>
+  <span class="locationItemInfo">
+    {{item.name}} - {{location.code}}
+  </span>
+</header>
 
 <div class="col mainContentContainer">
   {{#if hasData}}
     <span>
-      <span class="value">{{data.quantity}}</span> <span class="copy">currently in stock</span>
+      <span class="value">{{salesData.previous_ending}}</span> <span class="copy">previous ending</span>
     </span>
     <span>
-      <span class="value">{{data.returns}}</span> <span class="copy">returned</span>
+      <span class="value">{{salesData.returns}}</span> <span class="copy">returned</span>
+    </span>
+    <span>
+      <span class="value">{{salesData.sold}}</span> <span class="copy">sold</span>
+    </span>
+    <span>
+      <span class="value">{{salesData.ending}}</span> <span class="copy">current ending</span>
     </span>
   {{else}}
     <span class="noDataMessage">No sales data for this item.</span>

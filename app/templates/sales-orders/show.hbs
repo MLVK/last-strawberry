@@ -15,10 +15,11 @@
 <div class="row top wrap">
   {{charts/location-item-info
       item=item
-      model=model
-      dataPath=dataPath}}
+      location=model.location
+      salesData=salesData.lastObject}}
 
-  {{charts/item-location-sales-trend}}
+  {{charts/item-location-sales-trend
+      salesData=salesData}}
 
   {{charts/item-totals
       title=(concat "Item totals for: " (moment-format model.deliveryDate "ddd DD/MM/YY"))

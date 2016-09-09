@@ -19,9 +19,14 @@ export default Ember.Controller.extend({
     return moment(deliveryDate).isBefore(tomorrow);
   },
 
-  @computed("locations.@each.{isVendor,active}")
-  vendorLocations(locations) {
-    return locations.filter(l => l.get("isVendor") && l.get("active"));
+  @computed("locations.@each.{active,isVendor}", "filteredOrders.[]")
+  unfulfilledLocations(locations, purchaseOrders) {
+    const fulfilledLocations = purchaseOrders.map(o => o.get("location").content);
+    const allLocations = locations
+      .filter(l => l.get("active") && l.get("isVendor"))
+      .toArray();
+
+    return _.difference(allLocations, fulfilledLocations);
   },
 
   actions: {

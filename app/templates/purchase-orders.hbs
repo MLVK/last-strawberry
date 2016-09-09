@@ -23,7 +23,7 @@
     {{ui/item-selector
         title="Create new purchase order"
         placeholder="Search for location"
-        model=vendorLocations
+        model=unfulfilledLocations
         close=(action "closeCreateOrder")
         onSubmit=(route-action "createOrder")}}
   {{/tether-dialog}}

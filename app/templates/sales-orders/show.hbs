@@ -13,7 +13,7 @@
     toggleOrderState=(route-action "toggleOrderState" model)}}
 
 <div class="row top wrap">
-  {{#if salesData.length}}
+  {{#if hasSalesData}}
     {{charts/location-item-info
       item=item
       location=model.location

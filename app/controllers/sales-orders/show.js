@@ -1,5 +1,6 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
+const { gt } = Ember.computed;
 
 export default Ember.Controller.extend({
   firebaseMgr: Ember.inject.service(),
@@ -36,6 +37,8 @@ export default Ember.Controller.extend({
   salesData(dataPoints = []) {
     return dataPoints.sortBy('ts');
   },
+
+  hasSalesData: gt("salesData.length", 0),
 
   loadSalesData() {
     this.cleanup();

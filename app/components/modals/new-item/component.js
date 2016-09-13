@@ -1,25 +1,24 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Component.extend({
-  classNames: ['col'],
+  classNames: ["col"],
 
   didInsertElement() {
-    this.$('.body .name').focus();
-  },
-
-  didReceiveAttrs() {
-    const name = this.get('name');
-    const company = this.get('company');
-    this.set('formData', Ember.Object.create({name, company}));
+    this.$(".body .name").focus();
   },
 
   actions: {
-    fieldChanged(key, e) {
-      this.get('formData').set(key, e.target.value);
+    fieldChanged(field, e) {
+      this.get("changeset").set(field, e.target.value);
     },
 
     submitForm() {
-      this.attrs.submit(this.get('formData'));
+      const changeset = this.get("changeset");
+      changeset.validate();
+
+      if(changeset.get("isValid")){
+        this.attrs.submit(changeset);
+      }
     }
   }
 });

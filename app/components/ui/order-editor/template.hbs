@@ -116,9 +116,7 @@
 {{#if showCreateItemModal}}
   {{#tether-dialog}}
     {{modals/new-item
-        isSold=true
-        company=company
-        name=itemSearchString
+        changeset=(changeset stashedItemData validators)
         cancel=(action "cancelCreateNewItem")
         submit=(action "requestCreateNewItem")}}
   {{/tether-dialog}}

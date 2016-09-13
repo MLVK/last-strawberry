@@ -1,7 +1,6 @@
 & {
   @extend .card-2;
   background: $off-white;
-  // padding: 2em;
   color: $slate;
   overflow: hidden;
 }
@@ -28,7 +27,6 @@ header {
     border: 4px solid $light-grey;
     padding: 0.5em;
     margin: 0.5em;
-    // width: 10em;
   }
 
   input[type="text"]:focus {
@@ -39,6 +37,14 @@ header {
   .code, .unit, .price {
     width: 5em;
   }
+
+  .code {
+    text-transform: uppercase;
+  }
+}
+
+.errorMessageContainer {
+  padding: 0 1em 1em 1em;
 }
 
 footer {

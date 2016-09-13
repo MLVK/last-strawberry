@@ -1,5 +1,6 @@
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 import Ember from "ember";
+import ItemTypes from "last-strawberry/constants/item-types";
 
 import {
 	PENDING_UPDATED_NOTIFICATION,
@@ -86,9 +87,16 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			});
 		},
 
-		async createNewItem({company, name, code, description, unitOfMeasure, defaultPrice}) {
+		async createNewItem(changeset) {
 			const record = await this.store
-				.createRecord("item", {company, name, code, description, unitOfMeasure, defaultPrice, tag:"ingredient"})
+				.createRecord("item", {
+					company: changeset.get("company"),
+					name: changeset.get("name"),
+					code: changeset.get("code"),
+					description: changeset.get("description"),
+					unitOfMeasure: changeset.get("unitOfMeasure"),
+					defaultPrice: changeset.get("defaultPrice"),
+					tag: ItemTypes.INGREDIENT })
 				.save();
 
 				return record;

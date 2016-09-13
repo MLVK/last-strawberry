@@ -1,10 +1,16 @@
 import Ember from "ember";
 import downloadFile from "last-strawberry/utils/download-file";
 import computed from "ember-computed-decorators";
+import ItemValidations from "last-strawberry/validators/item";
 
-const { alias, not } = Ember.computed;
+const {
+  alias,
+  not
+} = Ember.computed;
 
 export default Ember.Component.extend({
+  session:     Ember.inject.service(),
+
   classNames:       ["section_sales-order_order-editor", "col"],
 
   pdfGenerator:     Ember.inject.service(),
@@ -12,6 +18,11 @@ export default Ember.Component.extend({
   company:          alias("model.location.company"),
   isSalesOrder:     alias("model.isSalesOrder"),
   isPurchaseOrder:  not("isSalesOrder"),
+
+  @computed("session")
+  validators(session) {
+    return ItemValidations(session);
+  },
 
   @computed("itemSearchString")
   noMatchesMessage(str = "") {
@@ -41,6 +52,14 @@ export default Ember.Component.extend({
 
     onItemSearchKeyDown(obj, keyboard) {
       if(keyboard.code === "Enter" && this.get("isPurchaseOrder") && !obj.highlighted) {
+
+        const stashedItemData= {
+          name: this.get("itemSearchString"),
+          company: this.get("company"),
+          position: 0
+        }
+
+        this.set("stashedItemData", stashedItemData);
         this.set("showCreateItemModal", true);
       }
     },
@@ -49,8 +68,8 @@ export default Ember.Component.extend({
       this.set("showCreateItemModal", false);
     },
 
-    async requestCreateNewItem(formData) {
-      const newItem = await this.attrs.createNewItem(formData);
+    async requestCreateNewItem(changeset) {
+      const newItem = await this.attrs.createNewItem(changeset);
 
       this.attrs.createOrderItem(newItem);
       this.set("showCreateItemModal", false);

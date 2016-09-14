@@ -77,7 +77,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     createNotification(location) {
-      this.store.createRecord("notification-rule", { location });
+      this.store.createRecord("notification-rule", { location, wantsCredit:false });
     },
 
     saveNotification(changeset){

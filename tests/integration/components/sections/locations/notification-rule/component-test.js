@@ -29,6 +29,7 @@ test("it shows notification information when present", function(assert) {
 
   page.render(hbs`{{sections/locations/notification-rule
                     changeset=changeset
+                    isCustomer=true
                     saveNotification=handler
                     deleteNotification=handler}}`);
 

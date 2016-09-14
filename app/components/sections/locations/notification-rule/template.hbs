@@ -36,10 +36,12 @@
   class="wantsOrder col-2"
   update=(action "updateCheckboxField" "wantsOrder")}}
 
-{{one-way-checkbox
-  changeset.wantsCredit
-  class="wantsCredit col-2"
-  update=(action "updateCheckboxField" "wantsCredit")}}
+  {{#if isCustomer}}
+    {{one-way-checkbox
+      changeset.wantsCredit
+      class="wantsCredit col-2"
+      update=(action "updateCheckboxField" "wantsCredit")}}
+  {{/if}}
 
 <div class="col-2">
   <i class="material-icons deleteButton" {{action deleteNotification}}>close</i>

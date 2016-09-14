@@ -5,11 +5,16 @@
   <div class="col-3">Last Name</div>
   <div class="col-3">Email</div>
   <div class="col-2">Wants Order?</div>
-  <div class="col-2">Wants Credit?</div>
+
+  {{#if model.isCustomer}}
+    <div class="col-2">Wants Credit?</div>
+  {{/if}}
+
   <div class="col-2"></div>
 </div>
 {{#each model.notificationRules as |notification|}}
   {{sections/locations/notification-rule
+      isCustomer=model.isCustomer 
       changeset=(changeset notification NotificationValidations)
       saveNotification=(action "saveNotification")
       deleteNotification=(action deleteNotification notification)}}

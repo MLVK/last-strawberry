@@ -1,16 +1,22 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Component.extend({
-  classNames: ['row', 'ui_input-action-bar'],
+  classNames: ["row", "ui_input-action-bar"],
+
   didInsertElement() {
-    if(this.get('autoFocus')){
-      this.$('input').focus();
+    if(this.get("autoFocus")){
+      this.$("input").focus();
     }
   },
+
   actions: {
     submit() {
-      this.attrs.submit(this.$('input').val());
-      this.$('input').val('')
+      const text = this.$("input").val();
+
+      if(!Ember.isBlank(text)){
+        this.attrs.submit(text.trim());
+        this.$("input").val("");
+      }
     }
   }
 });

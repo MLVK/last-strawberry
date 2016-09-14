@@ -36,7 +36,7 @@ export default Ember.Component.extend({
   },
 
   checkAndSaveBlueprint(changeset) {
-    if(changeset.get("isValid")){
+    if(changeset.get("isValid") && changeset.get("isDirty")){
       // Get updated data
       const id = changeset.get("id");
       const name = changeset.get("name");

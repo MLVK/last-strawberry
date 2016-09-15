@@ -24,12 +24,12 @@
 
 {{#each filteredUsers as |user index|}}
   {{sections/users/user-table/table-row
-    user=user
+    changeset=(changeset user validators)
     index=index
     roles=roles
     validators=validators
     saveUser=saveUser
-    deleteUser=deleteUser
+    deleteUser=(action deleteUser user)
   }}
 {{/each}}
 

@@ -18,7 +18,7 @@ export default function(session){
 
     email: [
       validateFormat({ type: "email" }),
-      uniqueFieldValidator({ session, type: "user", errorMsg: "Another user is using that email." }),
+      uniqueFieldValidator({ session, type: "user", errorMsg: "Another user is using that email." })
     ],
 
     role: [
@@ -28,5 +28,9 @@ export default function(session){
     password: [
       validateLength({ min: 8 })
     ],
+
+    phone: [
+      validateFormat({ type: "phone", allowBlank: true})
+    ]
   }
 }

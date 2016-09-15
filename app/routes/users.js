@@ -16,14 +16,20 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       changeset.save();
     },
 
-    archiveUser(user) {
-      // user.set("active", false);
-      user.save();
+    deleteUser(user) {
+      user.destroyRecord();
     },
 
-		createNewUser(name) {
-      // const item = this.store.createRecord('item', {name, tag:ItemTypes.PRODUCT, isSold:true, isPurchased:false});
-			// item.save();
+		createNewUser(changeset) {
+      const user = this.store.createRecord('user', {
+        firstName: changeset.get("firstName"),
+        lastName: changeset.get("lastName"),
+        email: changeset.get("email"),
+        role: changeset.get("role"),
+        phone: changeset.get("phone"),
+        password: changeset.get("password")
+      });
+			user.save();
     }
   }
 });

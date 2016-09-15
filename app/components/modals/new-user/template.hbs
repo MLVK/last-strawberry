@@ -1,0 +1,70 @@
+{{#modals/base-modal
+  title="Create New User"
+  cancelLabel="Cancel"
+  cancel=close
+  submitLabel="Save"
+  submit=(action "submitNewUser")
+  isValid=changeset.isValid
+  loadingMessage="Creating..."
+}}
+  <div class="row">
+    <div class="col-2 firstNameContainer">
+      {{one-way-input changeset.firstName
+        update=(action "fieldChanged" "firstName")
+        placeHolder="First Name"
+      }}
+    </div>
+
+    <div class="col-2 lastNameContainer">
+      {{one-way-input changeset.lastName
+        update=(action "fieldChanged" "lastName")
+        placeHolder="Last Name"
+      }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-2 emailContainer">
+      {{one-way-input changeset.email
+        update=(action "fieldChanged" "email")
+        placeHolder="Email"
+      }}
+    </div>
+
+    <div class="col-2 passwordContainer">
+      {{one-way-input changeset.password
+        update=(action "fieldChanged" "password")
+        placeHolder="Password"
+        type="password"
+      }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-2 roleContainer">
+      {{#power-select
+        selected=changeset.role
+        options=roles
+        renderInPlace=true
+        searchEnabled=false
+        onchange=(action "fieldChanged" "role")
+        as |role|
+      }}
+        {{capitalize role}}
+      {{/power-select}}
+    </div>
+
+    <div class="col-2 phoneContainer">
+      {{one-way-input changeset.phone
+        update=(action "fieldChanged" "phone")
+        placeHolder="Phone"
+      }}
+    </div>
+  </div>
+
+  <div class="errorMessageContainer">
+    {{#each changeset.errors as |error|}}
+      <div class="row">{{error.validation}}</div>
+    {{/each}}
+  </div>
+{{/modals/base-modal}}

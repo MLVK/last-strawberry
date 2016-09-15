@@ -1,7 +1,20 @@
-{{one-way-input filterTerm
+<div class="row">
+  {{one-way-input filterTerm
     placeholder="Filter name or email"
     class="filterTermInput"
-    update=(action (mut filterTerm))}}
+    update=(action (mut filterTerm))
+  }}
+
+  {{ui/icon-button
+    type="add"
+    label="New User"
+    size=1.5
+    flat=true
+    backgroundColor=colors.DARK_GREY
+    padding=0.5
+    click=(action "onRequestNewUser")
+  }}
+</div>
 
 <div class="tableHeader row">
   <div class="col-1 no">
@@ -71,10 +84,11 @@
           selected=changeset.role
           options=roles
           searchEnabled=false
-          onchange=(action "setSelectedRole" changeset)
+          disabled=(eq SUPER_ADMIN_ID user.id)
+          onchange=(action "roleChanged" changeset)
           as |role|
         }}
-          {{role.name}}
+          {{capitalize role}}
         {{/power-select}}
       </div>
 
@@ -96,9 +110,21 @@
           flat=true
           color=colors.DARK_GREY
           type="close"
-          click=(action archiveUser user)
+          disabled=(eq SUPER_ADMIN_ID user.id)
+          click=(action deleteUser user)
         }}
       </div>
     {{/with}}
     </div>
 {{/each}}
+
+{{#if showNewUserModal}}
+  {{#tether-dialog close=(action "closeNewUser")}}
+    {{modals/new-user
+      roles=roles
+      changeset=(changeset stashedNewUserData validators)
+      close=(action "closeNewUser")
+      submit=(action "createNewUser")
+    }}
+  {{/tether-dialog}}
+{{/if}}

@@ -1,11 +1,15 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
 import UserValidations from "last-strawberry/validators/user";
+import Roles from "last-strawberry/constants/roles";
 
 export default Ember.Component.extend({
   session: Ember.inject.service(),
+  SUPER_ADMIN_ID: "1",
 
   classNames: "col stretch",
+
+  roles: _.values(Roles),
 
   filterTerm: "",
 
@@ -23,32 +27,16 @@ export default Ember.Component.extend({
     return UserValidations(session);
   },
 
-  // @computed("users.@each.{name}")
-  // drivers(users) {
-  //
-  //   const drivers = users.map(u => {
-  //     return {name: u.get("name"), id: u.get("id")};
-  //   });
-  //
-  //   // Add blank row
-  //   drivers.unshiftObject({name: "Unselect driver"});
-  //   return drivers;
-  // },
-
-  checkAndSaveBlueprint(changeset) {
+  checkAndSaveUser(changeset){
     if(changeset.get("isValid") && changeset.get("isDirty")){
-      // Get updated data
-      const id = changeset.get("id");
-      const name = changeset.get("name");
-      const driver = this.get("users").find(u => u.id === changeset.get("user.id"));
-      this.attrs.saveRoutePlanBlueprint(id, name, driver);
+      this.attrs.saveUser(changeset);
     }
   },
 
   actions: {
-    setSelectedRole(changeset, role){
-      // changeset.set("user", role);
-      // this.checkAndSaveBlueprint(changeset);
+    roleChanged(changeset, role){
+      changeset.set("role", role);
+      this.checkAndSaveUser(changeset);
     },
 
     fieldChanged(changeset, field, value) {
@@ -56,7 +44,25 @@ export default Ember.Component.extend({
     },
 
     saveUser(changeset) {
-      // this.checkAndSaveBlueprint(changeset);
+      this.checkAndSaveUser(changeset);
+    },
+
+    onRequestNewUser() {
+      const stashedNewUserData = {
+        role: Roles.PENDING
+      }
+
+      this.set("stashedNewUserData", stashedNewUserData);
+      this.set("showNewUserModal", true);
+    },
+
+    closeNewUser() {
+      this.set("showNewUserModal", false);
+    },
+
+    createNewUser(changeset){
+      this.attrs.createNewUser(changeset);
+      this.set("showNewUserModal", false);
     }
   }
 });

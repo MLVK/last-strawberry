@@ -2,7 +2,8 @@ import uniqueFieldValidator from "last-strawberry/validators/unique-field-valida
 
 import {
   validatePresence,
-  validateFormat
+  validateFormat,
+  validateLength
 } from "ember-changeset-validations/validators";
 
 export default function(session){
@@ -16,13 +17,16 @@ export default function(session){
     ],
 
     email: [
-      validatePresence(true),
       validateFormat({ type: "email" }),
       uniqueFieldValidator({ session, type: "user", errorMsg: "Another user is using that email." }),
     ],
 
     role: [
       validatePresence(true)
-    ]
+    ],
+
+    password: [
+      validateLength({ min: 8 })
+    ],
   }
 }

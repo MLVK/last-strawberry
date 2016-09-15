@@ -1,121 +1,36 @@
-<div class="row">
-  {{one-way-input filterTerm
-    placeholder="Filter name or email"
-    class="filterTermInput"
-    update=(action (mut filterTerm))
-  }}
+<div class="row filtering">
+  <div class="col-5">
+    {{one-way-input filterTerm
+      placeholder="Filter name or email"
+      class="filterTermInput"
+      update=(action (mut filterTerm))
+    }}
+  </div>
 
-  {{ui/icon-button
-    type="add"
-    label="New User"
-    size=1.5
-    flat=true
-    backgroundColor=colors.DARK_GREY
-    padding=0.5
-    click=(action "onRequestNewUser")
-  }}
+  <div class="col">
+    {{ui/icon-button
+      type="add"
+      label="New User"
+      size=1.5
+      flat=true
+      backgroundColor=colors.DARK_GREY
+      padding=1
+      click=(action "onRequestNewUser")
+    }}
+  </div>
 </div>
 
-<div class="tableHeader row">
-  <div class="col-1 no">
-    No.
-  </div>
-  <div class="col-2">
-    First Name
-  </div>
-  <div class="col-2">
-    Last Name
-  </div>
-  <div class="col-2">
-    Email
-  </div>
-  <div class="col-2">
-    Role
-  </div>
-  <div class="col-2">
-    Phone
-  </div>
-  <div class="empty-padding">
-  </div>
-</div>
+{{sections/users/user-table/table-header}}
+
 {{#each filteredUsers as |user index|}}
-  <div class="tableRow row">
-    {{#with (changeset user validators) as |changeset|}}
-      <div class="col-1 no">{{sum index 1}}</div>
-
-      <div class="col-2 firstNameContainer">
-        {{one-way-input changeset.firstName
-          update=(action "fieldChanged" changeset "firstName")
-          onblur=(action "saveUser" changeset)
-        }}
-
-        {{forms/elements/error-message
-          changeset=changeset
-          property="firstName"
-        }}
-      </div>
-
-      <div class="col-2 lastNameContainer">
-        {{one-way-input changeset.lastName
-          update=(action "fieldChanged" changeset "lastName")
-          onblur=(action "saveUser" changeset)
-        }}
-
-        {{forms/elements/error-message
-          changeset=changeset
-          property="lastName"
-        }}
-      </div>
-
-      <div class="col-2 emailContainer">
-        {{one-way-input changeset.email
-          update=(action "fieldChanged" changeset "email")
-          onblur=(action "saveUser" changeset)
-        }}
-
-        {{forms/elements/error-message
-          changeset=changeset
-          property="email"
-        }}
-      </div>
-
-      <div class="col-2 roleContainer">
-        {{#power-select
-          selected=changeset.role
-          options=roles
-          searchEnabled=false
-          disabled=(eq SUPER_ADMIN_ID user.id)
-          onchange=(action "roleChanged" changeset)
-          as |role|
-        }}
-          {{capitalize role}}
-        {{/power-select}}
-      </div>
-
-      <div class="col-2 phoneContainer">
-        {{one-way-input changeset.phone
-          update=(action "fieldChanged" changeset "phone")
-          onblur=(action "saveUser" changeset)
-        }}
-
-        {{forms/elements/error-message
-          changeset=changeset
-          property="phone"
-        }}
-      </div>
-
-      <div class="uiContainer">
-        {{ui/icon-button
-          class="delete right"
-          flat=true
-          color=colors.DARK_GREY
-          type="close"
-          disabled=(eq SUPER_ADMIN_ID user.id)
-          click=(action deleteUser user)
-        }}
-      </div>
-    {{/with}}
-    </div>
+  {{sections/users/user-table/table-row
+    user=user
+    index=index
+    roles=roles
+    validators=validators
+    saveUser=saveUser
+    deleteUser=deleteUser
+  }}
 {{/each}}
 
 {{#if showNewUserModal}}

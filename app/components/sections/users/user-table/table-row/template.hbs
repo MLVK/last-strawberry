@@ -1,0 +1,89 @@
+{{#with (changeset user validators) as |changeset|}}
+  <div class="col-1 no">{{sum index 1}}</div>
+
+  <div class="col-2 firstNameContainer">
+    {{one-way-input changeset.firstName
+      update=(action "fieldChanged" changeset "firstName")
+      onblur=(action "saveUser" changeset)
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="firstName"
+    }}
+  </div>
+
+  <div class="col-2 lastNameContainer">
+    {{one-way-input changeset.lastName
+      update=(action "fieldChanged" changeset "lastName")
+      onblur=(action "saveUser" changeset)
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="lastName"
+    }}
+  </div>
+
+  <div class="col-2 emailContainer">
+    {{one-way-input changeset.email
+      type="email"
+      update=(action "fieldChanged" changeset "email")
+      onblur=(action "saveUser" changeset)
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="email"
+    }}
+  </div>
+
+  <div class="col-2 passwordContainer">
+    {{one-way-input changeset.password
+      type="password"
+      update=(action "fieldChanged" changeset "password")
+      onblur=(action "saveUser" changeset)
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="password"
+    }}
+  </div>
+
+  <div class="col-2 roleContainer">
+    {{#power-select
+      selected=changeset.role
+      options=roles
+      searchEnabled=false
+      disabled=(eq SUPER_ADMIN_ID user.id)
+      onchange=(action "roleChanged" changeset)
+      as |role|
+    }}
+      {{capitalize role}}
+    {{/power-select}}
+  </div>
+
+  <div class="col-2 phoneContainer">
+    {{one-way-input changeset.phone
+      update=(action "fieldChanged" changeset "phone")
+      onblur=(action "saveUser" changeset)
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="phone"
+    }}
+  </div>
+
+  <div class="uiContainer">
+    {{ui/icon-button
+      class="delete right"
+      flat=true
+      color=colors.DARK_GREY
+      type="close"
+      disabled=(eq SUPER_ADMIN_ID user.id)
+      click=(action deleteUser user)
+    }}
+  </div>
+{{/with}}

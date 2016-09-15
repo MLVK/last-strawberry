@@ -38,7 +38,7 @@ ul, li {
   -webkit-border-radius: 100px;
 }
 
-input[type="text"] {
+input[type="text"],input[type="email"],input[type="password"] {
   display: block;
   margin: 0;
   width: 100%;
@@ -47,7 +47,8 @@ input[type="text"] {
   appearance: none;
   box-shadow: none;
   border-radius: none;
-}
-input[type="text"]:focus {
-  outline: none;
+
+  &:focus {
+    outline: none;
+  }
 }

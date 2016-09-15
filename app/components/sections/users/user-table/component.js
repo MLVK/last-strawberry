@@ -27,26 +27,7 @@ export default Ember.Component.extend({
     return UserValidations(session);
   },
 
-  checkAndSaveUser(changeset){
-    if(changeset.get("isValid") && changeset.get("isDirty")){
-      this.attrs.saveUser(changeset);
-    }
-  },
-
   actions: {
-    roleChanged(changeset, role){
-      changeset.set("role", role);
-      this.checkAndSaveUser(changeset);
-    },
-
-    fieldChanged(changeset, field, value) {
-      changeset.set(field, value);
-    },
-
-    saveUser(changeset) {
-      this.checkAndSaveUser(changeset);
-    },
-
     onRequestNewUser() {
       const stashedNewUserData = {
         role: Roles.PENDING

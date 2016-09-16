@@ -36,7 +36,7 @@ Router.map(function() {
     });
   });
   this.route("route-plan-blueprints");
-  this.route('users');
+  this.route("users");
 });
 
 export default Router;

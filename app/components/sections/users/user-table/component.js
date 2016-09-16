@@ -5,7 +5,6 @@ import Roles from "last-strawberry/constants/roles";
 
 export default Ember.Component.extend({
   session: Ember.inject.service(),
-  SUPER_ADMIN_ID: "1",
 
   classNames: "col stretch",
 

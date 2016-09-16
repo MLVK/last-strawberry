@@ -5,7 +5,10 @@ import attr from "ember-data/attr";
 import { hasMany } from "ember-data/relationships";
 import Roles from "last-strawberry/constants/roles";
 
-const { alias } = Ember.computed;
+const {
+  alias,
+  equal
+} = Ember.computed;
 
 export default Model.extend({
   firstName:    attr("string"),
@@ -19,6 +22,8 @@ export default Model.extend({
   routePlanBlueprints:    hasMany("route-plan-blueprint"),
 
   text: alias("name"),
+
+  isDriver: equal("role", Roles.DRIVER),
 
   @computed("firstName", "lastName")
   name(first, last) {

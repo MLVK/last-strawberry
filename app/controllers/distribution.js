@@ -20,6 +20,8 @@ export default Ember.Controller.extend({
   activeRouteVisits: filterBy("routeVisits", "isValid", true),
   openRouteVisits: filterBy("activeRouteVisits", "isOpen", true),
 
+  drivers: filterBy("users", "isDriver", true),
+
   actions: {
     async printFulfillmentDocuments() {
       const { url, key } = await this.get("pdfGenerator")

@@ -5,6 +5,8 @@ import { page, orderEditorPO } from 'last-strawberry/tests/pages/sales-orders-sh
 
 import {
   make,
+  makeList,
+  mockCreate,
   mockFind,
   mockFindAll,
   mockDelete
@@ -53,4 +55,44 @@ test('can delete sales order', async function(assert) {
   await orderEditorPO.deleteOrder();
 
   assert.equal(currentURL(), `/sales-orders`);
+});
+
+test('can add order item manually', async function(assert) {
+  const order = make('order');
+  mockFindAll('order').returns({models: [order]});
+  mockFind('order').returns({model: order});
+  mockCreate("order-item");
+  const items = makeList("product", 10);
+
+  mockFindAll('item').returns({models: items});
+
+  await page.visit({id:order.get('id')});
+
+  assert.equal(orderEditorPO.salesOrderItems().count, 0);
+
+  await orderEditorPO.addProduct(items[0]);
+
+  assert.equal(orderEditorPO.salesOrderItems().count, 1);
+  assert.equal(orderEditorPO.salesOrderItems(0).name, items[0].get("name"));
+});
+
+test('adding an item manually still uses price-tier price', async function(assert) {
+  const item = make("product");
+  const priceTier = make("price-tier");
+  make("item-price", {item, price:2.5, priceTier});
+  
+  const company = make("company", {priceTier});
+  const location = make("location", {company});
+  const order = make('order', {location});
+
+  mockFindAll('order').returns({models: [order]});
+  mockFind('order').returns({model: order});
+  mockCreate("order-item");
+
+  mockFindAll('item').returns({models: [item]});
+
+  await page.visit({id:order.get('id')});
+  await orderEditorPO.addProduct(item);
+
+  assert.equal(orderEditorPO.salesOrderItems(0).total, "$2.50");
 });

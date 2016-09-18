@@ -19,9 +19,14 @@ const orderEditorPO = PO.create({
 
     item: {
       name: text(".name"),
-      quantity: text(".quantity")
+      quantity: text(".quantity"),
+      total: text(".unitPrice")
     }
   }),
+
+  addProduct(item) {
+    return selectChoose(".addOrderItemContainer", item.get("name"));
+  },
 
   deleteOrder: clickable(".toolbar .delete")
 });

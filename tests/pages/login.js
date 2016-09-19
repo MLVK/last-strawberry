@@ -1,11 +1,16 @@
-import PageObject from '../page-object';
+import PO from '../page-object';
 
-const { clickable, fillable, text, visitable } = PageObject;
+const {
+  clickable,
+  fillable,
+  text,
+  visitable
+} = PO;
 
-export default PageObject.create({
+export default PO.create({
   visit: visitable('/login'),
   username: fillable('.username'),
   password: fillable('.password'),
-  submit: clickable('button'),
-  error: text('.errors')
+  clickSubmit: clickable(".submit"),
+  errorMessage: text('.error')
 });

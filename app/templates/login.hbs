@@ -1,12 +1,4 @@
-{{session.isAuthenticated}}
-<div class="container">
-    <form class="form-signin" {{action 'authenticate' on='submit'}}>
-        <h2 class="form-signin-heading">Please sign in</h2>
-        {{input class='form-control username' placeholder='Enter Login' value=identification}}
-        {{input class="form-control password" placeholder='Enter Password' type='password' value=password}}
-
-        <label class="checkbox">
-        <input type="checkbox" value="remember-me">Remember me</label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
-</div><!-- /container -->
+<div class="row stretch center">
+  {{forms/authentication-form
+      authenticate=(action "authenticate")}}
+</div>

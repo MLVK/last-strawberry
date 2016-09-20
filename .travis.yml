@@ -18,16 +18,13 @@ before_install:
 install:
   - npm install
   - bower install
-  - npm install -g firebase-tools
+  - npm install -g netlify-cli
   - npm install -g ember-cli
 
 script:
   - ember test
 
 after_success:
-  if [ "${TRAVIS_BRANCH}" == "development" ] && [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then
-    ember build --environment production && firebase deploy --token ${FIREBASE_TOKEN};
-  fi
   if [ "${TRAVIS_BRANCH}" == "master" ] && [ "${TRAVIS_PULL_REQUEST}" == "false" ] && [-n "${TRAVIS_TAG}"]; then
-    ember build --environment production && firebase deploy --token ${PRODUCTION_FIREBASE_TOKEN};
+    ember build --environment production && netlify deploy -e production -t ${PRODUCTION_NETLIFY_TOKEN} -s ${PRODUCTION_NETLIFY_SITE_ID} -p dist;
   fi

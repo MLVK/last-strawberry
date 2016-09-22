@@ -1,9 +1,22 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
+import UniqueFieldValidator from "last-strawberry/validators/unique-field-validator";
 
 export default Ember.Component.extend({
+  session:     Ember.inject.service(),
+
   didInsertElement() {
     this.$(".name").focus();
+  },
+
+  @computed("session", "changeset._content.name")
+  nameUniqueValidator(session, oldName) {
+    return UniqueFieldValidator.create({session, type:"routePlanBlueprint", key:"name", oldValue:oldName});
+  },
+
+  @computed("nameUniqueValidator.isValid", "changeset.isValid")
+  isValid(validName, validChangeset) {
+    return validName && validChangeset;
   },
 
   @computed("users.[]")
@@ -24,13 +37,20 @@ export default Ember.Component.extend({
     },
 
     fieldChanged(field, e) {
-      this.get("changeset").set(field, e.target.value);
+      const value = e.target.value;
+      this.get("changeset").set(field, value);
+
+      // Check name is unique
+      if(field === "name"){
+        this.get("nameUniqueValidator").check(value);
+      }
     },
 
     submitForm() {
       const changeset = this.get("changeset");
       changeset.validate();
-      if(changeset.get("isValid")){
+      
+      if(this.get("isValid")){
         // set user for changeset
         const user = this.get("users").find(u => u.id === changeset.get("user.id"));
         changeset.set("user", user);

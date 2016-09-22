@@ -57,6 +57,10 @@
   {{#each changeset.errors as |error|}}
     <div class="row">{{error.key}}:{{error.validation}}</div>
   {{/each}}
+
+  {{#if (not codeUniqueValidator.isValid)}}
+    <div class="row">Another item is using that code</div>
+  {{/if}}
 </div>
 
 <footer class="row right">
@@ -79,5 +83,6 @@
     backgroundColor=colors.SKY_BLUE
     size=1.5
     padding=1
+    disabled=(not isValid)
     click=(action "submitForm")}}
 </footer>

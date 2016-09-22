@@ -36,5 +36,9 @@
     {{#each changeset.errors as |error|}}
       <div class="row">{{error.key}}:{{error.validation}}</div>
     {{/each}}
+
+    {{#if (not codeUniqueValidator.isValid)}}
+      <div class="row">Another location is using that code</div>
+    {{/if}}
   </div>
 {{/with}}

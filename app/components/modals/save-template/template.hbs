@@ -3,7 +3,7 @@
     cancelLabel="Cancel"
     cancel=(action cancel)
     submitLabel="Create"
-    isValid=changeset.isValid
+    isValid=isValid
     submit=(action "submitForm")}}
     <input
       type="text"
@@ -29,5 +29,9 @@
       {{#each changeset.errors as |error|}}
         <div class="row">{{error.key}}:{{error.validation}}</div>
       {{/each}}
+
+      {{#if (not nameUniqueValidator.isValid)}}
+        <div class="row">Another template is using that name</div>
+      {{/if}}
     </div>
 {{/modals/base-modal}}

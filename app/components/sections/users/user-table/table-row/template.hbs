@@ -35,6 +35,10 @@
     changeset=changeset
     property="email"
   }}
+
+  {{#if (not emailUniqueValidator.isValid)}}
+    <div class="row">Another user is using that email</div>
+  {{/if}}
 </div>
 
 <div class="col-2 passwordContainer">

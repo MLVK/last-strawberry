@@ -1,0 +1,40 @@
+<div class="col-1 no">{{sum index 1}}</div>
+
+<div class="col-2 nameContainer">
+  {{one-way-input changeset.name
+    update=(action "fieldChanged" "name")
+    onblur=(action "saveRoutePlanBlueprint")
+  }}
+  {{#if (get changeset.error "name")}}
+    <div class="errorMessageContainer">
+      {{#each (get (get changeset.error "name") "validation") as |message|}}
+        <div class="row">{{message}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  {{#if (not nameUniqueValidator.isValid)}}
+    <div class="row">Another template is using that name</div>
+  {{/if}}
+</div>
+
+<div class="col-3 driverContainer">
+  {{#power-select
+    selected=changeset.user
+    options=drivers
+    placeholder="Select a driver"
+    searchEnabled=false
+    onchange=(action "setSelectedDriver")
+    as |user|}}
+    {{user.name}}
+    {{/power-select}}
+  </div>
+  <div class="uiContainer">
+    {{ui/icon-button
+      class="delete right"
+      flat=true
+      color=colors.DARK_GREY
+      type="close"
+      click=deleteRoutePlanBlueprint
+    }}
+  </div>

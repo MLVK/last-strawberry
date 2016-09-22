@@ -12,6 +12,8 @@ export default Ember.Component.extend({
 
   filterTerm: "",
 
+  validators: UserValidations,
+
   @computed("users.@each.{name,email}", "filterTerm")
   filteredUsers(users, query){
     return users
@@ -19,11 +21,6 @@ export default Ember.Component.extend({
         const reg = new RegExp(query, "i");
         return reg.test(user.get("name")) || reg.test(user.get("email"));
       });
-  },
-
-  @computed("session")
-  validators(session) {
-    return UserValidations(session);
   },
 
   actions: {

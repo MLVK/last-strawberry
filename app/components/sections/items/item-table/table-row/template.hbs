@@ -25,6 +25,10 @@
       changeset=changeset
       property="code"
     }}
+
+    {{#if (not codeUniqueValidator.isValid)}}
+      <div class="row">Another item is using that code</div>
+    {{/if}}
   </div>
 
   {{#if (not isProduct)}}

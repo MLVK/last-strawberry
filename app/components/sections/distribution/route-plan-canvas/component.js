@@ -1,19 +1,13 @@
 import Ember from "ember";
 import TemplateValidations from "last-strawberry/validators/route-plan-blueprint";
-import computed from "ember-computed-decorators";
 
 const { filterBy } = Ember.computed;
 const SCROLL_SPEED = 20;
 
 export default Ember.Component.extend({
-  session:     Ember.inject.service(),
-
   classNames: ["col", "stretch"],
 
-  @computed("session")
-  validators(session) {
-    return TemplateValidations(session);
-  },
+  validators: TemplateValidations,
 
   init() {
     this._super();

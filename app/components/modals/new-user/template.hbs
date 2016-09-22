@@ -4,7 +4,7 @@
   cancel=close
   submitLabel="Save"
   submit=(action "submitNewUser")
-  isValid=changeset.isValid
+  isValid=isValid
   loadingMessage="Creating..."
 }}
   <div class="row">
@@ -66,5 +66,9 @@
     {{#each changeset.errors as |error|}}
       <div class="row">{{error.validation}}</div>
     {{/each}}
+
+    {{#if (not emailUniqueValidator.isValid)}}
+      <div class="row">Another user is using that email</div>
+    {{/if}}
   </div>
 {{/modals/base-modal}}

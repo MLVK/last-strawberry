@@ -1,0 +1,18 @@
+& {
+  padding: 1em;
+  align-items: center;
+
+  &:nth-of-type(odd) {
+    background: $off-white;
+  }
+
+  .uiContainer {
+    width: 2em;
+  }
+
+  .nameContainer {
+    input {
+      width: 10em;
+    }
+  }
+}

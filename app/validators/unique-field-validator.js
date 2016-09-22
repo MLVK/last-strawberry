@@ -1,38 +1,59 @@
 import Ember from "ember";
-import config from "last-strawberry/config/environment";
 import { toUnderscore } from "last-strawberry/utils/string";
+import config from "last-strawberry/config/environment";
 
-export default function(options) {
-  const { session, type } = options;
-  return function uniqueValidator(key, value, oldValue) {
+export default Ember.Object.extend({
+  session: null,
+  type: "type",
+  key: "key",
+  oldValue:"",
+  isValid: true,
 
-    if(value === oldValue) {
-      return true;
+  _checkUniqueEndpoint(value){
+    const data = {
+      type: this.type,
+      key: toUnderscore(this.key),
+      value
     }
 
-    key = toUnderscore(key);
-
     return new Ember.RSVP.Promise(res => {
-      session.authorize("authorizer:devise", (headerName, headerValue) => {
+      this.session.authorize("authorizer:devise", (headerName, headerValue) => {
         const headers = {};
         headers[headerName] = headerValue;
         const payload = {
           url:`${config.apiHost}/custom/unique_check`,
-          data:{type, key, value},
+          data,
           headers,
           type:"POST"
         };
 
-        Ember.$.ajax(payload)
-          .always(response => {
-            if(response.unique) {
-              res(response.unique);
-            } else {
-              const { errorMsg = `${key}: ${value} is already in use by another ${type}` } = options;
-              res(errorMsg);
-            }
-        });
+        Ember.$
+          .ajax(payload)
+          .always(response => res(response.unique));
       });
     });
+  },
+
+  _setupSubject(){
+    if(Ember.isPresent(this.subject)){
+      return;
+    }
+
+    this.subject = new Rx.Subject();
+    this.subject
+      .debounce(100)
+      .subscribe(async value => {
+        let isValid = true;
+        if(value !== this.oldValue){
+          isValid =  await this._checkUniqueEndpoint(value);
+        }
+
+        this.set("isValid", isValid);
+      });
+  },
+
+  check(value){
+    this._setupSubject();
+    this.subject.onNext(value);
   }
-}
+})

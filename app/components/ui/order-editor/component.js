@@ -9,8 +9,6 @@ const {
 } = Ember.computed;
 
 export default Ember.Component.extend({
-  session:     Ember.inject.service(),
-
   classNames:       ["section_sales-order_order-editor", "col"],
 
   pdfGenerator:     Ember.inject.service(),
@@ -19,10 +17,7 @@ export default Ember.Component.extend({
   isSalesOrder:     alias("model.isSalesOrder"),
   isPurchaseOrder:  not("isSalesOrder"),
 
-  @computed("session")
-  validators(session) {
-    return ItemValidations(session);
-  },
+  validators: ItemValidations,
 
   @computed("itemSearchString")
   noMatchesMessage(str = "") {

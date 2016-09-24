@@ -5,18 +5,25 @@ import UniqueFieldValidator from "last-strawberry/validators/unique-field-valida
 export default Ember.Component.extend({
   session:     Ember.inject.service(),
 
-  didInsertElement() {
-    this.$(".name").focus();
-  },
-
-  @computed("session", "changeset._content.name")
-  nameUniqueValidator(session, oldName) {
-    return UniqueFieldValidator.create({session, type:"routePlanBlueprint", key:"name", oldValue:oldName});
-  },
-
-  @computed("nameUniqueValidator.isValid", "changeset.isValid")
+  @computed("nameValidator.isValid", "changeset.isValid")
   isValid(validName, validChangeset) {
     return validName && validChangeset;
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+
+    this.$(".name").focus();
+    this.set("nameValidator", UniqueFieldValidator.create({
+      session:this.get("session"),
+      type:"routePlanBlueprint",
+      key:"name"}));
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    this.get("nameValidator").destroy();
   },
 
   @computed("users.[]")
@@ -36,20 +43,21 @@ export default Ember.Component.extend({
       this.get("changeset").set("user", driver);
     },
 
+    nameChanged(e) {
+      const newValue = e.target.value;
+      this.get("changeset").set("name", newValue);
+      this.get("nameValidator").validate(newValue);
+    },
+
     fieldChanged(field, e) {
       const value = e.target.value;
       this.get("changeset").set(field, value);
-
-      // Check name is unique
-      if(field === "name"){
-        this.get("nameUniqueValidator").check(value);
-      }
     },
 
     submitForm() {
       const changeset = this.get("changeset");
       changeset.validate();
-      
+
       if(this.get("isValid")){
         // set user for changeset
         const user = this.get("users").find(u => u.id === changeset.get("user.id"));

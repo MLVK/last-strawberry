@@ -20,6 +20,7 @@
 {{#each filteredItems as |routePlanBlueprint index|}}
   {{sections/route-plan-blueprints/route-plan-blueprint-table/table-row
     changeset=(changeset routePlanBlueprint validators)
+    model=routePlanBlueprint
     index=index
     users=users
     saveRoutePlanBlueprint=saveRoutePlanBlueprint

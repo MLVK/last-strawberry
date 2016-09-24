@@ -17,8 +17,7 @@
         class="locationCodePrefix"
         placeholder="Prefix"
         value="{{changeset.locationCodePrefix}}"
-        oninput={{action "fieldChanged" changeset "locationCodePrefix"}}
-        onchange={{action "fieldChanged" changeset "locationCodePrefix"}}
+        oninput={{action "codeChanged" changeset}}
         maxlength="4"
         onblur={{action "save" changeset}}>
 
@@ -40,7 +39,7 @@
         <div class="row">{{error.key}}:{{error.validation}}</div>
       {{/each}}
 
-      {{#if (not codeUniqueValidator.isValid)}}
+      {{#if (not codeValidator.isValid)}}
         <div class="row">Another company is using that code</div>
       {{/if}}
     </div>

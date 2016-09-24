@@ -11,8 +11,8 @@
       class="name"
       placeholder="Template name"
       value="{{changeset.name}}"
-      oninput={{action "fieldChanged" "name"}}
-      onchange={{action "fieldChanged" "name"}}>
+      oninput={{action "nameChanged"}}
+      onchange={{action "nameChanged"}}>
 
     {{#power-select
         selected=changeset.user
@@ -30,7 +30,7 @@
         <div class="row">{{error.key}}:{{error.validation}}</div>
       {{/each}}
 
-      {{#if (not nameUniqueValidator.isValid)}}
+      {{#if (not nameValidator.isValid)}}
         <div class="row">Another template is using that name</div>
       {{/if}}
     </div>

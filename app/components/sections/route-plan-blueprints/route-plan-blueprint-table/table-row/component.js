@@ -7,9 +7,19 @@ export default Ember.Component.extend({
 
   classNames: ["tableRow", "row"],
 
-  @computed("session", "changeset._content.name")
-  nameUniqueValidator(session, oldName) {
-    return UniqueFieldValidator.create({session, type:"routePlanBlueprint", key:"name", oldValue:oldName});
+  didInsertElement() {
+    this._super(...arguments);
+
+    this.set("nameValidator", UniqueFieldValidator.create({
+      session:this.get("session"),
+      type:"routePlanBlueprint",
+      key:"name"}));
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    this.get("nameValidator").destroy();
   },
 
   @computed("users.@each.{name}")
@@ -24,7 +34,7 @@ export default Ember.Component.extend({
   },
 
   checkAndSaveRoutePlanBlueprint(changeset){
-    if(changeset.get("isValid") && changeset.get("isDirty") && this.get("nameUniqueValidator.isValid")){
+    if(changeset.get("isValid") && changeset.get("isDirty") && this.get("nameValidator.isValid")){
       // Get updated data
       const id = changeset.get("id");
       const name = changeset.get("name");
@@ -40,14 +50,14 @@ export default Ember.Component.extend({
       this.checkAndSaveRoutePlanBlueprint(changeset);
     },
 
+    nameChanged(newValue) {
+      this.get("changeset").set("name", newValue);
+      this.get("nameValidator").validate(newValue, [this.get("model.name")]);
+    },
+
     fieldChanged(field, value) {
       const changeset = this.get("changeset");
       changeset.set(field, value);
-
-      // Check name is unique
-      if(field === "name"){
-        this.get("nameUniqueValidator").check(value);
-      }
     },
 
     saveRoutePlanBlueprint() {

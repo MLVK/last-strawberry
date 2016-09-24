@@ -18,7 +18,7 @@
   <div class="col-1 codeContainer">
     {{one-way-input changeset.code
       onblur=(action "saveItem" changeset)
-      update=(action "updateItemField" changeset "code")
+      update=(action "codeChanged" changeset)
     }}
 
     {{forms/elements/error-message
@@ -26,7 +26,7 @@
       property="code"
     }}
 
-    {{#if (not codeUniqueValidator.isValid)}}
+    {{#if (not codeValidator.isValid)}}
       <div class="row">Another item is using that code</div>
     {{/if}}
   </div>

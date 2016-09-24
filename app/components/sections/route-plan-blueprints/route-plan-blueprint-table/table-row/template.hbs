@@ -2,7 +2,7 @@
 
 <div class="col-2 nameContainer">
   {{one-way-input changeset.name
-    update=(action "fieldChanged" "name")
+    update=(action "nameChanged")
     onblur=(action "saveRoutePlanBlueprint")
   }}
   {{#if (get changeset.error "name")}}
@@ -13,7 +13,7 @@
     </div>
   {{/if}}
 
-  {{#if (not nameUniqueValidator.isValid)}}
+  {{#if (not nameValidator.isValid)}}
     <div class="row">Another template is using that name</div>
   {{/if}}
 </div>

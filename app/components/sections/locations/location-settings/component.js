@@ -1,7 +1,6 @@
 import Ember from "ember";
 import UniqueFieldValidator from "last-strawberry/validators/unique-field-validator";
 import LocationValidations from "last-strawberry/validators/location";
-import computed from "ember-computed-decorators";
 
 export default Ember.Component.extend({
   session:     Ember.inject.service(),
@@ -10,24 +9,36 @@ export default Ember.Component.extend({
 
   validators: LocationValidations,
 
-  @computed("session", "model.code")
-  codeUniqueValidator(session, oldCode) {
-    return UniqueFieldValidator.create({session, type:"location", key:"code", oldValue:oldCode});
+  didInsertElement() {
+    this._super(...arguments);
+
+    this.set("codeValidator", UniqueFieldValidator.create({
+      session:this.get("session"),
+      type:"location",
+      key:"code"}));
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    this.get("codeValidator").destroy();
   },
 
   actions: {
+    codeChanged(changeset, e) {
+      const newValue = e.target.value;
+
+      changeset.set("code", newValue);
+      this.get("codeValidator").validate(newValue, [this.get("model.code")]);
+    },
+
     fieldChanged(changeset, field, e) {
       const value = e.target.value;
       changeset.set(field, value);
-
-      // Check code is unique
-      if(field === "code"){
-        this.get("codeUniqueValidator").check(value);
-      }
     },
 
     save(changeset){
-      if(changeset.get("isValid") && this.get("codeUniqueValidator.isValid")){
+      if(changeset.get("isValid") && this.get("codeValidator.isValid")){
         this.attrs.save(changeset);
       }
     }

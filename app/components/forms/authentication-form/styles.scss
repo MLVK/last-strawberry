@@ -1,0 +1,48 @@
+& {
+  min-width: 30em;
+  // max-width: 40em;
+  margin: 2em;
+}
+
+.formElements {
+  padding: 2em;
+  background-color: $light-blue;
+}
+
+.headerLabel {
+  font-size: 2em;
+}
+
+.inputContainer {
+  margin: 1em 0;
+}
+
+input {
+  font-size: 1.2em;
+  border: 4px solid $dark-grey;
+  border-radius: 0;
+  margin: 0.25em 0;
+  padding: 0.25em 0 0.25em 0.25em;
+}
+
+.loadingLabel {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+.errorLabel {
+  background-color: red;
+  color: white;
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+
+.error {
+  padding: 0.5em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.uiContainer {
+  margin-top: 1em;
+}

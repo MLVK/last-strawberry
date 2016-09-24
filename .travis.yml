@@ -11,23 +11,25 @@ cache:
     - bower_components
 
 before_install:
-  - npm config set spin false
-  - npm install -g bower
-  - npm install phantomjs-prebuilt
+  - "echo ${TRAVIS_BRANCH} ${TRAVIS_PULL_REQUEST} ${TRAVIS_TAG}"
+  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
+  - "npm config set spin false"
+  - "npm install -g npm@^2"
 
 install:
+  - npm install -g ember-cli
+  - npm install -g bower
   - npm install
   - bower install
-  - npm install -g firebase-tools
-  - npm install -g ember-cli
+  - mkdir travis-phantomjs
+  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
+  - export PATH=$PWD/travis-phantomjs:$PATH
 
 script:
   - ember test
 
 after_success:
-  if [ "${TRAVIS_BRANCH}" == "development" ] && [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then
-    ember build --environment production && firebase deploy --token ${FIREBASE_TOKEN};
-  fi
-  if [ "${TRAVIS_BRANCH}" == "master" ] && [ "${TRAVIS_PULL_REQUEST}" == "false" ] && [-n "${TRAVIS_TAG}"]; then
-    ember build --environment production && firebase deploy --token ${PRODUCTION_FIREBASE_TOKEN};
+  if [ "${TRAVIS_PULL_REQUEST}" == "false" ] && [ -n "${TRAVIS_TAG}" ]; then
+    npm install -g netlify-cli && ember build --environment production && netlify deploy -e production -t ${PRODUCTION_NETLIFY_TOKEN} -s ${PRODUCTION_NETLIFY_SITE_ID} -p dist;
   fi

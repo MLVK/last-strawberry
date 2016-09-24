@@ -40,6 +40,8 @@
       "L": true,
       "numeral": true,
       "Firebase": true,
-      "polyline": true
+      "polyline": true,
+      "selectChoose": true,
+      "selectSearch": true
     }
 }

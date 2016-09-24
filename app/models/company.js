@@ -28,12 +28,11 @@ export default Model.extend({
 
   async priceForItem(item) {
     const priceTier = await this.get("priceTier");
-    if(priceTier) {
-      const itemPrices = await priceTier.get("itemPrices");
-      const itemPrice = itemPrices.find(async itemPrice => await itemPrice.get("item.name") === item.get("name"));
-      return itemPrice.get("price");
+
+    if(Ember.isPresent(priceTier)) {
+      return await priceTier.priceForItem(item);
     } else {
-      return item.get("defaultPrice")
+      return item.get("defaultPrice");
     }
   }
 });

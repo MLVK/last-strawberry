@@ -48,10 +48,10 @@ module.exports = function(environment) {
 
   ENV['ember-simple-auth'] = {
     authenticationRoute: 'login',
-    routeAfterAuthentication: 'orders',
-    routeIfAlreadyAuthenticated: 'orders'
+    routeAfterAuthentication: 'sales-orders',
+    routeIfAlreadyAuthenticated: 'sales-orders'
   };
-
+  
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

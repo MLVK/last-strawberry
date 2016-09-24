@@ -11,10 +11,14 @@ FactoryGuy.define("item", {
   },
 
   product: {
-    tag: ItemTypes.PRODUCT
+    tag: ItemTypes.PRODUCT,
+    isPurchased: false,
+    isSold: true
   },
 
   ingredient: {
-    tag: ItemTypes.INGREDIENT
+    tag: ItemTypes.INGREDIENT,
+    isPurchased: true,
+    isSold: false
   }
 });

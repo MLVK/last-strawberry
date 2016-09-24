@@ -38,8 +38,7 @@ export default Ember.Component.extend({
 
     emailChanged(changeset, newValue) {
       changeset.set("email", newValue);
-      this.get("emailValidator")
-        .validate(newValue, [this.get("model.email")]);
+      this.get("emailValidator").validate(newValue, [this.get("model.email")]);
     },
 
     saveUser(changeset) {

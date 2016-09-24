@@ -21,8 +21,8 @@
     class="code"
     placeholder="Item code"
     value="{{changeset.code}}"
-    oninput={{action "fieldChanged" "code"}}
-    onchange={{action "fieldChanged" "code"}}>
+    oninput={{action "codeChanged"}}
+    onchange={{action "codeChanged"}}>
 
   <input
     type="text"
@@ -58,7 +58,7 @@
     <div class="row">{{error.key}}:{{error.validation}}</div>
   {{/each}}
 
-  {{#if (not codeUniqueValidator.isValid)}}
+  {{#if (not codeValidator.isValid)}}
     <div class="row">Another item is using that code</div>
   {{/if}}
 </div>

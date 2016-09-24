@@ -7,29 +7,37 @@ export default Ember.Component.extend({
 
   classNames: ["col"],
 
-  @computed("session", "changeset._content.code")
-  codeUniqueValidator(session, oldCode) {
-    return UniqueFieldValidator.create({session, type:"item", key:"code", oldValue:oldCode});
-  },
-
-  @computed("codeUniqueValidator.isValid", "changeset.isValid")
+  @computed("codeValidator.isValid", "changeset.isValid")
   isValid(validCode, validChangeset) {
     return validCode && validChangeset;
   },
 
   didInsertElement() {
+    this._super(...arguments);
+
     this.$(".body .name").focus();
+    this.set("codeValidator", UniqueFieldValidator.create({
+      session:this.get("session"),
+      type:"item",
+      key:"code"}));
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    this.get("codeValidator").destroy();
   },
 
   actions: {
+    codeChanged(e) {
+      const newValue = e.target.value;
+      this.get("changeset").set("code", newValue);
+      this.get("codeValidator").validate(newValue);
+    },
+
     fieldChanged(field, e) {
       const value = e.target.value;
       this.get("changeset").set(field, value);
-
-      // Check code is unique
-      if(field === "code"){
-        this.get("codeUniqueValidator").check(value);
-      }
     },
 
     submitForm() {

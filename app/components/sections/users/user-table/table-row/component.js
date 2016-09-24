@@ -1,6 +1,5 @@
 import Ember from "ember";
 import UniqueFieldValidator from "last-strawberry/validators/unique-field-validator";
-import computed from "ember-computed-decorators";
 
 export default Ember.Component.extend({
   session:     Ember.inject.service(),
@@ -10,6 +9,8 @@ export default Ember.Component.extend({
   classNames: "row",
 
   didInsertElement() {
+    this._super(...arguments);
+
     this.set("emailValidator", UniqueFieldValidator.create({
       session:this.get("session"),
       type:"user",
@@ -17,6 +18,8 @@ export default Ember.Component.extend({
   },
 
   willDestroyElement() {
+    this._super(...arguments);
+
     this.get("emailValidator").destroy();
   },
 

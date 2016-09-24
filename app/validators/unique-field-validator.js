@@ -1,6 +1,5 @@
 import Ember from "ember";
 import config from "last-strawberry/config/environment";
-import computed from 'ember-computed-decorators';
 
 export default Ember.Object.extend({
   debounce: 500,
@@ -13,7 +12,7 @@ export default Ember.Object.extend({
     this.subscription = this.subject
       .filter(value => !!value)
       .filter(value => this.get("whitelist").every(item => item !== value))
-      .do(value => this.set("isValid", false))
+      .do(() => this.set("isValid", false))
       .debounce(this.get("debounce"))
       .flatMap(value => this.sendRequest(value))
       .subscribe(isValid => this.set("isValid", isValid));

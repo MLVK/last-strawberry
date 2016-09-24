@@ -1,4 +1,3 @@
-import Ember from "ember";
 const DEFAULT_ADDRESS_MAP = {
   street_number: "streetNumber",
   route: "streetName",

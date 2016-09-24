@@ -9,13 +9,19 @@ export default Ember.Component.extend({
 
   classNames: "row",
 
-  @computed("session", "changeset._content.email")
-  emailUniqueValidator(session, oldEmail) {
-    return UniqueFieldValidator.create({session, type:"user", key:"email", oldValue:oldEmail});
+  didInsertElement() {
+    this.set("emailValidator", UniqueFieldValidator.create({
+      session:this.get("session"),
+      type:"user",
+      key:"email"}));
+  },
+
+  willDestroyElement() {
+    this.get("emailValidator").destroy();
   },
 
   checkAndSaveUser(changeset){
-    if(changeset.get("isValid") && changeset.get("isDirty") && this.get("emailUniqueValidator.isValid")){
+    if(changeset.get("isValid") && changeset.get("isDirty") && this.get("emailValidator.isValid")){
       this.attrs.saveUser(changeset);
     }
   },
@@ -28,11 +34,12 @@ export default Ember.Component.extend({
 
     fieldChanged(changeset, field, value) {
       changeset.set(field, value);
+    },
 
-      // Check email is unique
-      if(field === "email"){
-        this.get("emailUniqueValidator").check(value);
-      }
+    emailChanged(changeset, newValue) {
+      changeset.set("email", newValue);
+      this.get("emailValidator")
+        .validate(newValue, [this.get("model.email")]);
     },
 
     saveUser(changeset) {

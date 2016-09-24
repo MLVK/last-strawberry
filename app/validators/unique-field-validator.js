@@ -1,23 +1,37 @@
 import Ember from "ember";
-import { toUnderscore } from "last-strawberry/utils/string";
 import config from "last-strawberry/config/environment";
+import computed from 'ember-computed-decorators';
 
 export default Ember.Object.extend({
-  session: null,
-  type: "type",
-  key: "key",
-  oldValue:"",
+  debounce: 500,
   isValid: true,
+  whitelist: [],
 
-  _checkUniqueEndpoint(value){
+  init() {
+    this.subject = new Rx.Subject();
+    this.subscription = this.subject
+      .filter(value => !!value)
+      .filter(value => this.get("whitelist").every(item => item !== value))
+      .do(value => this.set("isValid", false))
+      .debounce(this.get("debounce"))
+      .map(value => this.sendRequest(value))
+      .subscribe(isValid => this.set("isValid", isValid));
+  },
+
+  destroy() {
+    this.subscription.dispose();
+    this.subject = undefined;
+  },
+
+  sendRequest(value){
     const data = {
-      type: this.type,
-      key: toUnderscore(this.key),
+      type: this.get("type"),
+      key: this.get("key"),
       value
     }
 
     return new Ember.RSVP.Promise(res => {
-      this.session.authorize("authorizer:devise", (headerName, headerValue) => {
+      this.get("session").authorize("authorizer:devise", (headerName, headerValue) => {
         const headers = {};
         headers[headerName] = headerValue;
         const payload = {
@@ -29,31 +43,13 @@ export default Ember.Object.extend({
 
         Ember.$
           .ajax(payload)
-          .always(response => res(response.unique));
+          .always(response => res(response.unique === "true" || response.unique === true));
       });
     });
   },
 
-  _setupSubject(){
-    if(Ember.isPresent(this.subject)){
-      return;
-    }
-
-    this.subject = new Rx.Subject();
-    this.subject
-      .debounce(100)
-      .subscribe(async value => {
-        let isValid = true;
-        if(value !== this.oldValue){
-          isValid =  await this._checkUniqueEndpoint(value);
-        }
-
-        this.set("isValid", isValid);
-      });
-  },
-
-  check(value){
-    this._setupSubject();
+  validate(value, whitelist = []){
+    this.set("whitelist", whitelist);
     this.subject.onNext(value);
   }
 })

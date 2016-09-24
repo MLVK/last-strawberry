@@ -27,7 +27,7 @@
 <div class="col-2 emailContainer">
   {{one-way-input changeset.email
     type="email"
-    update=(action "fieldChanged" changeset "email")
+    update=(action "emailChanged" changeset)
     onblur=(action "saveUser" changeset)
   }}
 
@@ -36,7 +36,7 @@
     property="email"
   }}
 
-  {{#if (not emailUniqueValidator.isValid)}}
+  {{#if (not emailValidator.isValid)}}
     <div class="row">Another user is using that email</div>
   {{/if}}
 </div>

@@ -12,8 +12,8 @@ export default Model.extend({
   text:         alias("name"),
 
   priceForItem(item) {
-    const itemPrices = this.get("itemPrices");
-    const match = itemPrices.find(ip => ip.get("item.code") === item.get("code"));
+    const match = this.get("itemPrices")
+      .find(ip => ip.get("item.code") === item.get("code"));
 
     if(isPresent(match)) {
       return match.get("price");

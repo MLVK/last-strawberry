@@ -78,9 +78,12 @@ test('can add order item manually', async function(assert) {
 
 test('adding an item manually still uses price-tier price', async function(assert) {
   const item = make("product");
+  const otherItem = make("product");
   const priceTier = make("price-tier");
-  make("item-price", {item, price:2.5, priceTier});
   
+  make("item-price", {item, price:2.5, priceTier});
+  make("item-price", {otherItem, price:3.5, priceTier});
+
   const company = make("company", {priceTier});
   const location = make("location", {company});
   const order = make('order', {location});

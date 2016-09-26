@@ -11,9 +11,9 @@ export default Model.extend({
   itemPrices:   hasMany("item-price"),
   text:         alias("name"),
 
-  async priceForItem(item) {
-    const match = await this.get("itemPrices")
-      .find(async ip => await ip.get("item.code") === item.get("code"));
+  priceForItem(item) {
+    const itemPrices = this.get("itemPrices");
+    const match = itemPrices.find(ip => ip.get("item.code") === item.get("code"));
 
     if(isPresent(match)) {
       return match.get("price");

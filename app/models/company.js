@@ -30,7 +30,7 @@ export default Model.extend({
     const priceTier = await this.get("priceTier");
 
     if(Ember.isPresent(priceTier)) {
-      return await priceTier.priceForItem(item);
+      return priceTier.priceForItem(item);
     } else {
       return item.get("defaultPrice");
     }

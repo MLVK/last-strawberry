@@ -8,6 +8,7 @@ const { alias } = Ember.computed;
 
 export default Model.extend({
   name:         attr("string"),
+  companies:    hasMany("company"),
   itemPrices:   hasMany("item-price"),
   text:         alias("name"),
 

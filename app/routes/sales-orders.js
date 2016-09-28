@@ -4,17 +4,17 @@ import config from "last-strawberry/config/environment";
 
 const COMPANY_INCLUDES = [
   "locations",
-  "locations.company"
+  "locations.company",
+  "price-tier",
+  "price-tier.item-prices",
+  "price-tier.item-prices.item"
 ];
 
 const ORDER_INCLUDES = [
 	"order-items",
 	"order-items.item",
   "location",
-  "location.company",
-  "location.company.price-tier",
-  "location.company.price-tier.item-prices",
-  "location.company.price-tier.item-prices.item"
+  "location.company"
 ];
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {

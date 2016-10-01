@@ -25,6 +25,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       this.store.createRecord("item-price", {priceTier, item}));
 
     this._super(controller, priceTier);
+
+    controller.set("priceTiers", this.store.peekAll("price-tier"));
   },
 
   model(params) {
@@ -39,10 +41,16 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   actions: {
     updateModelField,
     saveModelIfDirty,
-    destroyPriceTier() {
-      this.modelFor("price-tiers.show")
-        .destroyRecord()
-        .then(() => this.transitionTo("price-tiers"));
+
+    async destroyPriceTier(model, switchingPriceTier) {
+      // Switching companies to a new price tier
+      model.get("companies").toArray().forEach(async company => {
+        company.set("priceTier", switchingPriceTier);
+        await company.save();
+      });
+
+      await model.destroyRecord();
+      this.transitionTo("price-tiers");
     }
   }
 });

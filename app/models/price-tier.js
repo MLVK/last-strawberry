@@ -4,7 +4,10 @@ import attr from "ember-data/attr";
 import { hasMany } from "ember-data/relationships";
 
 const { isPresent } = Ember;
-const { alias } = Ember.computed;
+const {
+  alias,
+  notEmpty
+} = Ember.computed;
 
 export default Model.extend({
   name:         attr("string"),
@@ -21,5 +24,7 @@ export default Model.extend({
     } else {
       return item.get("defaultPrice");
     }
-  }
+  },
+
+  hasCompanies: notEmpty("companies")
 });

@@ -29,6 +29,17 @@
   </div>
 
   <div class="row">
-    <button class="buttonDelete" {{action destroyPriceTier}}>Delete</button>
+    <button class="buttonDelete" {{action "onRequestDestroyPriceTier"}}>Delete</button>
   </div>
 </div>
+
+{{#if showDestroyPriceTierModal}}
+  {{#tether-dialog close=(action "closeDestroyPriceTier")}}
+    {{modals/destroy-price-tier
+      model=model
+      priceTiers=priceTiers
+      close=(action "closeDestroyPriceTier")
+      submit=(action "destroyPriceTier")
+    }}
+  {{/tether-dialog}}
+{{/if}}

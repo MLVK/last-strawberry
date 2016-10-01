@@ -1,0 +1,44 @@
+{{#modals/base-modal
+    title=title
+    cancelLabel="Cancel"
+    cancel=close
+    submitLabel="Submit"
+    submit=(action "submitDestroyPriceTier")
+    isValid=isValid
+    loadingMessage="Deleting..."}}
+
+    <div class="col">
+      {{#if model.hasCompanies}}
+        <div class="col instructionRow">
+          <span class="instruction">Customers that will be affected by deletion:</span>
+
+          {{#each model.companies as |company index|}}
+            <div class="row">{{sum index 1}}. {{company.name}}</div>
+          {{/each}}
+        </div>
+
+        <div class="col instructionRow">
+          <span class="instruction">Do you want to switch them to a new price tier:</span>
+
+          {{#power-select
+            selected=switchingPriceTier
+            options=switchingPriceTiers
+            renderInPlace=true
+            searchEnabled=false
+            onchange=(action (mut switchingPriceTier))
+            as |priceTier|
+          }}
+            {{priceTier.name}}
+          {{/power-select}}
+        </div>
+
+        {{#unless switchingPriceTier}}
+          <div class="errorMessageContainer">
+            Can not delete the last price tier
+          </div>
+        {{/unless}}
+      {{else}}
+        Do you want to delete this price tier?
+      {{/if}}
+    </div>
+{{/modals/base-modal}}

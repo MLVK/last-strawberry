@@ -13,7 +13,7 @@
           <span class="instruction">Customers that will be affected by deletion:</span>
 
           {{#each model.companies as |company index|}}
-            <div class="row">{{sum index 1}}. {{company.name}}</div>
+            <div class="row companyRow">{{sum index 1}}. {{company.name}}</div>
           {{/each}}
         </div>
 

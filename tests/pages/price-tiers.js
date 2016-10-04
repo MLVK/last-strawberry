@@ -58,7 +58,14 @@ const show = PO.create({
     }
   }),
 
-  submitDeletePriceTier: clickable('button.buttonDelete')
+  // companyRows: collection({
+  //   scope: '.debug_modals_base-modal',
+  //   itemScope: '.companyRow',
+  //   resetScope: true
+  // }),
+
+  clickDeleteButton: clickable('.buttonDelete'),
+  submitDeletePriceTier: clickable(".submit", { testContainer: '.debug_modals_base-modal', resetScope: true })
 });
 
 export { index, show };

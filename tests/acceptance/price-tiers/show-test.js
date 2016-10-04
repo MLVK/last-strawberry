@@ -13,13 +13,13 @@ import {
 moduleForAcceptance("Acceptance | price tiers - show", {
   beforeEach() {
     authenticateSession(this.application);
-    mockFindAll("price-tier");
   }
 });
 
 test("Shows the name of the price tier", async function(assert) {
   const priceTier = make("price-tier");
 
+  mockFindAll("price-tier");
   mockFindAll("item");
   mockFind("price-tier").returns({model:priceTier});
 
@@ -33,6 +33,7 @@ test("Only shows rows for products", async function(assert) {
   const products = makeList("product", 10);
   const priceTier = make("price-tier");
 
+  mockFindAll("price-tier");
   mockFind("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: products});
 
@@ -50,6 +51,7 @@ test("Shows a price row for all products", async function(assert) {
 
   const priceTier = make("price-tier", { itemPrices });
 
+  mockFindAll("price-tier");
   mockFind("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items});
 
@@ -68,6 +70,7 @@ test("Shows item prices for items that are not in the price tier yet", async fun
 
   const priceTier = make("price-tier", { itemPrices });
 
+  mockFindAll("price-tier");
   mockFind("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items });
 
@@ -75,4 +78,61 @@ test("Shows item prices for items that are not in the price tier yet", async fun
 
   assert.equal(page.openPriceRows().count, openItems.length);
   assert.equal(page.fulfilledPriceRows().count, fulfilledItems.length);
+});
+
+test("Shows company list when deleting a price tier which has many companies", async function(assert) {
+  const items = makeList("product", 10);
+
+  const priceTiers = makeList("price-tier", 3);
+
+  const priceTier = priceTiers.get("firstObject");
+  const companies = makeList("company", 2, { priceTier });
+
+  mockFind("price-tier").returns({ model: priceTier });
+  mockFindAll("item").returns({ models: items });
+  mockFindAll("price-tier").returns({ models: priceTiers});
+
+  await page
+    .visit({ id: 1 })
+    .clickDeleteButton();
+
+  assert.equal($(".debug_modals_base-modal .companyRow").length, companies.length);
+});
+
+test("Does not show company list when deleting a price tier which has not company", async function(assert) {
+  const items = makeList("product", 10);
+
+  const priceTiers = makeList("price-tier", 3);
+  const priceTier = priceTiers.get("firstObject");
+
+  mockFind("price-tier").returns({ model: priceTier });
+  mockFindAll("item").returns({ models: items });
+  mockFindAll("price-tier").returns({ models: priceTiers});
+
+  await page
+    .visit({ id: 1 })
+    .clickDeleteButton();
+
+  assert.equal($(".debug_modals_base-modal .companyRow").length, 0);
+});
+
+test("Remaps price tier when deleting a price tier which has many companies", async function(assert) {
+  const items = makeList("product", 10);
+
+  const priceTiers = makeList("price-tier", 3);
+
+  const priceTier = priceTiers.get("firstObject");
+  makeList("company", 2, { priceTier });
+
+  mockFind("price-tier").returns({ model: priceTier });
+  mockFindAll("item").returns({ models: items });
+  mockFindAll("price-tier").returns({ models: priceTiers});
+
+  await page
+    .visit({ id: 1 })
+    .clickDeleteButton()
+    // @TODO: does not raise submit event
+    .submitDeletePriceTier();
+
+  assert.ok(true);
 });

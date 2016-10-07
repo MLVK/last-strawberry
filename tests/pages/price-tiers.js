@@ -58,14 +58,18 @@ const show = PO.create({
     }
   }),
 
-  // companyRows: collection({
-  //   scope: '.debug_modals_base-modal',
-  //   itemScope: '.companyRow',
-  //   resetScope: true
-  // }),
+  companyRows: collection({
+    scope: '.debug_modals_base-modal',
+    itemScope: '.companyRow',
+    resetScope: true
+  }),
 
   clickDeleteButton: clickable('.buttonDelete'),
-  submitDeletePriceTier: clickable(".submit", { testContainer: '.debug_modals_base-modal', resetScope: true })
+  submitDeletePriceTier: clickable(".debug_modals_base-modal .submit", { resetScope: true }),
+
+  selectPriceTier(priceTier) {
+    return selectChoose(".switchingPriceTierContainer", priceTier.get("name"));
+  }
 });
 
 export { index, show };

@@ -20,16 +20,18 @@
         <div class="col instructionRow">
           <span class="instruction">Do you want to switch them to a new price tier:</span>
 
-          {{#power-select
-            selected=switchingPriceTier
-            options=switchingPriceTiers
-            renderInPlace=true
-            searchEnabled=false
-            onchange=(action (mut switchingPriceTier))
-            as |priceTier|
-          }}
-            {{priceTier.name}}
-          {{/power-select}}
+          <div class="switchingPriceTierContainer">
+            {{#power-select
+              selected=switchingPriceTier
+              options=switchingPriceTiers
+              renderInPlace=true
+              searchEnabled=false
+              onchange=(action (mut switchingPriceTier))
+              as |priceTier|
+            }}
+              {{priceTier.name}}
+            {{/power-select}}
+          </div>
         </div>
 
         {{#unless switchingPriceTier}}

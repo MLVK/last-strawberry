@@ -7,7 +7,9 @@ import {
   make,
   makeList,
   mockFind,
-  mockFindAll
+  mockFindAll,
+  mockDelete,
+  mockUpdate
 } from "ember-data-factory-guy";
 
 moduleForAcceptance("Acceptance | price tiers - show", {
@@ -96,7 +98,7 @@ test("Shows company list when deleting a price tier which has many companies", a
     .visit({ id: 1 })
     .clickDeleteButton();
 
-  assert.equal($(".debug_modals_base-modal .companyRow").length, companies.length);
+  assert.equal(page.companyRows().count, companies.length);
 });
 
 test("Does not show company list when deleting a price tier which has not company", async function(assert) {
@@ -113,7 +115,7 @@ test("Does not show company list when deleting a price tier which has not compan
     .visit({ id: 1 })
     .clickDeleteButton();
 
-  assert.equal($(".debug_modals_base-modal .companyRow").length, 0);
+  assert.equal(page.companyRows().count, 0);
 });
 
 test("Remaps price tier when deleting a price tier which has many companies", async function(assert) {
@@ -122,17 +124,22 @@ test("Remaps price tier when deleting a price tier which has many companies", as
   const priceTiers = makeList("price-tier", 3);
 
   const priceTier = priceTiers.get("firstObject");
-  makeList("company", 2, { priceTier });
+  const company = make("company", { priceTier });
+
+  const swichingPriceTier = priceTiers[2];
 
   mockFind("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items });
   mockFindAll("price-tier").returns({ models: priceTiers});
+  mockDelete(priceTier);
+  mockUpdate(company);
 
   await page
     .visit({ id: 1 })
     .clickDeleteButton()
-    // @TODO: does not raise submit event
-    .submitDeletePriceTier();
+    .selectPriceTier(priceTiers[2]);
 
-  assert.ok(true);
+  await page.submitDeletePriceTier();
+
+  assert.equal(company.get("priceTier.id"), swichingPriceTier.id);
 });

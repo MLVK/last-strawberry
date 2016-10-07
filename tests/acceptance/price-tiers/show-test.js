@@ -137,7 +137,7 @@ test("Remaps price tier when deleting a price tier which has many companies", as
   await page
     .visit({ id: 1 })
     .clickDeleteButton()
-    .selectPriceTier(priceTiers[2]);
+    .selectPriceTier(swichingPriceTier);
 
   await page.submitDeletePriceTier();
 

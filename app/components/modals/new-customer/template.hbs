@@ -1,0 +1,58 @@
+{{#modals/base-modal
+  title="Create New Customer"
+  cancelLabel="Cancel"
+  cancel=close
+  submitLabel="Save"
+  submit=(action "submitNewCustomer")
+  isValid=isValid
+  loadingMessage="Creating..."
+}}
+  <div class="col">
+    <div class="row">
+      {{one-way-input changeset.name
+        update=(action "fieldChanged" "name")
+        placeHolder="Name"
+        class="name"
+      }}
+
+      {{one-way-input changeset.locationCodePrefix
+        update=(action "codeChanged")
+        placeHolder="Prefix"
+        maxlength="3"
+        class="locationCodePrefix"
+      }}
+    </div>
+
+    <div class="row">
+      {{one-way-input changeset.terms
+        update=(action "fieldChanged" "terms")
+        placeHolder="Terms"
+        class="terms"
+      }}
+
+      <div class="priceTierContainer">
+        {{#power-select
+          selected=changeset.priceTier
+          options=priceTiers
+          class="schetch"
+          renderInPlace=true
+          searchEnabled=false
+          onchange=(action "fieldChanged" "priceTier")
+          as |priceTier|
+        }}
+          {{priceTier.name}}
+        {{/power-select}}
+      </div>
+    </div>
+
+    <div class="errorMessageContainer">
+      {{#each changeset.errors as |error|}}
+        <div class="row">{{error.key}}:{{error.validation}}</div>
+      {{/each}}
+
+      {{#if (not codeValidator.isValid)}}
+        <div class="row">Another company is using that code</div>
+      {{/if}}
+    </div>
+  </div>
+{{/modals/base-modal}}

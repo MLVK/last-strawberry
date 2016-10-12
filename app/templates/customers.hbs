@@ -1,18 +1,10 @@
 <div class="row stretch">
-
-  <div class="col">
-    {{lists/filterable-label-list
-        model=customers
-        itemClicked=(route-action "showCompany")}}
-
-    <div class="row">
-      {{ui/input-action-bar
-        class="create-new-company"
-        type="add"
-        placeholder="Create new company..."
-        submit=(route-action "createNewCompany")}}
-    </div>
-  </div>
+  {{sections/companies/customer-list
+    customers=customers
+    priceTiers=priceTiers
+    showCustomer=(route-action "showCustomer")
+    createNewCustomer=(route-action "createNewCustomer")
+  }}
 
   <div class="col-5">
     {{outlet}}

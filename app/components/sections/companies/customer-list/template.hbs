@@ -1,0 +1,26 @@
+{{lists/filterable-label-list
+    model=customers
+    itemClicked=showCustomer
+}}
+
+{{ui/icon-button
+  label="New Customer"
+  class="newCustomer"
+  type="add"
+  flat=true
+  backgroundColor=colors.SKY_BLUE
+  size=1.5
+  padding=1
+  action=(action "onRequestNewCustomer")
+}}
+
+{{#if showNewCustomerModal}}
+  {{#tether-dialog close=(action "closeNewCustomer")}}
+    {{modals/new-customer
+      priceTiers=priceTiers
+      changeset=(changeset stashedNewCustomerData validators)
+      close=(action "closeNewCustomer")
+      submit=(action "createNewCustomer")
+    }}
+  {{/tether-dialog}}
+{{/if}}

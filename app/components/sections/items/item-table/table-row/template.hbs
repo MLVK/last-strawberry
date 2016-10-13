@@ -71,6 +71,18 @@
       property="defaultPrice"
     }}
   </div>
+
+  <div class="col-1 unitContainer">
+    {{one-way-input changeset.unitOfMeasure
+      onblur=(action "saveItem" changeset)
+      update=(action "updateItemField" changeset "unitOfMeasure")
+    }}
+
+    {{forms/elements/error-message
+      changeset=changeset
+      property="unitOfMeasure"
+    }}
+  </div>
 {{/with}}
 
 <div class="uiContainer">

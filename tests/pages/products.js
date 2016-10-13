@@ -5,7 +5,8 @@ const {
   collection,
   visitable,
   text,
-  value
+  value,
+  fillable
 } = PO;
 
 const defaultPage = PO.create({
@@ -16,9 +17,14 @@ const defaultPage = PO.create({
 
     item: {
       label: text(".name"),
-      click: clickable()
+      click: clickable(),
+      archiveItem: clickable(".archiveItemButton")
     }
-  })
+  }),
+
+  fillFilterInput: fillable(".filterTermInput"),
+  fillAddNewProduct: fillable(".create-new-product input"),
+  submitNewProduct: clickable(".create-new-product .submit")
 });
 
 const showPage = PO.create({

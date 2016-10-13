@@ -4,7 +4,9 @@ const {
   collection,
   value,
   text,
-  visitable
+  visitable,
+  fillable,
+  clickable
 } = PO;
 
 export default PO.create({
@@ -19,7 +21,10 @@ export default PO.create({
       email: value(".emailContainer input"),
       password: value(".passwordContainer input"),
       role: text(".roleContainer .ember-power-select-selected-item"),
-      phone: value(".phoneContainer input")
+      phone: value(".phoneContainer input"),
+      delete: clickable(".delete")
     }
-  })
+  }),
+
+  fillFilterInput: fillable(".filterTermInput")
 });

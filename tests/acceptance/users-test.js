@@ -6,7 +6,8 @@ import page from "last-strawberry/tests/pages/users";
 import {
   buildList,
   makeList,
-  mockQuery
+  mockQuery,
+  mockDelete
 } from "ember-data-factory-guy";
 
 moduleForAcceptance("Acceptance | users", {
@@ -39,4 +40,33 @@ test("displays user information when present", async function(assert) {
   assert.equal(firstDisplayUser.role, firstUser.get("role").capitalize());
   assert.equal(firstDisplayUser.password, firstUser.get("password"));
   assert.equal(firstDisplayUser.phone, firstUser.get("phone"));
+});
+
+test("filters users", async function(assert) {
+  const aUsers = buildList("user", 2, { firstName: "AAA" });
+  const users = buildList("user", 2, { firsName: "BBB" });
+  users.data = _.union(users.data, aUsers.data);
+
+  mockQuery("user").returns({ json: users });
+
+  await page
+    .visit()
+    .fillFilterInput("aa");
+
+  assert.equal(page.users().count, 2);
+});
+
+test("deletes users", async function(assert) {
+  const users = makeList("user", 2);
+  mockQuery("user").returns({ models: users });
+
+  mockDelete("user");
+
+  await page.visit();
+
+  await page
+    .users(0)
+    .delete();
+
+  assert.equal(page.users().count, users.length - 1);
 });

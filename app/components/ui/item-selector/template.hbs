@@ -9,14 +9,17 @@
     type='close'
     click=close}}
 </div>
-{{#power-select
-    selected=currentItem
-    options=model
-    placeholder=placeholder
-    searchEnabled=true
-    renderInPlace=true
-    searchField='label'
-    onchange=(action 'onItemSelected')
-    as |location|}}
-  {{location.label}}
-{{/power-select}}
+
+<div class="locationContainer">
+  {{#power-select
+      selected=currentItem
+      options=model
+      placeholder=placeholder
+      searchEnabled=true
+      renderInPlace=true
+      searchField='label'
+      onchange=(action 'onItemSelected')
+      as |location|}}
+    {{location.label}}
+  {{/power-select}}
+</div>

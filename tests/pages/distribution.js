@@ -11,7 +11,10 @@ export default PO.create({
   visit: visitable("/distribution"),
 
   createRoutePlan: clickable(".debug_sections_distribution_tool-bar .add"),
-  deleteRoutePlan: clickable(".delete", { testContainer: "body" }),
+
+  deleteRoutePlan(){
+      $(".delete").click();
+  },
 
   openRouteVisits: collection({
     itemScope: ".debug_sections_distribution_open-route-visits .debug_sections_distribution_route-visit",

@@ -12,7 +12,9 @@ import {
   mockUpdate,
   mockFindAll,
   mockCreate,
-  mockQuery
+  mockQuery,
+  mockDelete,
+  makeList
 } from "ember-data-factory-guy";
 
 const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
@@ -59,26 +61,26 @@ test("can create new route plans", async function(assert) {
   assert.equal(page.routePlans().count, 1);
 });
 
-// test("can delete route plans", async function(assert) {
-//   assert.expect(2);
-//
-//   mockFindAll("route-plan");
-//   mockFindAll("route-visit", "with_route_plan");
-//
-//   await page.visit();
-//
-//   assert.equal(page.routePlans().count, 1);
-//
-//   mockDelete("route-plan", 1);
-//   await page
-//     .routePlans(0)
-//     .openSettingMenu();
-//
-//   // @TODO: Not able to select the popup menu items since they are placed in the body
-//   await page.deleteRoutePlan();
-//
-//   assert.equal(page.routePlans().count, 0);
-// });
+test("can delete route plans", async function(assert) {
+  assert.expect(2);
+  const routePlans = makeList("route-plan", 2);
+
+  mockFindAll("route-plan").returns({models: routePlans});
+  mockQuery("route-visit");
+
+  await page.visit();
+  assert.equal(page.routePlans().count, routePlans.length);
+
+  mockDelete(routePlans.get("firstObject"));
+
+  await page
+    .routePlans(0)
+    .openSettingMenu();
+
+  await page.deleteRoutePlan();
+
+  assert.equal(page.routePlans().count, (routePlans.length - 1));
+});
 
 test("can delete individual route visit", async function(assert) {
   const routeVisits = buildRouteVisitsWithSharedRoutePlan(2);

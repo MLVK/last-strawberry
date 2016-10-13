@@ -93,20 +93,18 @@ test("should display warning banner when deliveryDate param <= today", async fun
   assert.ok(page.bannerIsVisible);
 });
 
-// @TODO: Not able to select the popup menu items since they are placed in the body
+test("show be able to create a new sales order from the quick menu", async function(assert) {
+  const salesOrders = makeList("sales_order", 5);
+  mockFindAll("order").returns({models: salesOrders});
 
-// test("show be able to create a new sales order from the quick menu", async function() {
-//   const salesOrders = makeList("sales_order", 5);
-//   mockFindAll("order").returns({models: salesOrders});
-//
-//   await page
-//     .visit()
-//     .openQuickMenu();
-//
-//   debugger;
-//
-//   await page
-//     .createOrder();
-//
-//
-// });
+  const locations = makeList("location", 2);
+
+  await page
+    .visit()
+    .openQuickMenu();
+
+  await page.createOrder();
+  await page.selectLocation(locations.get("firstObject"));
+
+  assert.equal(page.orders().count, 6, "Wrong number of orders rendered");
+});

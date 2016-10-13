@@ -29,11 +29,15 @@ const page = PO.create({
 
   openQuickMenu: clickable(".debug_navs_orders-nav .debug_ui_popup-menu .trigger"),
 
-  // These should only be called after calling openQuickMenu.
-  // @TODO: This needs to be updated to reset the testContainer to the body
-  // items will not be found in current state
   stubOrders: clickable(".stubOrders"),
-  createOrder: clickable(".createOrder"),
+
+  createOrder(){
+    $(".createOrder").click();
+  },
+
+  selectLocation(location) {
+    return selectChoose(".locationContainer", location.get("label"));
+  },
 
   toggleIncludeDraft: clickable(".includeDraft"),
   toggleIncludeApproved: clickable(".includeApproved"),

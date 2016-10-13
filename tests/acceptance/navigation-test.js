@@ -63,16 +63,98 @@ test("redirects to distribution page when clicking on Distribution item", async 
   assert.equal(currentURL(), "/distribution");
 });
 
-// test("redirects to products page when clicking on Products item", async function(assert) {
-//
-//   // mockFindAll("route-visit", 10);
-//   // mockFindAll("route-plan-blueprint", 10);
-//   // mockFindAll("user", 10);
-//
-//   await page
-//     .visitIndex()
-//     .showPopUpMenu()
-//     .clickProductsItem();
-//
-//   assert.equal(currentURL(), "/products");
-// });
+test("redirects to products page when clicking on Products item", async function(assert) {
+
+  await page
+    .visitIndex()
+    .showPopUpMenu();
+
+  await page.clickItem(".products");
+
+  Ember.run.next(function(){
+    assert.equal(currentURL(), "/products");
+  });
+});
+
+test("redirects to items page when clicking on Items item", async function(assert) {
+
+  await page
+    .visitIndex()
+    .showPopUpMenu();
+
+  await page.clickItem(".items");
+
+  Ember.run.next(function(){
+    assert.equal(currentURL(), "/items");
+  });
+});
+
+test("redirects to customers page when clicking on Customers item", async function(assert) {
+  mockFindAll("price-tier");
+
+  await page
+    .visitIndex()
+    .showPopUpMenu();
+
+  await page.clickItem(".customers");
+
+  Ember.run.next(function(){
+    assert.equal(currentURL(), "/customers");
+  });
+});
+
+test("redirects to vendors page when clicking on Vendors item", async function(assert) {
+
+  await page
+    .visitIndex()
+    .showPopUpMenu();
+
+  await page.clickItem(".vendors");
+
+  Ember.run.next(function(){
+    assert.equal(currentURL(), "/vendors");
+  });
+});
+
+test("redirects to price tiers page when clicking on Price Tiers item", async function(assert) {
+  mockFindAll("price-tier");
+
+  await page
+    .visitIndex()
+    .showPopUpMenu();
+
+  await page.clickItem(".priceTiers");
+
+  Ember.run.next(function(){
+    assert.equal(currentURL(), "/price-tiers");
+  });
+});
+
+test("redirects to Route plan blueprints page when clicking on Route plan blueprints item", async function(assert) {
+  mockFindAll("user");
+  mockFindAll("route-plan-blueprint");
+
+  await page
+    .visitIndex()
+    .showPopUpMenu();
+
+  await page.clickItem(".routePlanBlueprints");
+
+  Ember.run.next(function(){
+    assert.equal(currentURL(), "/route-plan-blueprints");
+  });
+});
+
+test("redirects to users page when clicking on Users item", async function(assert) {
+  mockFindAll("user");
+
+  await page
+    .visitIndex()
+    .showPopUpMenu();
+
+  await page.clickItem(".users");
+
+  Ember.run.next(function(){
+    assert.equal(currentURL(), "/users");
+  });
+});

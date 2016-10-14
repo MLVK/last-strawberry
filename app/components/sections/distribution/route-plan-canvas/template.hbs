@@ -5,12 +5,6 @@
       selectRouteVisit=selectRouteVisit
       registerDropContainer=(action "registerDropContainer")}}
 
-  {{#if (eq routePlans.length 0)}}
-    <div class="empty col-5 center">
-      DRAG HERE TO CREATE ROUTE
-    </div>
-  {{/if}}
-
   {{#each routePlans as |routePlan index|}}
     {{sections/distribution/route-plan
         index=index

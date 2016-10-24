@@ -7,4 +7,8 @@
 
 .listRow {
   cursor: pointer;
+  width: 12em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

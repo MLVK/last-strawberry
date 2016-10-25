@@ -1,0 +1,11 @@
+{{#if editing}}
+  {{ui/auto-focus-input
+      value=value
+      update=update
+      onfocus=onfocus
+      onblur=(action "onBlur")}}
+{{else}}
+  <span class="label" {{action 'toggleEditing'}}>
+    {{label}}
+  </span>
+{{/if}}

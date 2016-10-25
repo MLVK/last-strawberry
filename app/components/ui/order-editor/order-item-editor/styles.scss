@@ -21,23 +21,6 @@
   margin-right: 3em;
 }
 
-.unitPrice {
-  width: 5em;
-  font-style: italic;
-  text-decoration: underline;
-  text-align: right;
-}
-
-.unitPriceEditing input {
-  width: 3em;
-  text-decoration:none;
-  font-style: normal;
-  background: rgba( $off-white, 1 );
-  color: $dark-grey;
-  border: 3px solid rgba( #4C4C4C, 0.6 );
-  text-align: right;
-}
-
 .quantity {
   width: 2em;
   font-size: 1.3em;

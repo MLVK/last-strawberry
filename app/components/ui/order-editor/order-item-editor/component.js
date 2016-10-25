@@ -29,12 +29,7 @@ export default Ember.Component.extend({
         this.set('model.unitPrice', 0)
       }
 
-      this.set('editingUnitPrice', false);
       this._blur();
-    },
-
-    toggleUnitPriceEditing() {
-      this.set('editingUnitPrice', true);
     }
   },
 

@@ -5,7 +5,8 @@ import ItemValidations from "last-strawberry/validators/item";
 
 const {
   alias,
-  not
+  not,
+  notEmpty
 } = Ember.computed;
 
 export default Ember.Component.extend({
@@ -29,6 +30,8 @@ export default Ember.Component.extend({
     return orderItems
       .filter(o => !o.get("isDeleted"));
   },
+
+  hasUnusedItems: notEmpty("items"),
 
   actions: {
     async printOrder() {

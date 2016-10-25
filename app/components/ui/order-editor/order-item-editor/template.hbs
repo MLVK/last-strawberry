@@ -7,20 +7,12 @@
 </span>
 
 <div class="row unitPriceContainer">
-
-  {{#if editingUnitPrice}}
-    {{ui/auto-focus-input
-        class="unitPriceEditing"
-        value=model.unitPrice
-        update=(action (mut model.unitPrice))
-        onfocus=(action 'onFocus')
-        onblur=(action 'onBlurUnitPrice')}}
-  {{else}}
-    <span class="unitPrice" {{action 'toggleUnitPriceEditing'}}>
-      {{currency model.unitPrice}}
-    </span>
-  {{/if}}
-
+  {{ui/toggle-edit-input
+      value=model.unitPrice
+      label=(currency model.unitPrice)
+      update=(action (mut model.unitPrice))
+      onfocus=(action 'onFocus')
+      onblur=(action 'onBlurUnitPrice')}}
 </div>
 
 {{one-way-input model.quantity

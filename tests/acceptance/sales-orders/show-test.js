@@ -80,7 +80,7 @@ test('adding an item manually still uses price-tier price', async function(asser
   const item = make("product");
   const otherItem = make("product");
   const priceTier = make("price-tier");
-  
+
   make("item-price", {item, price:2.5, priceTier});
   make("item-price", {otherItem, price:3.5, priceTier});
 
@@ -95,6 +95,7 @@ test('adding an item manually still uses price-tier price', async function(asser
   mockFindAll('item').returns({models: [item]});
 
   await page.visit({id:order.get('id')});
+
   await orderEditorPO.addProduct(item);
 
   assert.equal(orderEditorPO.salesOrderItems(0).total, "$2.50");

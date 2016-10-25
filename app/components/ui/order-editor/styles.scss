@@ -51,15 +51,27 @@
 }
 
 .orderTotals {
-  border-top: 2px solid $slate;
-  padding: 1em;
+  background-color: $off-white;
+  margin: 2em;
+  padding: 2em;
+
+  .dots {
+    flex: 1;
+    // border-bottom: 1px dotted black;
+    margin: 0 2em;
+  }
+
+  .group {
+    height: 2em;
+    align-items: flex-end;
+  }
 
   .content {
     width: 15em;
   }
 
   .title {
-    font-size: 1em;
+    font-size: 1.5em;
   }
 
   .quantity {
@@ -68,6 +80,10 @@
 
   .price {
 
+  }
+
+  .shippingContainer {
+    height: 2em;
   }
 
   .value {

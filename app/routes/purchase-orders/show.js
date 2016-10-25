@@ -60,7 +60,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 	},
 
 	actions: {
-		updateShipping({target: { value }}) {
+		updateShipping(value) {
 			const cleaned = parseFloat(value) || 0;
 			const order = this.modelFor("purchase-orders.show");
 			order.set("shipping", cleaned);

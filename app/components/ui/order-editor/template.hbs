@@ -67,44 +67,47 @@
       delete=deleteOrderItem}}
 {{/each}}
 
-<div class="col right orderTotals">
-  <div class="col content">
-    {{#if isSalesOrder}}
-      <span class="title">Shipping</span>
-      <input
-      type="text"
-      name="name"
-      placeholder="Shipping rate"
-      value="{{model.shipping}}"
-      oninput={{action updateShipping}}
-      onchange={{action updateShipping}}
-      onblur={{action saveOrder}}>
-    {{/if}}
-    <span class="title">Totals</span>
-    <span class="row spaceBetween baseline totalQuantity">
-      <span>Total quantity: </span>
-      <span class="value">{{model.totalQuantity}}</span>
-    </span>
-    <span class="row spaceBetween baseline totalPrice">
-      <span>Total billed: </span>
-      <span class="value">{{currency model.totalPrice}}</span>
-    </span>
+{{#if hasUnusedItems}}
+  <div class="addOrderItemContainer">
+    {{#power-select
+        placeholder="Add item"
+        searchField="name"
+        noMatchesMessage=noMatchesMessage
+        onkeydown=(action "onItemSearchKeyDown")
+        oninput=(action "stashItemSearch")
+        selected=customAddItemResult
+        options=items
+        onchange=(action "createOrderItem")
+        as |item|}}
+          {{item.name}}
+    {{/power-select}}
   </div>
-</div>
+{{/if}}
 
-<div class="addOrderItemContainer">
-  {{#power-select
-      placeholder="Add item"
-      searchField="name"
-      noMatchesMessage=noMatchesMessage
-      onkeydown=(action "onItemSearchKeyDown")
-      oninput=(action "stashItemSearch")
-      selected=customAddItemResult
-      options=items
-      onchange=(action "createOrderItem")
-      as |item|}}
-        {{item.name}}
-  {{/power-select}}
+<div class="col orderTotals">
+  <span class="title">Totals</span>
+  {{#if isSalesOrder}}
+    <span class="row group shippingContainer">
+      <span>Shipping</span>
+      <span class="dots"></span>
+      {{ui/toggle-edit-input
+          value=model.shipping
+          label=(currency model.shipping)
+          update=updateShipping
+          onblur=saveOrder}}
+    </span>
+  {{/if}}
+  <span class="row group totalQuantity">
+    <span>Total quantity: </span>
+    <span class="dots"></span>
+    <span class="value">{{model.totalQuantity}}</span>
+  </span>
+  <span class="row group totalPrice">
+    <span>Total billed: </span>
+    <span class="dots"></span>
+    <span class="value">{{currency model.totalPrice}}</span>
+  </span>
+
 </div>
 
 {{#if model.notifications.length}}

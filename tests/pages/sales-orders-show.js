@@ -20,7 +20,7 @@ const orderEditorPO = PO.create({
     item: {
       name: text(".name"),
       quantity: text(".quantity"),
-      total: text(".unitPrice")
+      total: text(".unitPriceContainer .label")
     }
   }),
 

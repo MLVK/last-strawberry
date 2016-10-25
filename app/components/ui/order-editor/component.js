@@ -17,6 +17,7 @@ export default Ember.Component.extend({
   company:          alias("model.location.company"),
   isSalesOrder:     alias("model.isSalesOrder"),
   isPurchaseOrder:  not("isSalesOrder"),
+  hasUnusedItems:   notEmpty("items"),
 
   validators: ItemValidations,
 
@@ -30,8 +31,6 @@ export default Ember.Component.extend({
     return orderItems
       .filter(o => !o.get("isDeleted"));
   },
-
-  hasUnusedItems: notEmpty("items"),
 
   actions: {
     async printOrder() {

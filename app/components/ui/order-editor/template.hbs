@@ -67,7 +67,7 @@
       delete=deleteOrderItem}}
 {{/each}}
 
-{{#if hasUnusedItems}}
+{{#if (or hasUnusedItems isPurchaseOrder)}}
   <div class="addOrderItemContainer">
     {{#power-select
         placeholder="Add item"

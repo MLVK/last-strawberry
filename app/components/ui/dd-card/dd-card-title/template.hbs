@@ -1,13 +1,5 @@
-{{#if hasIndex}}
-  <span class="index">
-    {{indexFormatted}}.
-  </span>
-{{/if}}
-<div class="title">
-  {{title}} -
-</div>
-<span class="subTitle">
-  {{subTitle}}
+<span class="title">
+  {{indexFormatted}}. {{title}} - <subtitle>{{subTitle}}</subtitle>
 </span>
 {{#if hasAction}}
   {{ui/icon-button

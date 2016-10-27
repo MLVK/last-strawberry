@@ -12,14 +12,15 @@
   color: $dark-grey;
   cursor:default;
   text-transform: uppercase;
-}
 
-.subTitle{
-  font-weight: normal;
-  font-size: 1em;
-  width: 5.5em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-left: 0.3em;
+  width: 11.5em;
+
+  subtitle{
+    font-weight: normal;
+    font-size: 0.8em;
+    text-transform: none;
+  }
 }

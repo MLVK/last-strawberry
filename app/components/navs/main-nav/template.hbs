@@ -32,14 +32,6 @@
       padding=1.2
       action=(action "navigateToRoute" "distribution")}}
 
-    <!-- <a href="#" class="salesOrders" {{action navigateToRoute "sales-orders"}}>Orders</a>
-    <a href="#" class="purchaseOrders" {{action navigateToRoute "purchase-orders"}}>Purchases</a>
-    <a href="#" class="distribution" {{action navigateToRoute "distribution"}}>Distribution</a> -->
-
-    <!-- {{link-to 'Orders' 'sales-orders' class="salesOrders"}} -->
-    <!-- {{link-to 'Purchases' 'purchase-orders' class="purchaseOrders"}} -->
-    <!-- {{link-to 'Distribution' 'distribution' class="distribution"}} -->
-
     {{#ui/popup-menu icon='arrow_drop_down'}}
       {{#each popupItems as |item|}}
         {{ui/icon-button
@@ -58,7 +50,7 @@
 
 <div class="row">
   {{#if authenticated}}
-    <span class="row center">
+    <span class="row baseline">
       <span class="name">{{name}}</span>
       <a href="#" {{action logout}}>
         <span class="label">Logout</span>

@@ -11,6 +11,8 @@ export default function(name, options = {}) {
     beforeEach() {
       this.application = startApp();
 
+      Ember.$.mockjax({ url: "https://andruxnet-random-famous-quotes.p.mashape.com*", responseText: '{"quote":"Houston, we have a problem.","author":"Apollo 13","category":"Movies"}', type: 'POST' });
+
       mockSetup();
 
       // Enable for mockjax logging

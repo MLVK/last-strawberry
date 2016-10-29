@@ -9,7 +9,7 @@
 
   <div class="row navLinksContainer">
     {{ui/icon-button
-      class=(if (eq "sales-orders.index" nextRoute) "salesOrders active" "salesOrders")
+      class=(if (eq "sales-orders" nextRoute) "salesOrders active" "salesOrders")
       flat=true
       label="Sales"
       size=1.4
@@ -17,7 +17,7 @@
       action=(action "navigateToRoute" "sales-orders.index")}}
 
     {{ui/icon-button
-      class=(if (eq "purchase-orders.index" nextRoute) "purchaseOrders active" "purchaseOrders")
+      class=(if (eq "purchase-orders" nextRoute) "purchaseOrders active" "purchaseOrders")
       flat=true
       label="Purchases"
       size=1.4

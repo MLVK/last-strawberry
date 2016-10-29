@@ -24,14 +24,17 @@ export default Ember.Component.extend({
     this.get('routing.router').on('didTransition', ::this.handleDidTransition);
   },
 
+  updateCurrentSelectedPath(route) {
+    this.set("nextRoute", route.split(".")[0]);
+  },
+
   handleDidTransition() {
-    const key = this.get('routing.currentRouteName');
-    this.set("nextRoute", key);
+    this.updateCurrentSelectedPath(this.get('routing.currentRouteName'));
   },
 
   actions: {
     navigateToRoute(route) {
-      this.set("nextRoute", route);
+      this.updateCurrentSelectedPath(route);
       this.attrs.navigateToRoute(route);
     }
   }

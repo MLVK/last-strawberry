@@ -6,7 +6,7 @@ import { show as page } from "last-strawberry/tests/pages/price-tiers";
 import {
   make,
   makeList,
-  mockFind,
+  mockFindRecord,
   mockFindAll,
   mockDelete,
   mockUpdate
@@ -23,7 +23,7 @@ test("Shows the name of the price tier", async function(assert) {
 
   mockFindAll("price-tier");
   mockFindAll("item");
-  mockFind("price-tier").returns({model:priceTier});
+  mockFindRecord("price-tier").returns({model:priceTier});
 
   await page.visit({id:1});
 
@@ -36,7 +36,7 @@ test("Only shows rows for products", async function(assert) {
   const priceTier = make("price-tier");
 
   mockFindAll("price-tier");
-  mockFind("price-tier").returns({ model: priceTier });
+  mockFindRecord("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: products});
 
   await page.visit({ id: 1 });
@@ -54,7 +54,7 @@ test("Shows a price row for all products", async function(assert) {
   const priceTier = make("price-tier", { itemPrices });
 
   mockFindAll("price-tier");
-  mockFind("price-tier").returns({ model: priceTier });
+  mockFindRecord("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items});
 
   await page.visit({ id: 1 });
@@ -73,7 +73,7 @@ test("Shows item prices for items that are not in the price tier yet", async fun
   const priceTier = make("price-tier", { itemPrices });
 
   mockFindAll("price-tier");
-  mockFind("price-tier").returns({ model: priceTier });
+  mockFindRecord("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items });
 
   await page.visit({ id: 1 });
@@ -90,7 +90,7 @@ test("Shows company list when deleting a price tier which has many companies", a
   const priceTier = priceTiers.get("firstObject");
   const companies = makeList("company", 2, { priceTier });
 
-  mockFind("price-tier").returns({ model: priceTier });
+  mockFindRecord("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items });
   mockFindAll("price-tier").returns({ models: priceTiers});
 
@@ -107,7 +107,7 @@ test("Does not show company list when deleting a price tier which has not compan
   const priceTiers = makeList("price-tier", 3);
   const priceTier = priceTiers.get("firstObject");
 
-  mockFind("price-tier").returns({ model: priceTier });
+  mockFindRecord("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items });
   mockFindAll("price-tier").returns({ models: priceTiers});
 
@@ -128,7 +128,7 @@ test("Remaps price tier when deleting a price tier which has many companies", as
 
   const swichingPriceTier = priceTiers[2];
 
-  mockFind("price-tier").returns({ model: priceTier });
+  mockFindRecord("price-tier").returns({ model: priceTier });
   mockFindAll("item").returns({ models: items });
   mockFindAll("price-tier").returns({ models: priceTiers});
   mockDelete(priceTier);

@@ -1,6 +1,11 @@
+<div class="row filterBar">
+  {{ui/filter-bar
+      placeholder="Search..."
+      onChange=(action "filterItems")}}
+</div>
 {{#layouts/scroll-container}}
   <div class="col">
-    {{#each model as |item|}}
+    {{#each filteredItems as |item|}}
       <div class="listRow" {{action itemClicked item.id}}>
         <span class="name" >{{item.text}}</span>
       </div>

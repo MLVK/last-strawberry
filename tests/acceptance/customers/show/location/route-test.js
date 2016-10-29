@@ -5,7 +5,7 @@ import { authenticateSession } from 'last-strawberry/tests/helpers/ember-simple-
 
 import {
   make,
-  mockFind,
+  mockFindRecord,
   mockFindAll
 } from 'ember-data-factory-guy';
 
@@ -18,8 +18,8 @@ test('renders correct url', async function(assert) {
   const company = await location.get('company');
 
   mockFindAll('company').returns({models: [company]});
-  mockFind('company').returns({model: company});
-  mockFind('location').returns({model: location});
+  mockFindRecord('company').returns({model: company});
+  mockFindRecord('location').returns({model: location});
   mockFindAll('location').returns({models: [location]});
   mockFindAll('item', 5);
   mockFindAll('price-tier', 1);

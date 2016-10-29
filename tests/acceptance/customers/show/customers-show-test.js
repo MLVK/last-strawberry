@@ -5,7 +5,7 @@ import { authenticateSession } from 'last-strawberry/tests/helpers/ember-simple-
 
 import {
   makeList,
-  mockFind,
+  mockFindRecord,
   mockFindAll
 } from 'ember-data-factory-guy';
 
@@ -20,7 +20,7 @@ test('renders locations', function(assert) {
 
   mockFindAll('item');
   mockFindAll('price-tier');
-  mockFind('company').returns({model:company});
+  mockFindRecord('company').returns({model:company});
 
   const locations = makeList('location', 10, {company});
 

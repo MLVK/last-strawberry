@@ -49,7 +49,7 @@
     "ember-composable-helpers": "1.0.0",
     "ember-computed-decorators": "0.2.2",
     "ember-data": "^2.7.0",
-    "ember-data-factory-guy": "2.7.5",
+    "ember-data-factory-guy": "2.8.2",
     "ember-export-application-global": "^1.0.5",
     "ember-git-version": "0.1.1",
     "ember-leaflet": "3.0.1",

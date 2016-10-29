@@ -7,7 +7,7 @@ import {
   make,
   makeList,
   mockCreate,
-  mockFind,
+  mockFindRecord,
   mockFindAll,
   mockDelete
 } from 'ember-data-factory-guy';
@@ -24,7 +24,7 @@ moduleForAcceptance('Acceptance | sales orders/show', {
 test('navigates to correct url', async function(assert) {
   const order = make('sales_order');
   mockFindAll('order').returns({models: [order]});
-  mockFind('order').returns({model: order});
+  mockFindRecord('order').returns({model: order});
 
   await page.visit({id:order.get('id')});
 
@@ -35,7 +35,7 @@ test('displays the correct sales order', async function(assert) {
   const location = make('location');
   const order = make('order', {location});
   mockFindAll('order').returns({models: [order]});
-  mockFind('order').returns({model: order});
+  mockFindRecord('order').returns({model: order});
 
   await page.visit({id:order.get('id')});
 
@@ -45,7 +45,7 @@ test('displays the correct sales order', async function(assert) {
 test('can delete sales order', async function(assert) {
   const order = make('order');
   mockFindAll('order').returns({models: [order]});
-  mockFind('order').returns({model: order});
+  mockFindRecord('order').returns({model: order});
 
   await page.visit({id:order.get('id')});
 
@@ -60,7 +60,7 @@ test('can delete sales order', async function(assert) {
 test('can add order item manually', async function(assert) {
   const order = make('order');
   mockFindAll('order').returns({models: [order]});
-  mockFind('order').returns({model: order});
+  mockFindRecord('order').returns({model: order});
   mockCreate("order-item");
   const items = makeList("product", 10);
 
@@ -89,7 +89,7 @@ test('adding an item manually still uses price-tier price', async function(asser
   const order = make('order', {location});
 
   mockFindAll('order').returns({models: [order]});
-  mockFind('order').returns({model: order});
+  mockFindRecord('order').returns({model: order});
   mockCreate("order-item");
 
   mockFindAll('item').returns({models: [item]});

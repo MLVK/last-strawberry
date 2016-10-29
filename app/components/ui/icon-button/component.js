@@ -10,6 +10,7 @@ export default Ember.Component.extend({
   attributeBindings:["componentStyles:style"],
 
   hasLabel: notEmpty("label"),
+  hasIcon:  notEmpty("iconName"),
 
   startSpin() {
     const targ = this.$(".iconContainer");

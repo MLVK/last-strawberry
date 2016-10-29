@@ -9,7 +9,7 @@ import {
   make,
   makeList,
   mockUpdate,
-  mockFind,
+  mockFindRecord,
   mockFindAll } from "ember-data-factory-guy";
 
 let items,
@@ -26,8 +26,8 @@ moduleForAcceptance("Acceptance | customers/show/location/item-settings", {
     company = make("company", {priceTier});
     location = make("location", {company});
 
-    mockFind("location").returns({model: location});
-    mockFind("company").returns({model: company});
+    mockFindRecord("location").returns({model: location});
+    mockFindRecord("company").returns({model: company});
     mockFindAll("item").returns({models: items});
     mockFindAll("company").returns({models: [company]});
     mockFindAll("priceTier").returns({models: [priceTier]});

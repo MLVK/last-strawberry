@@ -20,12 +20,13 @@
     "gsap": "^1.18.4",
     "firebase": "^2.4.2",
     "chartjs": "1.0.2",
-    "jquery-mockjax": "2.2.0",
+    "jquery-mockjax": "2.2.1",
     "mlvk-google-fonts": "brancusi/mlvk-google-fonts",
     "ramda": "^0.22.0",
     "polyline": "^0.2.0"
   },
   "resolutions": {
-    "ember": "v2.7.0"
+    "ember": "v2.7.0",
+    "jquery-mockjax": "2.2.1"
   }
 }

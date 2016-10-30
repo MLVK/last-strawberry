@@ -27,6 +27,10 @@ module.exports = function(environment) {
 
     quoteApi: {
       accessToken: process.env.QUOTE_SERVICE_KEY,
+    },
+
+    firebase: {
+      host: process.env.FIREBASE_URL
     }
   };
 

@@ -12,18 +12,18 @@
 
   <div class="col center baseline">
     <div class="row">
-      {{one-way-checkbox
-        includeDraft
+      {{ui/toggle-button
         class="includeDraft"
-        update=(action "updateFilter" "includeDraft")}}
-      Draft
+        selected=includeDraft
+        label="Draft"
+        click=(action "toggleIncludeDraft")}}
     </div>
 
     <div class="row">
       {{one-way-checkbox
         includeApproved
         class="includeApproved"
-        update=(action "updateFilter" "includeApproved")}}
+        update=(action (mut includeApproved))}}
         Approved
       </div>
   </div>

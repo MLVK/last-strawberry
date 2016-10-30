@@ -17,26 +17,39 @@ const ORDER_INCLUDES = [
   "location.company"
 ];
 
+const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
+
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   session: Ember.inject.service(),
 
   queryParams: {
     deliveryDate: {
       refreshModel: true
+    },
+    includeApproved: {
+      refreshModel: false
+    },
+    includeDraft: {
+      refreshModel: false
     }
   },
 
 	setupController(controller, model) {
     this._super(controller, model);
 
+    // const deliveryDate = this.paramsFor("sales-orders").deliveryDate || tomorrow;
+    // const includeApproved = this.paramsFor("sales-orders").includeApproved === "true" ? true : "";
+    // const includeDraft = this.paramsFor("sales-orders").includeDraft === "true" ? true : "";
+    //
+    // controller.set("deliveryDate", deliveryDate);
+    // controller.set("includeApproved", includeApproved);
+    // controller.set("includeDraft", includeDraft);
 		controller.set("salesOrders", this.store.peekAll("order"));
 		controller.set("companies", this.store.peekAll("company"));
     controller.set("locations", this.store.peekAll("location"));
 	},
 
 	model(params){
-    this.params = params;
-
     return Ember.RSVP.all([
       this.store.query("item", {"filter[is_sold]":true}),
       this.store.query("company", {include:COMPANY_INCLUDES.join(",")}),

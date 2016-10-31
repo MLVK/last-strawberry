@@ -19,19 +19,21 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    },
-
-    routificApi: {
-      accessToken: process.env.ROUTIFIC_API_KEY,
-    },
-
-    quoteApi: {
-      accessToken: process.env.QUOTE_SERVICE_KEY,
-    },
-
-    firebase: {
-      host: process.env.FIREBASE_URL
     }
+  };
+
+  ENV['apiHost'] = process.env.API_HOST;
+
+  ENV['routificApi'] = {
+    accessToken: process.env.ROUTIFIC_API_KEY,
+  };
+
+  ENV['quoteApi'] = {
+    accessToken: process.env.QUOTE_SERVICE_KEY,
+  };
+
+  ENV['firebase'] = {
+    host: process.env.FIREBASE_URL
   };
 
   ENV['place-autocomplete'] = {
@@ -40,7 +42,11 @@ module.exports = function(environment) {
     client: process.env.GOOGLE_CLIENT_ID
   };
 
-  ENV.apiHost = 'http://localhost:3000';
+  ENV['ember-simple-auth'] = {
+    authenticationRoute: 'login',
+    routeAfterAuthentication: 'sales-orders',
+    routeIfAlreadyAuthenticated: 'sales-orders'
+  };
 
   ENV.contentSecurityPolicy = {
     'default-src': "'none'",
@@ -52,23 +58,17 @@ module.exports = function(environment) {
     'media-src': "'self'"
   };
 
-  ENV['ember-simple-auth'] = {
-    authenticationRoute: 'login',
-    routeAfterAuthentication: 'sales-orders',
-    routeIfAlreadyAuthenticated: 'sales-orders'
-  };
-
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+    ENV.apiHost = 'http://localhost:3000';
   }
 
   if (environment === 'test') {
-    ENV.apiHost = '';
-
     // Testem prefers this...
     ENV.locationType = 'none';
 
@@ -78,10 +78,16 @@ module.exports = function(environment) {
 
     // This breaks clicks on elements rendered via ember wormhole in testing
     // ENV.APP.rootElement = '#ember-testing';
+
+    ENV.apiHost = '';
+
+    ENV["firebase"] = {
+      host: process.env.TEST_FIREBASE_URL
+    }
   }
 
   if (environment === 'production') {
-    ENV.apiHost = process.env.API_HOST;
+
   }
 
   return ENV;

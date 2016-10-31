@@ -33,6 +33,22 @@ export default Ember.Controller.extend({
     });
   },
 
+  @computed('salesOrders.@each.{totalQuantity}')
+  itemTotals(orders = Ember.A()) {
+    return _
+      .chain(orders.toArray())
+      .map(order => order.get('orderItems').toArray())
+      .flatten()
+      .groupBy(orderItem => orderItem.get('item.id'))
+      .mapValues(orderItems => orderItems.reduce((acc, cur) => acc + Number(cur.get('quantity')), 0))
+      .map((quantity, id) => ({id, quantity}))
+      .reduce((acc, cur) => {
+        acc[cur.id] = cur.quantity;
+        return acc;
+      }, {})
+      .value();
+  },
+
   @computed("rawSalesData.@each.{ts}")
   salesData(dataPoints = []) {
     return dataPoints.sortBy('ts');

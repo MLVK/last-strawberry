@@ -43,6 +43,7 @@
     "ember-cli-sass": "5.5.1",
     "ember-cli-selectize": "0.5.2",
     "ember-cli-sri": "^2.1.0",
+    "ember-cli-sticky": "0.6.1",
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-component-css": "0.2.0-beta.6",

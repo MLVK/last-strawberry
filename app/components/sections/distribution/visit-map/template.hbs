@@ -14,17 +14,19 @@
   {{/each}}
 
   {{#marker-layer lat=34.1693137 lng=-118.317191 icon=(rp-icon "" "red")}}
-    <div class="col">
-      <span class="company">
-        Headquarters
-      </span>
-      <span class="street">
-        435 South Main Street
-      </span>
-      <span class="addressSecond">
-        Burbank CA 91506
-      </span>
-    </div>
+    {{#popup-layer}}
+      <div class="col">
+        <span class="company">
+          Headquarters
+        </span>
+        <span class="street">
+          435 South Main Street
+        </span>
+        <span class="addressSecond">
+          Burbank CA 91506
+        </span>
+      </div>
+    {{/popup-layer}}
   {{/marker-layer}}
 
   {{#each openRouteVisits as |rv|}}

@@ -9,5 +9,5 @@ export default Ember.Component.extend({
   // Los Angeles defaults
   lat: 33.96216,
   lng: -118.31994,
-  zoom: 12
+  zoom: 10
 });

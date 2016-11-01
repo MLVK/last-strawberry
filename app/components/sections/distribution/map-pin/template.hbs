@@ -1,19 +1,20 @@
 {{#marker-layer
     onPopupopen=(action selectRouteVisit model)
     onPopupclose=(action selectRouteVisit undefined)
-    popupOpen=(eq selectedRouteVisit.id model.id)
     lat=model.address.lat
     lng=model.address.lng
     icon=(if model.isOpen defaultIcon (rp-icon index color))}}
-  <div class="col">
-    <span class="company">
-      {{companyName}}
-    </span>
-    <span class="street">
-      {{model.address.street}}
-    </span>
-    <span class="addressSecond">
-      {{model.address.city}}, {{model.address.state}} {{model.address.zip}}
-    </span>
-  </div>
+    {{#popup-layer popupOpen=(eq selectedRouteVisit.id model.id)}}
+      <div class="col">
+        <span class="company">
+          {{companyName}}
+        </span>
+        <span class="street">
+          {{model.address.street}}
+        </span>
+        <span class="addressSecond">
+          {{model.address.city}}, {{model.address.state}} {{model.address.zip}}
+        </span>
+      </div>
+  {{/popup-layer}}
 {{/marker-layer}}

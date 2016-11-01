@@ -4,9 +4,12 @@ import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-
 import { page } from "last-strawberry/tests/pages/sales-orders";
 
 import {
+  build,
+  buildList,
   make,
+  mockCreate,
   makeList,
-  mockFind,
+  mockFindRecord,
   mockFindAll
 } from "ember-data-factory-guy";
 
@@ -73,7 +76,7 @@ test("should show sales order when location is clicked", async function(assert) 
   const salesOrder = make("sales_order");
 
   mockFindAll("order").returns({models: [salesOrder]});
-  mockFind("order").returns({model: salesOrder});
+  mockFindRecord("order").returns({model: salesOrder});
 
   await page
     .visit()
@@ -85,7 +88,7 @@ test("should show sales order when location is clicked", async function(assert) 
 
 test("should display warning banner when deliveryDate param <= today", async function(assert) {
   mockFindAll("order");
-  mockFind("order");
+  mockFindRecord("order");
 
   const deliveryDate = moment().format("YYYY-MM-DD");
 
@@ -94,17 +97,25 @@ test("should display warning banner when deliveryDate param <= today", async fun
 });
 
 test("show be able to create a new sales order from the quick menu", async function(assert) {
-  const salesOrders = makeList("sales_order", 5);
-  mockFindAll("order").returns({models: salesOrders});
+  const salesOrderCount = 10;
+  const locations = makeList("location", 1);
+  const salesOrders = buildList("sales_order", salesOrderCount);
+  const salesOrder = build("sales_order", {id: 50});
+  const orderId = salesOrder.get().id;
 
-  const locations = makeList("location", 2);
+  mockFindAll("order").returns({json: salesOrders});
+  mockCreate("order").returns({id:orderId});
+  mockFindRecord("order").returns({json:salesOrder});
 
   await page
     .visit()
     .openQuickMenu();
 
+  assert.equal(page.orders().count, salesOrderCount, "Wrong number of orders rendered");
+
   await page.createOrder();
+
   await page.selectLocation(locations.get("firstObject"));
 
-  assert.equal(page.orders().count, 6, "Wrong number of orders rendered");
+  assert.equal(page.orders().count, salesOrderCount + 1, "Wrong number of orders rendered");
 });

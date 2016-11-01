@@ -69,7 +69,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     async createSalesOrder(location) {
       const deliveryDate = this.paramsFor("sales-orders").deliveryDate;
-
       const order = await this.store
         .createRecord("order", {location, deliveryDate})
         .save();

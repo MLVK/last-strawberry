@@ -3,7 +3,7 @@
   align-items: center;
   background: $sky-blue;
   color: white;
-  padding: 0.5em 1em;
+  padding: 0 1em;
   font-size: 0.9em;
   a {
     text-decoration: none;
@@ -11,16 +11,39 @@
   }
 }
 
-.main {
-  align-items: baseline;
+.homeLink {
+  margin-right: 2em;
 }
 
 .user {
   align-items: baseline;
 }
 
+.name {
+  font-size: 0.8em;
+  border-right: 1px solid white;
+  margin-right: 1em;
+  padding-right: 1em;
+}
+
 .buttonContent {
   align-items: center;
+}
+.navLinksContainer {
+  .ui_icon-button {
+    &:hover{
+      background-color: $baby-blue;
+      .label {
+        color: $dark-grey;
+      }
+    }
+    &.active{
+      background-color: $hot-pink;
+      .label {
+        color: $off-white;
+      }
+    }
+  }
 }
 
 .name {
@@ -34,20 +57,4 @@
 
 .homeLink {
   font-size: 1.4em;
-}
-
-.navLinksContainer {
-  align-items: center;
-  margin-left: 2em;
-  color: $off-white;
-
-  a {
-    margin-right: 1em;
-    padding: 0.6em;
-
-    &:hover, &.active{
-      background-color: $baby-blue;
-      color: $dark-grey;
-    }
-  }
 }

@@ -1,39 +1,62 @@
-<div class="row main main-nav">
-  {{link-to 'Grand Central Station' 'index' class='homeLink'}}
+<div class="row center">
+  {{ui/icon-button
+    class='homeLink'
+    flat=true
+    label="MLVK"
+    size=2
+    padding=0.6
+    action=(action "navigateToRoute" "sales-orders.index")}}
+
   <div class="row navLinksContainer">
-    {{link-to 'Orders' 'sales-orders' class="salesOrders"}}
-    {{link-to 'Purchases' 'purchase-orders' class="purchaseOrders"}}
-    {{link-to 'Distribution' 'distribution' class="distribution"}}
+    {{ui/icon-button
+      class=(if (eq "sales-orders" nextRoute) "salesOrders active" "salesOrders")
+      flat=true
+      label="Sales"
+      size=1.4
+      padding=1.2
+      action=(action "navigateToRoute" "sales-orders.index")}}
+
+    {{ui/icon-button
+      class=(if (eq "purchase-orders" nextRoute) "purchaseOrders active" "purchaseOrders")
+      flat=true
+      label="Purchases"
+      size=1.4
+      padding=1.2
+      action=(action "navigateToRoute" "purchase-orders.index")}}
+
+    {{ui/icon-button
+      class=(if (eq "distribution" nextRoute) "distribution active" "distribution")
+      flat=true
+      label="Distribution"
+      size=1.4
+      padding=1.2
+      action=(action "navigateToRoute" "distribution")}}
 
     {{#ui/popup-menu icon='arrow_drop_down'}}
       {{#each popupItems as |item|}}
         {{ui/icon-button
-          class=(camelize item.label)
+          class=(camelize item.route)
+          iconName="check"
           flat=true
           label=item.label
           size=1.4
           padding=1.2
+          iconName=item.icon
           action=(action navigateToRoute item.route)}}
       {{/each}}
     {{/ui/popup-menu}}
   </div>
 </div>
 
-<div class="row user">
+<div class="row">
   {{#if authenticated}}
-
-    <span class="buttonContent row">
+    <span class="row baseline">
       <span class="name">{{name}}</span>
-      <span class="pipe">|</span>
-      <a href="#" {{action (action this.attrs.logout)}}>
-        <span class="buttonContent row">
-          <span class="label">Logout</span>
-        </span>
+      <a href="#" {{action logout}}>
+        <span class="label">Logout</span>
       </a>
     </span>
-
   {{else}}
-    <a href="#" {{action (action this.attrs.login)}}>Login</a>
+    <a href="#" {{action login}}>Login</a>
   {{/if}}
-
 </div>

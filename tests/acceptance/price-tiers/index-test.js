@@ -7,7 +7,7 @@ import {
   build,
   make,
   mockCreate,
-  mockFind,
+  mockFindRecord,
   mockFindAll
 } from "ember-data-factory-guy";
 
@@ -38,7 +38,7 @@ test("selecting an item navigates to the price-tier show route for that item", a
 
   mockFindAll("item");
   mockFindAll("price-tier").returns({models: [priceTier]})
-  mockFind("price-tier").returns({model:priceTier});
+  mockFindRecord("price-tier").returns({model:priceTier});
 
   await page
     .visit()
@@ -52,7 +52,7 @@ test("can create new price tiers", async function(assert) {
   mockFindAll("item");
   mockFindAll("price-tier");
   mockCreate("price-tier");
-  mockFind("price-tier").returns({json: build("price-tier", {id:2})})
+  mockFindRecord("price-tier").returns({json: build("price-tier", {id:2})})
 
   await page
     .visit()

@@ -2,6 +2,12 @@
   <span class="label">{{fmtLabel}}</span>
 {{/if}}
 
-<div class="iconContainer row">
-  <i class="material-icons">{{iconName}}</i>
-</div>
+{{#if (and hasLabel hasIcon)}}
+  <div class="spacer"></div>
+{{/if}}
+
+{{#if hasIcon}}
+  <div class="iconContainer row">
+    <i class="material-icons">{{iconName}}</i>
+  </div>
+{{/if}}

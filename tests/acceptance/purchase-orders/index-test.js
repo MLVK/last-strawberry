@@ -4,7 +4,7 @@ import { authenticateSession } from "last-strawberry/tests/helpers/ember-simple-
 import { page } from "last-strawberry/tests/pages/purchase-orders";
 
 import {
-  mockFind,
+  mockFindRecord,
   mockFindAll
 } from "ember-data-factory-guy";
 
@@ -27,7 +27,7 @@ test("navigates to correct url", async function(assert) {
 
 test("should display warning banner when deliveryDate param <= today", async function(assert) {
   mockFindAll("order");
-  mockFind("order");
+  mockFindRecord("order");
 
   const deliveryDate = moment().format("YYYY-MM-DD");
 

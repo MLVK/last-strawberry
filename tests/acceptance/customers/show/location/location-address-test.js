@@ -10,7 +10,7 @@ import { authenticateSession } from 'last-strawberry/tests/helpers/ember-simple-
 import {
   make,
   makeList,
-  mockFind,
+  mockFindRecord,
   // mockUpdate,
   mockFindAll
 } from 'ember-data-factory-guy';
@@ -26,8 +26,8 @@ moduleForAcceptance('Acceptance | customers/show/location/location address', {
     locations = makeList('location', {company}, 3);
 
     mockFindAll('company').returns({models: [company]});
-    mockFind('company').returns({model: company});
-    mockFind('location').returns({model: locations[0]});
+    mockFindRecord('company').returns({model: company});
+    mockFindRecord('location').returns({model: locations[0]});
     mockFindAll('location').returns({models: locations});
     mockFindAll('item', 5);
     mockFindAll('price-tier', 1);

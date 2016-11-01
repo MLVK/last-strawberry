@@ -2,12 +2,10 @@
 
 module.exports = function(environment) {
 
-  // $.mockjaxSettings.logging = 4;
-
-
   var ENV = {
     modulePrefix: 'last-strawberry',
     environment: environment,
+    rootURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -25,6 +23,14 @@ module.exports = function(environment) {
 
     routificApi: {
       accessToken: process.env.ROUTIFIC_API_KEY,
+    },
+
+    quoteApi: {
+      accessToken: process.env.QUOTE_SERVICE_KEY,
+    },
+
+    firebase: {
+      host: process.env.FIREBASE_URL
     }
   };
 
@@ -38,9 +44,9 @@ module.exports = function(environment) {
 
   ENV.contentSecurityPolicy = {
     'default-src': "'none'",
-    'script-src': "'self' 'unsafe-eval' http://laststrawberry.dev:* http://admin.dev:* https://cdn.mxpnl.com  *.googleapis.com *.cloudflare.com", // Allow scripts from https://cdn.mxpnl.com
-    'font-src': "'self' *.gstatic.com *.googleapis.com", // Allow fonts to be loaded from http://fonts.gstatic.com
-    'connect-src': "'self' wss://s-usc1c-nss-102.firebaseio.com ws://laststrawberry.dev:* ws://admin.dev:* http://localhost:3000 https://routific.com *.googleapis.com *.mapbox.com", // Allow data (ajax/websocket) from api.mixpanel.com and custom-api.local
+    'script-src': "'self' 'unsafe-eval' '*.firebaseio.com http://laststrawberry.dev:* http://admin.dev:* https://cdn.mxpnl.com  *.googleapis.com *.cloudflare.com", // Allow scripts from https://cdn.mxpnl.com
+    'font-src': "'self' data: *.gstatic.com *.googleapis.com", // Allow fonts to be loaded from http://fonts.gstatic.com
+    'connect-src': "'self' https://andruxnet-random-famous-quotes.p.mashape.com wss://s-usc1c-nss-102.firebaseio.com ws://laststrawberry.dev:* ws://admin.dev:* http://localhost:3000 https://routific.com *.googleapis.com *.mapbox.com", // Allow data (ajax/websocket) from api.mixpanel.com and custom-api.local
     'img-src': "'self' data: *.basemaps.cartocdn.com *.gstatic.com",
     'style-src': "'self' 'unsafe-inline' *.googleapis.com", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
     'media-src': "'self'"
@@ -69,6 +75,9 @@ module.exports = function(environment) {
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    // This breaks clicks on elements rendered via ember wormhole in testing
+    // ENV.APP.rootElement = '#ember-testing';
   }
 
   if (environment === 'production') {

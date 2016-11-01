@@ -34,7 +34,13 @@ export default Ember.Controller.extend({
     },
 
     selectRouteVisit(routeVisit) {
-      this.set("selectedRouteVisit", routeVisit);
+      if(this.get("selectedRouteVisit") !== routeVisit && routeVisit != null) {
+        this.set("selectedRouteVisit", routeVisit);
+      }
+    },
+
+    deSelectRouteVisit() {
+      this.set("selectedRouteVisit", undefined);
     }
   }
 });

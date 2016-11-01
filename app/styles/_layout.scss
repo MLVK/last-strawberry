@@ -63,6 +63,11 @@
   align-content: flex-start;
 }
 
+.bottom {
+  align-items: flex-end;
+  align-content: flex-end;
+}
+
 .right {
   justify-content: flex-end;
 }

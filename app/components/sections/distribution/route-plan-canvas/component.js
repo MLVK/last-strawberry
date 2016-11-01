@@ -92,7 +92,7 @@ export default Ember.Component.extend({
     this.drake.on("cancel", () => this.dropSubject.onNext())
 
     this.drake.on("drop", (dragNode, dropNode, fromNode, sibNode) => {
-
+      this.attrs.deSelectRouteVisit();
       this.dropSubject.onNext();
 
       const ot = this._createRouteTransform(dragNode, dropNode, fromNode, sibNode);

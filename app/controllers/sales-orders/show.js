@@ -14,10 +14,8 @@ export default Ember.Controller.extend({
   processSnapshot(snapshot) {
     const data = snapshot.val();
 
-    if(Ember.isPresent(data)){
-      this.set('loadingFbData', false);
-      this.set('rawSalesData', _.map(data));
-    }
+    this.set('loadingFbData', false);
+    this.set('rawSalesData', _.map(data));
   },
 
   willDestroy() {

@@ -82,7 +82,7 @@ module.exports = function(environment) {
     ENV.apiHost = '';
 
     ENV["firebase"] = {
-      host: process.env.TEST_FIREBASE_URL
+      host: "https://last-strawberry-testing.firebaseio.com/"
     }
   }
 

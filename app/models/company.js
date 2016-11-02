@@ -1,6 +1,7 @@
 import Ember from "ember";
 import Model from "ember-data/model";
 import attr from "ember-data/attr";
+import computed from "ember-computed-decorators";
 import {
   belongsTo,
   hasMany
@@ -34,5 +35,11 @@ export default Model.extend({
     } else {
       return item.get("defaultPrice");
     }
+  },
+
+  @computed("isCustomer", "id")
+  clientUrl(isCustomer, id) {
+    const routeName = isCustomer? "customers": "vendors";
+    return `/${routeName}/${id}`;
   }
 });

@@ -34,5 +34,10 @@ export default Model.extend(LocationHashable, {
   @computed("name", "id", "company.name")
   label(name, id, companyName) {
     return `${companyName} - ${name} - ${id}`
+  },
+
+  @computed("company.clientUrl", "id")
+  clientUrl(companyUrl, id) {
+    return `${companyUrl}/locations/${id}`;
   }
 });

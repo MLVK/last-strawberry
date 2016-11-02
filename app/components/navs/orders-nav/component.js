@@ -7,8 +7,7 @@ const {
 } = Ember;
 
 const {
-  notEmpty,
-  bool
+  notEmpty
 } = Ember.computed;
 
 export default Ember.Component.extend({
@@ -64,8 +63,13 @@ export default Ember.Component.extend({
     toggleIncludeDraft() {
       const current = get(this, "includeDraft") === "true" || get(this, "includeDraft") === true;
       const next = !current;
-      console.log(next);
       set(this, "includeDraft", next);
+    },
+
+    toggleIncludeApproved() {
+      const current = get(this, "includeApproved") === "true" || get(this, "includeApproved") === true;
+      const next = !current;
+      set(this, "includeApproved", next);
     }
   }
 });

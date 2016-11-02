@@ -7,3 +7,21 @@
   background-color: $dark-grey;
   color: $off-white;
 }
+
+.filterOptionsContainer {
+  align-items: center;
+  padding-left: 0.5em;
+  .option {
+    background-color: $dark-grey;
+    color: $off-white;
+    .content {
+      opacity: 0.5;
+    }
+  }
+
+  .option.selected {
+    .content {
+      opacity: 1;
+    }
+  }
+}

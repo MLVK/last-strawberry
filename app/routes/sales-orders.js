@@ -17,8 +17,6 @@ const ORDER_INCLUDES = [
   "location.company"
 ];
 
-const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
-
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   session: Ember.inject.service(),
 
@@ -35,18 +33,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
 
 	setupController(controller, model) {
-    this._super(controller, model);
-
-    // const deliveryDate = this.paramsFor("sales-orders").deliveryDate || tomorrow;
-    // const includeApproved = this.paramsFor("sales-orders").includeApproved === "true" ? true : "";
-    // const includeDraft = this.paramsFor("sales-orders").includeDraft === "true" ? true : "";
-    //
-    // controller.set("deliveryDate", deliveryDate);
-    // controller.set("includeApproved", includeApproved);
-    // controller.set("includeDraft", includeDraft);
 		controller.set("salesOrders", this.store.peekAll("order"));
 		controller.set("companies", this.store.peekAll("company"));
     controller.set("locations", this.store.peekAll("location"));
+
+    this._super(controller, model);
 	},
 
 	model(params){

@@ -10,22 +10,22 @@
       placeholder="Search..."
       onChange=(action "filterOrders")}}
 
-  <div class="col center baseline">
-    <div class="row">
-      {{ui/toggle-button
-        class="includeDraft"
-        selected=includeDraft
-        label="Draft"
-        click=(action "toggleIncludeDraft")}}
-    </div>
+  <div class="row right filterOptionsContainer">
+    {{ui/toggle-button
+      class="option includeDraft"
+      selected=includeDraft
+      selectedTooltipMessage="hide drafts"
+      unSelectedTooltipMessage="show drafts"
+      iconName="drafts"
+      click=(action "toggleIncludeDraft")}}
 
-    <div class="row">
-      {{one-way-checkbox
-        includeApproved
-        class="includeApproved"
-        update=(action (mut includeApproved))}}
-        Approved
-      </div>
+    {{ui/toggle-button
+      class="option includeApproved"
+      selected=includeApproved
+      selectedTooltipMessage="hide approved"
+      unSelectedTooltipMessage="show approved"
+      iconName="done_all"
+      click=(action "toggleIncludeApproved")}}
   </div>
 
   {{#ui/popup-menu}}

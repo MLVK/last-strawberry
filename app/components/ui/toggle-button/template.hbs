@@ -1,1 +1,16 @@
-{{cap label}}
+<div class="content">
+  {{#if hasLabel}}
+    {{cap label}}
+  {{/if}}
+
+  {{#if hasIcon}}
+    <div class="iconContainer row">
+      <i class="material-icons">{{iconName}}</i>
+    </div>
+  {{/if}}
+</div>
+{{#if shouldEnableTooltip}}
+  {{#tooltip-on-component}}
+    {{toolTipMessage}}
+  {{/tooltip-on-component}}
+{{/if}}

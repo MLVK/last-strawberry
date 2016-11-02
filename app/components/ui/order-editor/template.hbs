@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col stretch">
-    <span class="company">
+    <a class="company" href="{{model.location.company.clientUrl}}">
       {{model.location.company.name}}
-    </span>
-    <span class="locationInfo">
+    </a>
+    <a class="locationInfo" href="{{model.location.clientUrl}}">
       {{model.location.code}} - {{model.location.name}}
-    </span>
+    </a>
 
     <!-- {{#if model.isPurchaseOrder}}
       {{ui/order-editor/notification-status status=model.notificationState}}

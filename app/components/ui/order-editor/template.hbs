@@ -1,15 +1,12 @@
 <div class="row">
   <div class="col stretch">
-    <span class="company">
+    {{#link-to (if model.location.company.isCustomer "customers.show" "vendors.show") model.location.company class="company"}}
       {{model.location.company.name}}
-    </span>
-    <span class="locationInfo">
-      {{model.location.code}} - {{model.location.name}}
-    </span>
+    {{/link-to}}
 
-    <!-- {{#if model.isPurchaseOrder}}
-      {{ui/order-editor/notification-status status=model.notificationState}}
-    {{/if}} -->
+    {{#link-to (if model.location.company.isCustomer "customers.show.location" "vendors.show.location") model.location.company model.location class="locationInfo"}}
+      {{model.location.code}} - {{model.location.name}}
+    {{/link-to}}
 
     <div class="row orderInfo">
       <span class="title">

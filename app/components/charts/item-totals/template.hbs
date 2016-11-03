@@ -1,6 +1,6 @@
 {{ui/title-bar
   title=(if isHidden "Item totals +" "Item totals -")
-  click=(action "toggleShow")}}
+  click=(toggle "isHidden" this)}}
 <div class={{if isHidden "chart hidden" "chart"}}>
   {{#each itemTotals as |itemTotal|}}
     <div class="row stretch left spaceBetween itemRow">

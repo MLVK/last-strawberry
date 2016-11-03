@@ -4,7 +4,11 @@ import computed from "ember-computed-decorators";
 const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
 
 export default Ember.Controller.extend({
+  queryParams: ["deliveryDate", "includeApproved", "includeDraft"],
+
   deliveryDate: tomorrow,
+  includeApproved: true,
+  includeDraft: true,
 
   @computed("orders.@each.{deliveryDate,isPurchaseOrder}", "deliveryDate")
   filteredOrders(orders, deliveryDate) {

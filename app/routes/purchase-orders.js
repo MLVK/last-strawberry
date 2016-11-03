@@ -17,18 +17,25 @@ const ORDER_INCLUDES = [
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   session: Ember.inject.service(),
-	queryParams: {
+
+  queryParams: {
     deliveryDate: {
       refreshModel: true
+    },
+    includeApproved: {
+      refreshModel: false
+    },
+    includeDraft: {
+      refreshModel: false
     }
   },
 
 	setupController(controller, model) {
-    this._super(controller, model);
-
 		controller.set("orders", this.store.peekAll("order"));
 		controller.set("companies", this.store.peekAll("company"));
     controller.set("locations", this.store.peekAll("location"));
+
+    this._super(controller, model);
 	},
 
 	model(params){

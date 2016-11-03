@@ -8,6 +8,18 @@
 
 header {
   background: rgba(#fff, 0.5);
+  padding: 0.5em;
+}
+
+.itemName {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.locationName {
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .productionInfoContainer {
@@ -30,7 +42,7 @@ header {
 }
 
 .noDataMessage {
-  font-size: 2em;
+  font-size: 0.9em;
   font-weight: bold;
 }
 

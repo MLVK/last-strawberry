@@ -52,8 +52,6 @@ export default Ember.Controller.extend({
     return dataPoints.sortBy('ts');
   },
 
-  hasSalesData: gt("salesData.length", 0),
-
   loadSalesData() {
     this.cleanup();
 

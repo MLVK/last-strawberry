@@ -4,7 +4,10 @@ const { notEmpty } = Ember.computed;
 
 export default Ember.Component.extend({
   classNames: ['col', 'spaceBetween', 'card-1'],
-  hasData:          notEmpty('salesData'),
+  classNameBindings: ['hasItem::hidden'],
+  hasData:        notEmpty('salesData'),
+  hasItem:        notEmpty('item'),
+  hasLastUpdated: notEmpty('salesData.ts'),
 
   @computed('salesData.ts')
   lastUpdated(timestamp) {

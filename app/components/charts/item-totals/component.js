@@ -3,6 +3,7 @@ import computed from 'ember-computed-decorators';
 
 export default Ember.Component.extend({
   classNames: ['col', 'card-1'],
+  isHidden:true,
 
   @computed('orders.@each.{totalQuantity}')
   itemTotals(orders = Ember.A()) {
@@ -14,5 +15,11 @@ export default Ember.Component.extend({
       .mapValues(orderItems => orderItems.reduce((acc, cur) => acc + Number(cur.get('quantity')), 0))
       .map((quantity, name) => ({name, quantity}))
       .value();
+  },
+
+  actions: {
+    toggleShow() {
+      this.set("isHidden", !this.get("isHidden"));
+    }
   }
 });

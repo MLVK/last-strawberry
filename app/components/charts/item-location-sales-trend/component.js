@@ -1,8 +1,17 @@
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 
+const {
+  and,
+  notEmpty
+} = Ember.computed;
+
 export default Ember.Component.extend({
   classNames: ['col', 'card-1'],
+  classNameBindings: ['shouldDisplay::hidden'],
+  hasData:       notEmpty('salesData'),
+  hasItem:       notEmpty('item'),
+  shouldDisplay: and("hasData", "hasItem"),
 
   init() {
     this.salesDataStream = new Rx.Subject();

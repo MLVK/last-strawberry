@@ -1,9 +1,7 @@
+{{log salesData}}
 <header class="col">
-  <span class="title">
-    Sales Info
-  </span>
-  <span class="locationItemInfo">
-    {{item.name}} - {{location.code}}
+  <span class="itemName">
+    {{item.name}}
   </span>
 </header>
 
@@ -31,8 +29,10 @@
 </div>
 
 <div class="row footer">
-  <span class="updatedAt">Last updated {{moment-from-now lastUpdated interval=1000}}</span>
-  {{ui/simple-spinner
-      size=1
-      enabled=loading}}
+  {{#if hasLastUpdated}}
+    <span class="updatedAt">Last updated {{moment-from-now lastUpdated interval=1000}}</span>
+    {{ui/simple-spinner
+        size=1
+        enabled=loading}}
+  {{/if}}
 </div>

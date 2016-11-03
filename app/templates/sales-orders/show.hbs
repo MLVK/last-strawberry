@@ -14,7 +14,6 @@
 
 <div class="row top wrap">
   {{#sticky-container}}
-    {{#if hasSalesData}}
       {{charts/location-item-info
         item=item
         location=model.location
@@ -22,7 +21,10 @@
         salesData=salesData.lastObject}}
 
       {{charts/item-location-sales-trend
+        item=item
         salesData=salesData}}
-    {{/if}}
+
+      {{charts/item-totals
+        orders=salesOrders}}
   {{/sticky-container}}
 </div>

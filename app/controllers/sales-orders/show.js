@@ -1,6 +1,5 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
-const { gt } = Ember.computed;
 
 export default Ember.Controller.extend({
   firebaseMgr: Ember.inject.service(),

@@ -12,19 +12,19 @@
     deleteOrder=(route-action "deleteOrder" model)
     toggleOrderState=(route-action "toggleOrderState" model)}}
 
-<div class="row top wrap">
-  {{#sticky-container}}
-      {{charts/location-item-info
-        item=item
-        location=model.location
-        itemTotals=itemTotals
-        salesData=salesData.lastObject}}
+{{#sticky-container}}
+  <div class="row top wrap">
+    {{charts/location-item-info
+      item=item
+      location=model.location
+      itemTotals=itemTotals
+      salesData=salesData.lastObject}}
 
-      {{charts/item-location-sales-trend
-        item=item
-        salesData=salesData}}
+    {{charts/item-location-sales-trend
+      item=item
+      salesData=salesData}}
 
-      {{charts/item-totals
-        orders=salesOrders}}
-  {{/sticky-container}}
-</div>
+    {{charts/item-totals
+      orders=salesOrders}}
+  </div>
+{{/sticky-container}}

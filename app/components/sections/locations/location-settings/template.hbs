@@ -31,6 +31,20 @@
       onblur={{action "save" changeset}}>
     {{/unless}}
   </div>
+
+  <div class="row schetch rowData">
+    <textarea
+    rows="3"
+    cols="100"
+    name="note"
+    class="note"
+    value="{{changeset.note}}"
+    oninput={{action "fieldChanged" changeset "note"}}
+    onchange={{action "fieldChanged" changeset "note"}}
+    onblur={{action "save" changeset}}>
+    </textarea>
+  </div>
+
   <div class="errorMessageContainer">
     {{#each changeset.errors as |error|}}
       <div class="row">{{error.key}}:{{error.validation}}</div>

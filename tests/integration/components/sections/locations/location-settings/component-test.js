@@ -6,8 +6,8 @@ moduleForComponent("sections/locations/location-settings", "Integration | Compon
 });
 
 test("field and update and triggers a save", function(assert) {
-  assert.expect(4);
-  const locationData = {name:"Silverlake", deliveryRate:10, code: "AA123"};
+  assert.expect(5);
+  const locationData = {name:"Silverlake", deliveryRate:10, code: "AA123", note: "note content"};
   this.set("location", locationData);
 
   this.set("save", () => {
@@ -21,6 +21,7 @@ test("field and update and triggers a save", function(assert) {
   assert.equal(this.$(".name").val(), locationData.name, "Name does not render correctly");
   assert.equal(this.$(".code").val(), locationData.code, "Code does not render correctly");
   assert.equal(this.$(".deliveryRate").val(), locationData.deliveryRate, "Delivery Rate does not render correctly");
+  assert.equal(this.$(".note").val(), locationData.note, "Note does not render correctly");
 
   // Should trigger addressChanged
   this.$(".name").change();

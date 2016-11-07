@@ -26,5 +26,9 @@
 
     {{charts/item-totals
       orders=salesOrders}}
+
+    {{sections/locations/location-note
+      locationNote=model.location.note
+      save=(route-action "saveLocationNote" model.location)}}
   </div>
 {{/sticky-container}}

@@ -12,3 +12,11 @@
     emailOrder=(route-action "emailOrder" model)
     deleteOrder=(route-action "deleteOrder" model)
     toggleOrderState=(route-action "toggleOrderState" model)}}
+
+    {{#sticky-container}}
+      <div class="row top wrap">
+        {{sections/locations/location-note
+          locationNote=model.location.note
+          save=(route-action "saveLocationNote" model.location)}}
+      </div>
+    {{/sticky-container}}

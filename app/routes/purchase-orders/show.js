@@ -141,6 +141,13 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			model.set("orderState", updatedState);
 
 			model.save()
+		},
+
+		saveLocationNote(location, locationNote){
+			const locationModel = location.content;
+
+			locationModel.set("note", locationNote);
+			locationModel.save();
 		}
 	}
 });

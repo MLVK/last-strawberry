@@ -1,11 +1,12 @@
-import FactoryGuy from 'ember-data-factory-guy';
+import FactoryGuy from "ember-data-factory-guy";
 import OrderState from "last-strawberry/constants/order-states";
 
-FactoryGuy.define('order', {
+FactoryGuy.define("order", {
   default: {
-    deliveryDate: moment().add(1, 'days').format('YYYY-MM-DD'),
-    location: FactoryGuy.belongsTo('location'),
-    orderItems: FactoryGuy.hasMany('order-item')
+    deliveryDate: moment().add(1, "days").format("YYYY-MM-DD"),
+    location: FactoryGuy.belongsTo("location"),
+    orderItems: FactoryGuy.hasMany("order-item"),
+    note: "sample note content"
   },
 
   traits: {
@@ -19,10 +20,10 @@ FactoryGuy.define('order', {
   },
 
   sales_order: {
-    orderType: 'sales-order'
+    orderType: "sales-order"
   },
 
   purchase_order: {
-    orderType: 'purchase-order'
+    orderType: "purchase-order"
   }
 });

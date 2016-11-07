@@ -81,7 +81,7 @@
   </div>
 {{/if}}
 
-<div class="col orderTotals">
+<div class="col block">
   <span class="title">Totals</span>
   {{#if isSalesOrder}}
     <span class="row group shippingContainer">
@@ -104,7 +104,22 @@
     <span class="dots"></span>
     <span class="value">{{currency model.totalPrice}}</span>
   </span>
+</div>
 
+<div class="col block">
+  <div class="title">Note</div>
+  <div class="row">
+    <textarea
+      rows="3"
+      cols="100"
+      name="note"
+      class="note"
+      value="{{model.note}}"
+      oninput={{action "noteChanged"}}
+      onchange={{action "noteChanged"}}
+      onblur={{action saveOrder}}>
+    </textarea>
+  </div>
 </div>
 
 {{#if model.notifications.length}}

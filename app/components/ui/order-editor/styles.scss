@@ -54,10 +54,14 @@ a {
   }
 }
 
-.orderTotals {
+.block {
   background-color: $off-white;
   margin: 2em;
   padding: 2em;
+
+  & + .block {
+    margin-top: 0;
+  }
 
   .dots {
     flex: 1;

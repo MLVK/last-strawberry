@@ -31,6 +31,7 @@ export default Model.extend(LocationHashable, {
   notificationState:            attr("string", {defaultValue: PENDING_NOTIFICATION}),
   shipping:                     attr("number"),
   orderState:                   attr("string", {defaultValue: OrderState.DRAFT}),
+  note:                         attr("string"),
 
   location:                     belongsTo("location"),
   orderItems:                   hasMany("order-item"),

@@ -1,6 +1,7 @@
 & {
   margin: 0.5em;
-  width: 18em;
+  min-width: 18em;
+  max-width: 18em;
   background: $light-green;
   color: $dark-grey;
 }

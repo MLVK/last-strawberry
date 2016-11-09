@@ -18,17 +18,10 @@ const {
 const SALES_ORDER = "sales-order";
 const PURCHASE_ORDER = "purchase-order";
 
-export const PENDING_NOTIFICATION = "pending_notification";
-export const PENDING_UPDATED_NOTIFICATION = "pending_updated_notification";
-export const AWAITING_NOTIFICATION = "awaiting_notification";
-export const AWAITING_UPDATED_NOTIFICATION = "awaiting_updated_notification";
-export const NOTIFIED = "notified";
-
 export default Model.extend(LocationHashable, {
   orderNumber:                  attr("string"),
   orderType:                    attr("string", {defaultValue: SALES_ORDER}),
   deliveryDate:                 attr("string"),
-  notificationState:            attr("string", {defaultValue: PENDING_NOTIFICATION}),
   shipping:                     attr("number"),
   orderState:                   attr("string", {defaultValue: OrderState.DRAFT}),
   note:                         attr("string"),
@@ -42,12 +35,6 @@ export default Model.extend(LocationHashable, {
 
   isSalesOrder:                 equal("orderType", SALES_ORDER),
   isPurchaseOrder:              equal("orderType", PURCHASE_ORDER),
-
-  pendingNotification:          equal("notificationState", PENDING_NOTIFICATION),
-  pendingUpdatedNotification:   equal("notificationState", PENDING_UPDATED_NOTIFICATION),
-  awaitingNotification:         equal("notificationState", AWAITING_NOTIFICATION),
-  awaitingUpdatedNotification:  equal("notificationState", AWAITING_UPDATED_NOTIFICATION),
-  notified:                     equal("notificationState", NOTIFIED),
 
   isDraft:                      equal("orderState", OrderState.DRAFT),
   isApproved:                   equal("orderState", OrderState.APPROVED),

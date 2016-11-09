@@ -1,13 +1,6 @@
 import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-route-mixin";
 import Ember from "ember";
 import ItemTypes from "last-strawberry/constants/item-types";
-
-import {
-	PENDING_UPDATED_NOTIFICATION,
-	AWAITING_NOTIFICATION,
-	NOTIFIED
-} from "last-strawberry/models/order";
-
 import NotificationRenderer from "last-strawberry/constants/notification-renderers";
 import OrderState from "last-strawberry/constants/order-states";
 
@@ -39,25 +32,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 		const purchaseOrderController = this.controllerFor("purchase-orders");
     purchaseOrderController.set("currentSelectedOrder", undefined);
   }.on("deactivate"),
-
-	markOrderTouched() {
-		const order = this.modelFor("purchase-orders.show");
-
-		switch (order.get("notificationState")) {
-			case AWAITING_NOTIFICATION:
-				order.set("notificationState", PENDING_UPDATED_NOTIFICATION);
-				break;
-			case NOTIFIED:
-				order.set("notificationState", PENDING_UPDATED_NOTIFICATION);
-				break;
-		}
-
-		if(order.get("hasDirtyAttributes")) {
-			return order.save();
-		} else {
-			return true;
-		}
-	},
 
 	actions: {
 		updateShipping(value) {
@@ -116,7 +90,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
 		async saveOrderItem(orderItem) {
 			if(orderItem.get("hasDirtyAttributes")) {
-				await this.markOrderTouched();
 
 				return orderItem
 					.save()
@@ -125,8 +98,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 		},
 
 		async deleteOrderItem(model) {
-			await this.markOrderTouched();
-
 			model.destroyRecord();
 		},
 

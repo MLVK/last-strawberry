@@ -6,6 +6,8 @@ import {
   orderEditorPO
 } from "last-strawberry/tests/pages/sales-orders-show";
 
+import { page as orderPO } from "last-strawberry/tests/pages/sales-orders";
+
 import {
   formatDate,
   formatFullDate
@@ -118,7 +120,7 @@ test("adding an item manually still uses price-tier price", async function(asser
 
 test("can update delivery date", async function(assert) {
   const location = make("location");
-  const deliveryDate = new Date();
+  const deliveryDate = moment().add(1,"days").toDate();
   const order = make("order", {location,deliveryDate});
 
   mockFindAll("order").returns({models: [order]});
@@ -126,10 +128,13 @@ test("can update delivery date", async function(assert) {
   mockUpdate(order);
 
   await page.visit({id:order.get("id")});
+  assert.equal(orderPO.orders().count, 1, "show the selected order on the list");
 
   // Update delivery date
   const newDate = new Date(2016, 3, 28);
   await orderEditorPO.changeDeliveryDate(newDate)
+
+  assert.equal(orderPO.orders().count, 0, "hide the selected order on the list");
 
   assert.equal(order.get("deliveryDate"), formatDate(newDate), "sales order delivery date did not match expected");
   assert.equal(orderEditorPO.deliveryDate, formatFullDate(newDate), "sales order delivery date did not show as expected");

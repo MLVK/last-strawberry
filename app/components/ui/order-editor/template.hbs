@@ -8,6 +8,15 @@
       {{model.location.code}} - {{model.location.name}}
     {{/link-to}}
 
+    <div class="row baseline deliveryDateContainer">
+      <span class="instruction">Delivery date:</span>
+      {{pikaday-input
+        value=model.deliveryDate
+        format="ddd MM-DD-YYYY"
+        onSelected=updateDeliveryDate
+        class="deliveryDate"}}
+    </div>
+
     <div class="row orderInfo">
       <span class="title">
         {{if isSalesOrder "Invoice" "Purchase Order"}}

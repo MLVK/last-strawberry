@@ -26,7 +26,7 @@ a {
 
 .orderInfo {
   align-items: baseline;
-  margin: 2em 0 1em 0;
+  margin: 1.5em 0 1em 0;
 }
 
 .title {
@@ -83,14 +83,6 @@ a {
     font-size: 1.5em;
   }
 
-  .quantity {
-
-  }
-
-  .price {
-
-  }
-
   .shippingContainer {
     height: 2em;
   }
@@ -99,5 +91,20 @@ a {
     font-size: 1.2em;
     font-weight: 600;
 
+  }
+}
+
+.deliveryDateContainer{
+  margin-top: 1em;
+
+  .deliveryDate {
+    width: inherit;
+    margin-left: 1em;
+
+    font-size: 1.3em;
+    padding: 0.3em;
+    background: rgba( $off-white, 1 );
+    color: $dark-grey;
+    border: 3px solid rgba( #4C4C4C, 0.6 );
   }
 }

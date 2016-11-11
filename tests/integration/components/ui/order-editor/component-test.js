@@ -2,6 +2,7 @@ import { moduleForComponent, test } from "ember-qunit";
 import hbs from "htmlbars-inline-precompile";
 import { make, manualSetup } from "ember-data-factory-guy";
 import decorateComponentClass from "last-strawberry/tests/helpers/decorate-component-class";
+import { formatFullDate } from "last-strawberry/utils/date";
 
 let model;
 
@@ -16,20 +17,17 @@ moduleForComponent("sections/sales-order/order-editor", "Integration | Component
 
     this.set("model", model);
     this.set("items", []);
-    this.set("saveOrder", () => {});
-    this.set("updateShipping", () => {});
-    this.set("updateOrderItem", () => {});
-    this.set("saveOrderItem", () => {});
-    this.set("deleteOrderItem", () => {});
+    this.set("handler", () => {});
 
     this.render(hbs`{{ui/order-editor
-          saveOrder=(action saveOrder)
-          updateShipping=(action updateShipping)
-          updateOrderItem=(action updateOrderItem)
-          saveOrderItem=(action saveOrderItem)
-          deleteOrderItem=(action deleteOrderItem)
+          saveOrder=(action handler)
+          updateShipping=(action handler)
+          updateOrderItem=(action handler)
+          saveOrderItem=(action handler)
+          deleteOrderItem=(action handler)
           items=items
-          model=model}}`);
+          model=model
+          updateDeliveryDate=(action handler)}}`);
   }
 });
 
@@ -43,4 +41,8 @@ test("it displays a list of order-items", function(assert) {
 
 test("it displays note of order", function(assert) {
   assert.equal(this.$("textarea.note").val(), model.get("note"));
+});
+
+test("it displays delivery date", function(assert) {
+  assert.equal(this.$(".deliveryDate").val(), formatFullDate(model.get("deliveryDate")));
 });

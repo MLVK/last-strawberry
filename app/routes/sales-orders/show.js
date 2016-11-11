@@ -2,6 +2,7 @@ import AuthenticatedRouteMixin from "ember-simple-auth/mixins/authenticated-rout
 import Ember from "ember";
 import NotificationRenderer from "last-strawberry/constants/notification-renderers";
 import OrderState from "last-strawberry/constants/order-states";
+import { formatDate } from "last-strawberry/utils/date";
 
 const ORDER_INCLUDES = [
 	"order-items",
@@ -80,7 +81,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
 		emailOrder(model) {
 			const notificationRules = model.get("location.notificationRules");
-			const notifications = model.get('notifications');
+			const notifications = model.get("notifications");
 			const renderer = Ember.isEmpty(notifications) ? NotificationRenderer.SALES_ORDER : NotificationRenderer.UPDATED_SALES_ORDER
 
 			notificationRules.forEach(nr => {
@@ -106,6 +107,15 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
 			locationModel.set("note", locationNote);
 			locationModel.save();
+		},
+
+		updateDeliveryDate(order, deliveryDate) {
+			const formatedDate = formatDate(deliveryDate);
+
+			if(order.get("deliveryDate") !== formatedDate){
+				order.set("deliveryDate", formatedDate);
+				order.save();
+			}
 		}
 	}
 });

@@ -4,7 +4,7 @@
     "ember": "v2.7.0",
     "ember-cli-shims": "~0.1.1",
     "selectize": "~0.12.1",
-    "pikaday": "^1.4.0",
+    "pikaday": "^1.5.1",
     "moment": ">= 2.8.0",
     "moment-timezone": ">= 0.1.0",
     "dragula.js": "~3.5.4",

@@ -1,10 +1,12 @@
 import PO from "last-strawberry/tests/page-object";
+import { openDatepicker } from "ember-pikaday/helpers/pikaday";
 
 const {
   clickable,
   collection,
   text,
-  visitable
+  visitable,
+  value
 } = PO;
 
 const page = PO.create({
@@ -14,6 +16,8 @@ const page = PO.create({
 const orderEditorPO = PO.create({
   scope: ".debug_ui_order-editor",
   locationName: text(".locationInfo"),
+  companyName: text(".company"),
+  deliveryDate: value(".deliveryDate"),
   salesOrderItems: collection({
     itemScope: ".debug_ui_order-editor_order-item-editor",
 
@@ -26,6 +30,10 @@ const orderEditorPO = PO.create({
 
   addProduct(item) {
     return selectChoose(".addOrderItemContainer", item.get("name"));
+  },
+
+  changeDeliveryDate(date) {
+    openDatepicker($("input.deliveryDate")).selectDate(date);
   },
 
   deleteOrder: clickable(".toolbar .delete")

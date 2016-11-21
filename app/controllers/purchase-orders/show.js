@@ -14,12 +14,14 @@ export default Ember.Controller.extend({
   @computed("items.@each.{active}", "company.id", "model.orderItems.[]")
   filteredItems(items, companyId, orderItems) {
 
-    return items.filter(item => {
-      const isTheSameCompany = item.get("company.id") === companyId;
-      const matchingOrderItem = orderItems.any(oi => oi.get("item.id") === item.get("id"));
+    return items
+      .filter(item => {
+        const isTheSameCompany = item.get("company.id") === companyId;
+        const matchingOrderItem = orderItems.any(oi => oi.get("item.id") === item.get("id"));
 
-      return item.get("active") && isTheSameCompany && !matchingOrderItem;
-    });
+        return item.get("active") && isTheSameCompany && !matchingOrderItem;
+      })
+      .sortBy("name");
   },
 
   @computed("item.name", "model.location.id")

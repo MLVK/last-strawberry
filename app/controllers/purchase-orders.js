@@ -4,11 +4,13 @@ import computed from "ember-computed-decorators";
 const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
 
 export default Ember.Controller.extend({
-  queryParams: ["deliveryDate", "includeApproved", "includeDraft"],
+  queryParams: ["deliveryDate", "isApproved", "isDraft", "companyQuery", "includedItems"],
 
   deliveryDate: tomorrow,
-  includeApproved: true,
-  includeDraft: true,
+  isApproved: true,
+  isDraft: true,
+  companyQuery: "",
+  includedItems: "",
 
   @computed("orders.@each.{deliveryDate,isPurchaseOrder}", "deliveryDate")
   filteredOrders(orders, deliveryDate) {
@@ -31,6 +33,13 @@ export default Ember.Controller.extend({
       .toArray();
 
     return _.difference(allLocations, fulfilledLocations);
+  },
+
+  @computed("items.@each.{isPurchased,active}")
+  allItems(items) {
+    return items
+            .filter(item => item.get("isPurchased") && item.get("active"))
+            .sortBy("name");
   },
 
   actions: {

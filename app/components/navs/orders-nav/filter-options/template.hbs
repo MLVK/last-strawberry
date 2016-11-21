@@ -1,0 +1,30 @@
+{{ui/title-bar
+  title=title
+  hasAction=true
+  actionIcon=(if isHidden "add" "remove")
+  click=(toggle "isHidden" this)
+  class="titleBar"
+}}
+
+<div class="filterContainer col {{if isHidden 'hidden' ''}}">
+  {{#each toggleOptions as |option|}}
+    {{forms/elements/label-checkbox
+      label=option.text
+      selected=option.selected
+      update=(action toggleQueryParam option)
+      class=option.queryParam}}
+  {{/each}}
+
+  {{ui/filter-bar
+    placeholder=(concat "Filter companies..." )
+    onChange=(action (mut query))
+    value=query}}
+
+  {{filtering/item-filter
+    title="Filter items"
+    items=items
+    selectedItems=selectedItems
+    class="filterItem"
+    itemSelected=itemSelected
+  }}
+</div>

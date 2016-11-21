@@ -4,9 +4,13 @@
     onDateSelected=(route-action "onDateSelected")
     onRequestNewOrder=(action "onRequestNewOrder")
     onOrderSelected=(route-action "onOrderSelected")
-    includeDraft=includeDraft
-    includeApproved=includeApproved
-    orders=filteredOrders}}
+    isDraft=isDraft
+    isApproved=isApproved
+    orders=filteredOrders
+    items=allItems
+    companyQuery=companyQuery
+    includedItems=includedItems
+  }}
 
 <div class="col stretch">
   {{#if isOldDate}}

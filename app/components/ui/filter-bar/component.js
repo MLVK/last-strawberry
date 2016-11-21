@@ -1,10 +1,14 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Component.extend({
-  classNames: ['row', 'stretch'],
+  classNames: ["row", "stretch"],
   actions: {
     onChange(e) {
       this.attrs.onChange(e.target.value);
+    },
+
+    clear() {
+      this.set("value", "");
     }
   }
 });

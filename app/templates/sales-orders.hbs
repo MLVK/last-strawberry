@@ -6,9 +6,14 @@
     onRequestDuplicateOrders=(action "onRequestDuplicateOrders")
     onRequestNewOrder=(action "onRequestNewOrder")
     onOrderSelected=(route-action "onOrderSelected")
-    includeDraft=includeDraft
-    includeApproved=includeApproved
-    orders=filteredSalesOrders}}
+    isDraft=isDraft
+    isApproved=isApproved
+    orders=filteredSalesOrders
+    items=allItems
+    companyQuery=companyQuery
+    includedItems=includedItems
+    toggleQueryParam=(action "toggleQueryParam")
+  }}
 
 <div class="col stretch">
   {{#if isOldDate}}

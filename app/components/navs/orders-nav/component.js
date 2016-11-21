@@ -2,11 +2,6 @@ import Ember from "ember";
 import computed from "ember-computed-decorators";
 
 const {
-  get,
-  set
-} = Ember;
-
-const {
   notEmpty
 } = Ember.computed;
 
@@ -17,30 +12,57 @@ export default Ember.Component.extend({
   hasDuplicateAction: notEmpty("onRequestDuplicateOrders"),
   hasOrders: notEmpty("filterOrders"),
 
-  @computed("includeApproved")
-  includeApprovedBool(val) {
-    return val === "true" || val === true;
+  @computed("isApproved", "isDraft")
+  toggleOptions(isApproved, isDraft) {
+    return [
+      {
+        text: "Drafts",
+        queryParam: "isDraft",
+        selected: isDraft
+      },
+      {
+        text: "Approved",
+        queryParam: "isApproved",
+        selected: isApproved
+      }
+    ];
   },
 
-  @computed("includeDraft")
-  includeDraftBool(val) {
-    return val === "true" || val === true;
+  includedItems: "",
+
+  @computed("includedItems")
+  selectedItems(includedItems) {
+    const selected = [];
+
+    const itemIdArr = includedItems.split(",");
+    itemIdArr.forEach((id) => {
+      const item = this.get("items").findBy("id", id);
+      if(item){
+        selected.push(item);
+      }
+    });
+
+    return selected;
   },
 
-  @computed("orders.@each.{orderState,isDeleted}", "query", "includeApprovedBool", "includeDraftBool")
-  filterOrders(orders, query, includeApprovedBool, includeDraftBool){
-    return orders
-      .filter(order => {
+  @computed("orders.@each.{isDeleted,orderItems,isVoided}", "toggleOptions.@each.{selected}", "companyQuery", "selectedItems")
+  filterOrders(orders, toggleOptions, query, selectedItems) {
+     return orders
+       .filter(order => {
 
-        const reg = new RegExp(query, "i"),
-              nameMatch = reg.test(order.get("location.company.name")),
-              notDeleted = !order.get('isDeleted'),
-              showApproved = includeApprovedBool && order.get("isApproved"),
-              showDraft = includeDraftBool && order.get("isDraft");
+         const reg = new RegExp(query, "i"),
+               nameMatch = reg.test(order.get("location.company.name")),
+               notDeleted = !order.get('isDeleted'),
+               notVoided = !order.get('isVoided');
 
-        return nameMatch && notDeleted && (showApproved || showDraft);
-      });
-  },
+        const toggle = toggleOptions.reduce((sum,item) => sum || (item.selected && order.get(item.queryParam)), false);
+
+        const includedItem = Ember.isEmpty(selectedItems) ||
+          selectedItems.reduce((sum,item) => sum || order.get("orderItems").isAny("item.id", item.get("id")), false);
+
+        return nameMatch && notDeleted && notVoided && toggle && includedItem;
+       });
+   },
 
   @computed("filterOrders")
   groupedOrders(orders) {
@@ -52,24 +74,13 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    filterOrders(query) {
-      this.set("query", query);
-    },
+    // toggled(option){
+    //   this.set(option.value, option.selected);
+    // },
 
-    updateFilter(key, value){
-      this.set(key, value);
-    },
-
-    toggleIncludeDraft() {
-      const current = get(this, "includeDraft") === "true" || get(this, "includeDraft") === true;
-      const next = !current;
-      set(this, "includeDraft", next);
-    },
-
-    toggleIncludeApproved() {
-      const current = get(this, "includeApproved") === "true" || get(this, "includeApproved") === true;
-      const next = !current;
-      set(this, "includeApproved", next);
-    }
+    // itemSelected(items){
+    //   const selected = items.map((item) => item.id).join(",");
+    //   this.set("includedItems", selected);
+    // }
   }
 });

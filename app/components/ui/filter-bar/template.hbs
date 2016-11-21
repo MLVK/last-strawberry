@@ -2,6 +2,13 @@
   type="text"
   name="filter"
   class="filter"
+  value="{{value}}"
   placeholder={{placeholder}}
-  oninput={{action 'onChange'}}
-  onchange={{action 'onChange'}}>
+  oninput={{action "onChange"}}
+  onchange={{action "onChange"}}>
+
+{{ui/icon-button
+  flat=true
+  type="clear"
+  click=(action "clear")
+}}

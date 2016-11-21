@@ -7,7 +7,9 @@ import {
   belongsTo,
   hasMany
 } from "ember-data/relationships";
-import OrderState from "last-strawberry/constants/order-states";
+
+import OrderStates from "last-strawberry/constants/order-states";
+import XeroStates from "last-strawberry/constants/xero-states";
 
 const {
   equal,
@@ -20,10 +22,12 @@ const PURCHASE_ORDER = "purchase-order";
 
 export default Model.extend(LocationHashable, {
   orderNumber:                  attr("string"),
+  xeroId:                       attr("string"),
   orderType:                    attr("string", {defaultValue: SALES_ORDER}),
   deliveryDate:                 attr("string"),
   shipping:                     attr("number"),
-  orderState:                   attr("string", {defaultValue: OrderState.DRAFT}),
+  orderState:                   attr("string", {defaultValue: OrderStates.DRAFT}),
+  xeroState:                    attr("string", {defaultValue: XeroStates.PENDING}),
   note:                         attr("string"),
 
   location:                     belongsTo("location"),
@@ -36,8 +40,10 @@ export default Model.extend(LocationHashable, {
   isSalesOrder:                 equal("orderType", SALES_ORDER),
   isPurchaseOrder:              equal("orderType", PURCHASE_ORDER),
 
-  isDraft:                      equal("orderState", OrderState.DRAFT),
-  isApproved:                   equal("orderState", OrderState.APPROVED),
+  isDraft:                      equal("orderState", OrderStates.DRAFT),
+  isApproved:                   equal("orderState", OrderStates.APPROVED),
+
+  isVoided:                     equal("xeroState", XeroStates.VOIDED),
 
   isValid:                      notEmpty("orderItems"),
 

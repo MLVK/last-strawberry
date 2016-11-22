@@ -39,12 +39,12 @@
 </div>
 
 {{navs/orders-nav/filter-options
-  toggleOptions=toggleOptions
-  toggleQueryParam=toggleQueryParam
+  includeApproved=includeApproved
+  includeDraft=includeDraft
   query=companyQuery
   items=items
   selectedItems=selectedItems
-  itemSelected=(action "itemSelected")
+  itemSelected=updateIncludedItems
 }}
 
 {{lists/grouped-list

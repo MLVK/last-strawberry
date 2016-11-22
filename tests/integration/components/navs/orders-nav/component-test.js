@@ -18,15 +18,19 @@ test("it shows order list when present", function(assert) {
 
   const salesOrders = makeList('sales_order', 2);
   const items = makeList('item', 2);
-  
+
   this.set("orders", salesOrders);
   this.set("items", items);
+  this.set("includedItems", "");
   this.set("handler", () => {});
 
   this.render(hbs`{{navs/orders-nav
     orders=orders
     items=items
+    includedItems=includedItems
     onDateSelected=(action handler)
     onRequestNewOrder=(action handler)
-    onOrderSelected=(action handler)}}`);
+    onOrderSelected=(action handler)
+    updateIncludedItems=(action handler)
+  }}`);
 });

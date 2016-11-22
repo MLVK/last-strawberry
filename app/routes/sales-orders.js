@@ -24,10 +24,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     deliveryDate: {
       refreshModel: true
     },
-    isApproved: {
+    includeApproved: {
       refreshModel: false
     },
-    isDraft: {
+    includeDraft: {
       refreshModel: false
     },
     companyQuery: {

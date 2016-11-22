@@ -156,14 +156,14 @@ test("should not display draft orders after uncheck Draft checkbox", async funct
   assert.equal(page.orders().count, approvedOrders.length, "Wrong number of orders filtered");
 });
 
-test("should not display draft orders if query string value is isDraft=false", async function(assert) {
+test("should not display draft orders if query string value is includeDraft=false", async function(assert) {
   const draftOrders = makeList("sales_order", 2, "draft");
   const approvedOrders = makeList("sales_order", 3, "approved");
 
   mockFindAll("order").returns({models: _.concat(draftOrders, approvedOrders)});
 
   await page
-    .visit({isDraft:false});
+    .visit({includeDraft:false});
 
   assert.equal(page.orders().count, approvedOrders.length, "Wrong number of orders filtered");
 });
@@ -182,14 +182,14 @@ test("should not display approved orders after uncheck Approved checkbox", async
   assert.equal(page.orders().count, draftOrders.length, "Wrong number of orders filtered");
 });
 
-test("should not display approved orders if query string value is isApproved=false", async function(assert) {
+test("should not display approved orders if query string value is includeApproved=false", async function(assert) {
   const draftOrders = makeList("sales_order", 2, "draft");
   const approvedOrders = makeList("sales_order", 3, "approved");
 
   mockFindAll("order").returns({models: _.concat(draftOrders, approvedOrders)});
 
   await page
-    .visit({isApproved:false});
+    .visit({includeApproved:false});
 
   assert.equal(page.orders().count, draftOrders.length, "Wrong number of orders filtered");
 });

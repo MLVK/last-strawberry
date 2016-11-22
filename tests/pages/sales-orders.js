@@ -41,9 +41,9 @@ const page = PO.create({
   },
 
   toggleFilterOptions: clickable(".titleBar .action"),
-  toggleIncludeDraft: clickable(".isDraft input"),
-  toggleIncludeApproved: clickable(".isApproved input"),
-  inputFilterQuery: value(".debug_ui_filter-bar input"),
+  toggleIncludeDraft: clickable(".includeDraft input"),
+  toggleIncludeApproved: clickable(".includeApproved input"),
+  inputFilterQuery: value(".filterQuery input"),
   selectFilterItem(item) {
     return selectChoose(".itemFilterContainer", item.get("name"));
   },

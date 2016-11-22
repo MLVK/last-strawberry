@@ -1,16 +1,15 @@
 import Ember from "ember";
 import computed from "ember-computed-decorators";
 
-const { set } = Ember;
 const { filterBy } = Ember.computed;
 const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
 
 export default Ember.Controller.extend({
-  queryParams: ["deliveryDate", "isApproved", "isDraft", "companyQuery", "includedItems"],
+  queryParams: ["deliveryDate", "includeApproved", "includeDraft", "companyQuery", "includedItems"],
 
   deliveryDate: tomorrow,
-  isApproved: true,
-  isDraft: true,
+  includeApproved: true,
+  includeDraft: true,
   companyQuery: "",
   includedItems: "",
 
@@ -47,10 +46,6 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    toggleQueryParam(option, val) {
-      set(this, option.queryParam, val);
-    },
-
     onRequestNewOrder() {
       this.set("showCreateSalesOrderModal", true);
     },
@@ -65,6 +60,11 @@ export default Ember.Controller.extend({
 
     closeDuplicateOrders() {
       this.set("showDuplicateOrdersModal", false);
+    },
+
+    updateIncludedItems(items) {
+      const selected = items.map((item) => item.id).join(",");
+      this.set("includedItems", selected);
     }
   }
 });

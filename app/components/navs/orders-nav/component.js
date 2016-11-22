@@ -12,24 +12,6 @@ export default Ember.Component.extend({
   hasDuplicateAction: notEmpty("onRequestDuplicateOrders"),
   hasOrders: notEmpty("filterOrders"),
 
-  @computed("isApproved", "isDraft")
-  toggleOptions(isApproved, isDraft) {
-    return [
-      {
-        text: "Drafts",
-        queryParam: "isDraft",
-        selected: isDraft
-      },
-      {
-        text: "Approved",
-        queryParam: "isApproved",
-        selected: isApproved
-      }
-    ];
-  },
-
-  includedItems: "",
-
   @computed("includedItems")
   selectedItems(includedItems) {
     const selected = [];
@@ -45,22 +27,23 @@ export default Ember.Component.extend({
     return selected;
   },
 
-  @computed("orders.@each.{isDeleted,orderItems,isVoided}", "toggleOptions.@each.{selected}", "companyQuery", "selectedItems")
-  filterOrders(orders, toggleOptions, query, selectedItems) {
+  @computed("orders.@each.{isDeleted,orderItems,isVoided}", "includeDraft", "includeApproved", "companyQuery", "selectedItems")
+  filterOrders(orders, includeDraft, includeApproved, query, selectedItems) {
+
      return orders
        .filter(order => {
 
          const reg = new RegExp(query, "i"),
                nameMatch = reg.test(order.get("location.company.name")),
                notDeleted = !order.get('isDeleted'),
-               notVoided = !order.get('isVoided');
-
-        const toggle = toggleOptions.reduce((sum,item) => sum || (item.selected && order.get(item.queryParam)), false);
+               notVoided = !order.get('isVoided'),
+               showApproved = includeApproved && order.get('isApproved'),
+               showDraft = includeDraft && order.get('isDraft');
 
         const includedItem = Ember.isEmpty(selectedItems) ||
           selectedItems.reduce((sum,item) => sum || order.get("orderItems").isAny("item.id", item.get("id")), false);
 
-        return nameMatch && notDeleted && notVoided && toggle && includedItem;
+        return nameMatch && notDeleted && notVoided && (showApproved || showDraft) && includedItem;
        });
    },
 
@@ -71,16 +54,5 @@ export default Ember.Component.extend({
       .sortBy(item => item.get("location.company.name"))
       .groupBy(item => item.get("location.company.name"))
       .value();
-  },
-
-  actions: {
-    // toggled(option){
-    //   this.set(option.value, option.selected);
-    // },
-
-    // itemSelected(items){
-    //   const selected = items.map((item) => item.id).join(",");
-    //   this.set("includedItems", selected);
-    // }
   }
 });

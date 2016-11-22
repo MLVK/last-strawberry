@@ -4,12 +4,13 @@
     onDateSelected=(route-action "onDateSelected")
     onRequestNewOrder=(action "onRequestNewOrder")
     onOrderSelected=(route-action "onOrderSelected")
-    isDraft=isDraft
-    isApproved=isApproved
+    includeDraft=includeDraft
+    includeApproved=includeApproved
     orders=filteredOrders
     items=allItems
     companyQuery=companyQuery
     includedItems=includedItems
+    updateIncludedItems=(action "updateIncludedItems")
   }}
 
 <div class="col stretch">

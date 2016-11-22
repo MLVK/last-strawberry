@@ -6,7 +6,12 @@
     onOrderSelected=(route-action "onOrderSelected")
     includeDraft=includeDraft
     includeApproved=includeApproved
-    orders=filteredOrders}}
+    orders=filteredOrders
+    items=allItems
+    companyQuery=companyQuery
+    includedItems=includedItems
+    updateIncludedItems=(action "updateIncludedItems")
+  }}
 
 <div class="col stretch">
   {{#if isOldDate}}

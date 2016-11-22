@@ -16,13 +16,21 @@ moduleForComponent("navs/orders-nav", "Integration | Component | navs/companies/
 test("it shows order list when present", function(assert) {
   assert.expect(0);
 
-  const salesOrders = makeList('sales_order', 5);
+  const salesOrders = makeList('sales_order', 2);
+  const items = makeList('item', 2);
+
   this.set("orders", salesOrders);
+  this.set("items", items);
+  this.set("includedItems", "");
   this.set("handler", () => {});
 
   this.render(hbs`{{navs/orders-nav
     orders=orders
+    items=items
+    includedItems=includedItems
     onDateSelected=(action handler)
     onRequestNewOrder=(action handler)
-    onOrderSelected=(action handler)}}`);
+    onOrderSelected=(action handler)
+    updateIncludedItems=(action handler)
+  }}`);
 });

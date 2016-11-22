@@ -27,6 +27,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
     includeDraft: {
       refreshModel: false
+    },
+    companyQuery: {
+      refreshModel: false
+    },
+    includedItems: {
+      refreshModel: false
     }
   },
 
@@ -34,6 +40,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 		controller.set("orders", this.store.peekAll("order"));
 		controller.set("companies", this.store.peekAll("company"));
     controller.set("locations", this.store.peekAll("location"));
+    controller.set("items", this.store.peekAll("item"));
 
     this._super(controller, model);
 	},

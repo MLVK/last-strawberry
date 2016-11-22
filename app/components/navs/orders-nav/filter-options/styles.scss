@@ -1,0 +1,44 @@
+& {
+  background-color: $light-blue;
+}
+
+.titleBar {
+  background-color: $dark-grey;
+
+  .title, .material-icons {
+    color: $off-white;
+  }
+}
+
+.filterContainer {
+  padding: 1em;
+
+  & > div + div {
+    padding-top: 1em;
+  }
+
+  .filterQuery {
+
+    input {
+      padding: 0.5em;
+    }
+
+    .material-icons {
+      color: $off-white;
+    }
+  }
+
+  .filterItem {
+    .ember-power-select-trigger {
+      border: none;
+      background-color: $dark-grey;
+      padding: 0.5em;
+      border-radius: initial;
+    }
+
+    .ember-power-select-multiple-option {
+      @extend .ellipsis;
+      width: 6em;
+    }
+  }
+}

@@ -5,11 +5,13 @@ const { filterBy } = Ember.computed;
 const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
 
 export default Ember.Controller.extend({
-  queryParams: ["deliveryDate", "includeApproved", "includeDraft"],
+  queryParams: ["deliveryDate", "includeApproved", "includeDraft", "companyQuery", "includedItems"],
 
   deliveryDate: tomorrow,
   includeApproved: true,
   includeDraft: true,
+  companyQuery: "",
+  includedItems: "",
 
   @computed("salesOrders.@each.{deliveryDate,isSalesOrder}", "deliveryDate")
   filteredSalesOrders(salesOrders, deliveryDate) {
@@ -36,6 +38,13 @@ export default Ember.Controller.extend({
 
   filteredItems: filterBy("items", "isSold", true),
 
+  @computed("items.@each.{isSold,active}")
+  allItems(items) {
+    return items
+            .filter(item => item.get("isSold") && item.get("active"))
+            .sortBy("name");
+  },
+
   actions: {
     onRequestNewOrder() {
       this.set("showCreateSalesOrderModal", true);
@@ -51,6 +60,11 @@ export default Ember.Controller.extend({
 
     closeDuplicateOrders() {
       this.set("showDuplicateOrdersModal", false);
+    },
+
+    updateIncludedItems(items) {
+      const selected = items.map((item) => item.id).join(",");
+      this.set("includedItems", selected);
     }
   }
 });

@@ -5,7 +5,8 @@ const {
   text,
   visitable,
   clickable,
-  isVisible
+  isVisible,
+  value
 } = PO;
 
 const page = PO.create({
@@ -39,8 +40,13 @@ const page = PO.create({
     return selectChoose(".locationContainer", location.get("label"));
   },
 
-  toggleIncludeDraft: clickable(".includeDraft"),
-  toggleIncludeApproved: clickable(".includeApproved"),
+  toggleFilterOptions: clickable(".titleBar .action"),
+  toggleIncludeDraft: clickable(".includeDraft input"),
+  toggleIncludeApproved: clickable(".includeApproved input"),
+  inputFilterQuery: value(".filterQuery input"),
+  selectFilterItem(item) {
+    return selectChoose(".itemFilterContainer", item.get("name"));
+  },
 
   bannerIsVisible: isVisible(".debug_ui_alert-banner")
 });

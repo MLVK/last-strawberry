@@ -2,31 +2,8 @@
   {{ui/date-picker
     date=deliveryDate
     onSelected=onDateSelected
-    format="ddd MM-DD-YYYY"}}
-</div>
-
-<div class="row filterBar">
-  {{ui/filter-bar
-      placeholder="Search..."
-      onChange=(action "filterOrders")}}
-
-  <div class="row right filterOptionsContainer">
-    {{ui/toggle-button
-      class="option includeDraft"
-      selected=includeDraft
-      selectedTooltipMessage="hide drafts"
-      unSelectedTooltipMessage="show drafts"
-      iconName="drafts"
-      click=(action "toggleIncludeDraft")}}
-
-    {{ui/toggle-button
-      class="option includeApproved"
-      selected=includeApproved
-      selectedTooltipMessage="hide approved"
-      unSelectedTooltipMessage="show approved"
-      iconName="done_all"
-      click=(action "toggleIncludeApproved")}}
-  </div>
+    format="ddd MM-DD-YYYY"
+  }}
 
   {{#ui/popup-menu}}
     {{#if hasStubAction}}
@@ -35,7 +12,8 @@
         flat=true
         label="Stub Orders"
         type="add"
-        click=stubOrders}}
+        click=stubOrders
+      }}
     {{/if}}
 
     {{ui/icon-button
@@ -43,7 +21,8 @@
       flat=true
       label="New Order"
       type="add"
-      click=onRequestNewOrder}}
+      click=onRequestNewOrder
+    }}
 
     {{#if hasDuplicateAction}}
       {{ui/icon-button
@@ -52,11 +31,21 @@
         label="Duplicate Orders"
         type="content_copy"
         disabled=(not hasOrders)
-        click=onRequestDuplicateOrders}}
+        click=onRequestDuplicateOrders
+      }}
     {{/if}}
 
   {{/ui/popup-menu}}
 </div>
+
+{{navs/orders-nav/filter-options
+  includeApproved=includeApproved
+  includeDraft=includeDraft
+  query=companyQuery
+  items=items
+  selectedItems=selectedItems
+  itemSelected=updateIncludedItems
+}}
 
 {{lists/grouped-list
     highlightedItem=currentSelectedOrder
